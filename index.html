@@ -8,28 +8,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="신혼여행" />
 <link rel="apple-touch-icon" href="icon-192.png" />
-<style id="app-extra">
-  details.day { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); margin-top: 12px; overflow: hidden; }
-  details.day > summary.day-h { list-style: none; cursor: pointer; -webkit-user-select: none; user-select: none; position: relative; padding-right: 40px; }
-  details.day > summary.day-h::-webkit-details-marker { display: none; }
-  details.day > summary.day-h::after { content: "\203A"; position: absolute; right: 16px; top: 50%; transform: translateY(-50%) rotate(90deg); font-size: 20px; color: var(--faint); transition: transform .2s; }
-  details.day[open] > summary.day-h::after { transform: translateY(-50%) rotate(-90deg); }
-  details.day:not([open]) > summary.day-h { border-bottom: 0; }
-  details.day summary.day-h:focus-visible { outline: 2px solid var(--indigo); outline-offset: -2px; }
-  .daynav { display: flex; gap: 6px; overflow-x: auto; padding: 8px 2px 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .daynav[hidden] { display: none; }
-  .daynav::-webkit-scrollbar { display: none; }
-  .daynav button { flex: none; border: 1px solid var(--line-strong); background: var(--card); color: var(--sub); font: inherit; font-weight: 700; font-size: 12px; padding: 5px 10px; border-radius: 99px; cursor: pointer; white-space: nowrap; }
-  .daynav button.on { background: var(--indigo); color: #fff; border-color: var(--indigo); }
-  #pdfbtn { border-color: var(--line-strong); }
-  .expandbar { display: flex; gap: 8px; margin: 12px 0 0; }
-  .expandbar button { flex: 1; border: 1px solid var(--line-strong); background: var(--card); color: var(--sub); font: inherit; font-weight: 700; font-size: 12px; padding: 7px; border-radius: 9px; cursor: pointer; }
-  @media print {
-    details.day, details.day > * { display: block !important; }
-    details.day > summary.day-h::after { display: none !important; }
-    .daynav, .expandbar, #pdfbtn { display: none !important; }
-  }
-</style>
 <style>
   :root {
     --paper: #f4f2ec; --card: #fffefb; --ink: #1d2230; --sub: #5c6377; --faint: #8b91a2;
@@ -180,6 +158,32 @@
     .map { border-color: #999; }
   }
 </style>
+<style id="app-extra">
+  details.day { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); margin-top: 12px; overflow: hidden; }
+  details.day > summary.day-h { list-style: none; cursor: pointer; -webkit-user-select: none; user-select: none; position: relative; padding-right: 40px; }
+  details.day > summary.day-h::-webkit-details-marker { display: none; }
+  details.day > summary.day-h::after { content: "\203A"; position: absolute; right: 16px; top: 50%; transform: translateY(-50%) rotate(90deg); font-size: 20px; color: var(--faint); transition: transform .2s; }
+  details.day[open] > summary.day-h::after { transform: translateY(-50%) rotate(-90deg); }
+  details.day:not([open]) > summary.day-h { border-bottom: 0; }
+  details.day summary.day-h:focus-visible { outline: 2px solid var(--indigo); outline-offset: -2px; }
+  .daynav { display: flex; gap: 6px; overflow-x: auto; padding: 8px 2px 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .daynav[hidden] { display: none; }
+  .daynav::-webkit-scrollbar { display: none; }
+  .daynav button { flex: none; border: 1px solid var(--line-strong); background: var(--card); color: var(--sub); font: inherit; font-weight: 700; font-size: 12px; padding: 5px 10px; border-radius: 99px; cursor: pointer; white-space: nowrap; }
+  .daynav button.on { background: var(--indigo); color: #fff; border-color: var(--indigo); }
+  #pdfbtn { border-color: var(--line-strong); }
+  .expandbar { display: flex; gap: 8px; margin: 12px 0 0; }
+  .expandbar button { flex: 1; border: 1px solid var(--line-strong); background: var(--card); color: var(--sub); font: inherit; font-weight: 700; font-size: 12px; padding: 7px; border-radius: 9px; cursor: pointer; }
+  .daymap-img { display: none; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); }
+  @media print {
+    details.day, details.day > * { display: block !important; }
+    details.day > summary.day-h::after { display: none !important; }
+    .daynav, .expandbar, #pdfbtn { display: none !important; }
+    .daymap-img { display: block !important; }
+    .daymap, .daymap-svg, .dayroute-link { display: none !important; }
+  }
+</style>
+
 
 <div class="top">
   <div class="top-inner">
@@ -1075,7 +1079,8 @@
       link.className = "dayroute-link";
       link.href = gm; link.target = "_blank"; link.rel = "noopener";
       link.textContent = "🗺️ Google 지도로 이 날 동선 열기";
-      wrap.appendChild(mapDiv); wrap.appendChild(svgDiv); wrap.appendChild(listDiv); wrap.appendChild(link);
+      var imgEl = document.createElement("img"); imgEl.className = "daymap-img"; imgEl.loading = "lazy"; imgEl.alt = "이 날 지도"; imgEl.src = "map-" + i + ".png";
+      wrap.appendChild(imgEl); wrap.appendChild(mapDiv); wrap.appendChild(svgDiv); wrap.appendChild(listDiv); wrap.appendChild(link);
       rows.parentNode.insertBefore(wrap, rows);
 
       var map = null, markers = [], built = false, latlngs = pts.map(function (p) { return [p[0], p[1]]; });

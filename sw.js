@@ -2,7 +2,7 @@
    - 앱 셸(HTML·Leaflet·아이콘·PDF)은 설치 시 프리캐시 → 완전 오프라인
    - OpenStreetMap 타일은 "본 적 있는 곳"만 런타임 캐시(상한 300, OSM 정책상 대량 선다운로드 안 함)
    - SVG 개략 지도는 페이지에 내장되어 네트워크가 전혀 필요 없음 */
-const APP_CACHE = "gi-app-v3";
+const APP_CACHE = "gi-app-v4";
 const TILE_CACHE = "gi-tiles-v1";
 const TILE_MAX = 300;
 
@@ -16,6 +16,7 @@ const ASSETS = [
   "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
   "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 ];
+for (var i = 0; i < 14; i++) ASSETS.push("./map-" + i + ".png"); // 인쇄/PDF용 실제 지도 캡처 (오프라인 프리캐시)
 
 self.addEventListener("install", (e) => {
   e.waitUntil(
