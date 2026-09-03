@@ -54,6 +54,12 @@ const r4b_new = '          map._fit = applyView; mapDiv._lmap = map; MAPS.push(m
 if (s.indexOf(r4b_old) < 0) throw new Error("r4b \ubbf8\ubc1c\uacac");
 s = s.replace(r4b_old, r4b_new);
 
+// 4c) \uc2e4\uc81c \uc9c0\ub3c4 \ucea1\ucc98 \uc774\ubbf8\uc9c0 <img> \uc8fc\uc785 (PDF/\uc778\uc1c4\uc6a9)
+const r4c_old = 'wrap.appendChild(mapDiv); wrap.appendChild(svgDiv); wrap.appendChild(listDiv); wrap.appendChild(link);';
+const r4c_new = 'var imgEl = document.createElement("img"); imgEl.className = "daymap-img"; imgEl.loading = "lazy"; imgEl.alt = "\uc774 \ub0a0 \uc9c0\ub3c4"; imgEl.src = "map-" + i + ".png";\n      wrap.appendChild(imgEl); wrap.appendChild(mapDiv); wrap.appendChild(svgDiv); wrap.appendChild(listDiv); wrap.appendChild(link);';
+if (s.indexOf(r4c_old) < 0) throw new Error("r4c \ubbf8\ubc1c\uacac");
+s = s.replace(r4c_old, r4c_new);
+
 // 5) 추가 CSS
 const EXTRA_CSS = [
 '<style id="app-extra">',
@@ -72,17 +78,21 @@ const EXTRA_CSS = [
 '  #pdfbtn { border-color: var(--line-strong); }',
 '  .expandbar { display: flex; gap: 8px; margin: 12px 0 0; }',
 '  .expandbar button { flex: 1; border: 1px solid var(--line-strong); background: var(--card); color: var(--sub); font: inherit; font-weight: 700; font-size: 12px; padding: 7px; border-radius: 9px; cursor: pointer; }',
+'  .daymap-img { display: none; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); }',
 '  @media print {',
 '    details.day, details.day > * { display: block !important; }',
 '    details.day > summary.day-h::after { display: none !important; }',
 '    .daynav, .expandbar, #pdfbtn { display: none !important; }',
+'    .daymap-img { display: block !important; }',
+'    .daymap, .daymap-svg, .dayroute-link { display: none !important; }',
 '  }',
 '</style>',
 ''
 ].join('\n');
-if (s.indexOf('</head>') >= 0) s = s.replace('</head>', EXTRA_CSS + '</head>');
-else s = s.replace('<style>', EXTRA_CSS + '<style>');
+// \uba54\uc778 </style> "\ub4a4"\uc5d0 \uc0bd\uc785\ud574\uc57c print \uc624\ubc84\ub77c\uc774\ub4dc\uac00 \uc6b0\uc120\ud55c\ub2e4
+s = s.replace('</style>', '</style>\n' + EXTRA_CSS);
 if (s.indexOf('id="app-extra"') < 0) throw new Error("EXTRA_CSS \uc0bd\uc785 \uc2e4\ud328");
+if ((s.match(/id="app-extra"/g) || []).length !== 1) throw new Error("EXTRA_CSS \uc911\ubcf5 \uc0bd\uc785");
 
 // 6) 추가 JS
 const EXTRA_JS = [
