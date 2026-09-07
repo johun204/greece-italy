@@ -11,7 +11,7 @@
 
 | 파일 | 설명 |
 | :-- | :-- |
-| `index.html` | 앱 본체 (일정·준비·식당·회화 4개 탭, 날짜별 아코디언, 지도) |
+| `index.html` | 앱 본체 — 일자 가로 스와이프 덱. 각 일자 페이지에 일정·지도·식당선택·체크리스트 포함. 상단 나라별(그리스/이탈리아)·도시별 일자 칩 |
 | `manifest.webmanifest` | PWA 매니페스트 |
 | `sw.js` | 서비스워커 — 앱 셸·Leaflet·아이콘·PDF 프리캐시, 지도 타일은 본 곳만 캐시 |
 | `icon-192.png` / `icon-512.png` | 앱 아이콘 |
@@ -25,5 +25,5 @@
 
 ## 갱신
 
-`index.html`은 `transform.js`로 원본(`greece-italy-honeymoon-2026.html`)에서 생성됩니다.
+`index.html`은 `build.js`로 원본(`greece-italy-honeymoon-2026.src.html`)에서 생성됩니다. 지도 캡처는 `mkmapshot.js`+헤드리스 크롬.
 서비스워커 캐시 버전은 `sw.js`의 `APP_CACHE` 값을 올리면 강제 갱신됩니다.
