@@ -4,8 +4,8 @@
    - PWA/서비스워커/지도 캡처(img)/PDF 버튼 유지 */
 const fs = require("fs");
 const path = require("path");
-const SRC = "C:/Claude/greece-italy-honeymoon-2026.html";
-const OUT = "C:/Claude/gi-build/index.html";
+const SRC = path.join(__dirname, "greece-italy-honeymoon-2026.src.html");
+const OUT = path.join(__dirname, "index.html");
 const s = fs.readFileSync(SRC, "utf8");
 
 /* ---------- 1) 원본 조각 추출 ---------- */
@@ -14,10 +14,10 @@ const baseCss = s.slice(s.indexOf("<style>") + 7, s.indexOf("</style>"));
 // 14개 일자 블록
 const planStart = s.indexOf('id="view-plan"');
 const planRegion = s.slice(planStart, s.indexOf('id="view-prep"'));
-const dayBlocks = planRegion.split(/\n    <!-- 10\/\d+ -->\n/).slice(1).map((b) => {
+const dayBlocks = planRegion.split(/\r?\n    <!-- 10\/\d+ -->\r?\n/).slice(1).map((b) => {
   let inner = b.slice(b.indexOf('<div class="day">') + '<div class="day">'.length);
   // 마지막 날 블록은 뒤에 note-card(예산)가 붙어 있음 → 잘라냄
-  const cut = inner.indexOf('\n\n    <div class="note-card">');
+  const cut = inner.search(/\r?\n\r?\n    <div class="note-card">/);
   if (cut >= 0) inner = inner.slice(0, cut);
   inner = inner.replace(/\s*<\/div>\s*$/, ""); // .day 닫는 태그 제거
   return inner.trim();
@@ -69,6 +69,7 @@ const item = (k, name, desc) =>
 const CHECK = [
   // 0 · 10/10 인천→아테네
   [
+    item("p-flight-oz-intl", "OZ521+A3603 연결편 수하물·환승 확인 <span class='tag hot'>확인 안 됨</span>", "ICN→LHR(OZ521)→ATH(A3603), 히드로 환승 약 2시간15분(입국심사 없음). 수하물이 ATH까지 through-check 되는 단일 예약인지 지금 확인 — 별도 발권이면 환승시간 부족"),
     item("p-athens-transfer", "아테네 스튜디오 심야 픽업 확인 <span class='tag hot'>출발 전</span>", "22:15 도착·심야 체크인 가능 메일. 픽업 제공되면 예약(심야 택시 흥정 방지)"),
     item("d10-esim", "eSIM 활성화 확인", "착륙 직후 데이터 켜지게. 안 되면 공항 와이파이로 재설정"),
     item("d10-cash", "공항 ATM에서 소액 유로 인출", "택시비용. 은행계열 ATM, ‘원화 환산(DCC)’ 뜨면 거부"),
@@ -89,12 +90,12 @@ const CHECK = [
   // 3 · 10/13 박물관+수니온
   [
     item("d13-nam", "국립고고학박물관 화요일 13:00 개관 유의", "오전은 파나티나이코 경기장·국립정원"),
-    item("d13-sounion", "수니온 선셋 투어 픽업 시각 확인", "DIY면 KTEL 필렐리논街 승차, 여름 막차 Sounio발 ~21:00"),
-    item("d13-pack", "오늘 밤 산토리니行 짐 미리 싸기", "내일 아침 이른 비행"),
+    item("d13-sounion", "수니온 선셋 투어 픽업 시각 확인", "DIY면 KTEL 필렐리논街 승차. ⚠️ 막차는 여름 ~21:00/겨울 ~18:00로 계절차 큼, 10월은 애매하니 출발 전 공식시간표 재확인"),
+    item("d13-pack", "오늘 밤 산토리니行 짐 미리 싸기", "내일은 오후 비행(GQ350), 아침은 여유"),
   ],
   // 4 · 10/14 →산토리니 오이아
   [
-    item("p-flight-athjtr", "GQ350 시각·수하물·온라인 체크인 <span class='tag hot'>확인</span>", "티켓상 ATH 14:00 출발(공개 시간표엔 17:15로도 조회 → e-티켓 재확인). SKY Basic·Joy+=15kg / Enjoy=23kg"),
+    item("p-flight-athjtr", "GQ350 시각·수하물·온라인 체크인 <span class='tag hot'>확인</span>", "티켓상 ATH 14:00 출발. ⚠️ 2026-09-13 재확인해도 공개 시간표는 여전히 17:15 — e-티켓 실제 시각 지금 재확인. SKY Basic·Joy+=15kg / Enjoy=23kg"),
     item("p-santorini-transfers", "JTR→오이아 트랜스퍼/택시 사전 콜", "숙소 픽업 가능 여부 메일. 섬 택시 40대뿐이라 미리"),
     item("p-dinner-ammoudi", "Dimitris Ammoudi 예약", "이메일 예약, 물가 자리 요청 (10/14 저녁)"),
     item("d14-checkout", "코코맷 10:45 체크아웃 → 택시로 ATH", "메트로는 Syntagma 환승, 짐 있으면 택시 €40"),
@@ -140,7 +141,7 @@ const CHECK = [
   // 11 · 10/21 고대 로마
   [
     item("p-colosseum", "콜로세움 통합권 예약 <span class='tag hot'>30일 전 오픈</span>", "ticketing.colosseo.it €18(포로·팔라티노 포함). 9/21 오픈 즉시, 09:00~09:30 슬롯"),
-    item("p-pantheon", "판테온 시간지정 티켓 €5", "museiitaliani.it. 안 하면 현장 대기 20~40분"),
+    item("p-pantheon", "판테온 시간지정 티켓 €7 <span class='tag hot'>가격 인상</span>", "2026.7.1부터 €7/인(구 €5). museiitaliani.it. 안 하면 현장 대기 20~40분"),
     item("p-michelin-aroma", "(뷰 원하면) Aroma 10/21 저녁 예약", "콜로세움 정면 테라스 1스타. 2~3개월 전"),
     item("d21-gate", "콜로세움 게이트 15분 전 도착", "지정 시각 엄수"),
   ],
@@ -164,7 +165,7 @@ const prepGeneral = [
   item("p-etias", "솅겐 ETIAS 시행 여부 확인", "travel-europe.europa.eu. 시행됐으면 신청(€7, 몇 분). 한국 여권 90일 무비자는 유지"),
   item("p-insurance", "여행자보험 가입 (2인, 10/10~10/24)", "의료+휴대품+항공지연. 증권 PDF 폰 저장"),
   item("p-esim", "EU 전역 eSIM", "Airalo/Holafly 등 10~15GB. 그리스·이탈리아 공용"),
-  item("p-strike-check", "출발 1주 전 유적 개장시간·파업 재확인", "그리스는 유적·박물관 노조 파업으로 당일 휴관 생김. culture.gov.gr 공지. 아크로폴리스 10월 개장 08:00~18:30(10/16부터 18:00)"),
+  item("p-strike-check", "출발 1주 전 유적 개장시간·파업 재확인", "그리스는 유적·박물관 노조 파업으로 당일 휴관 생김. culture.gov.gr 공지. 아크로폴리스 2026년 10월 개장(확인 완료): 10/1~10/15 08:00~18:30(마감 18:00), 10/16~10/31 08:00~18:00(마감 17:30)"),
   item("r-cards-cash", "해외결제 카드 2장 + 유로 현금 2인 €700~900", "€50 이하 지폐로. 산토리니 버스·택시·소형 식당은 현금"),
   item("r-adapter", "C타입 유럽 플러그(220V)", "한국과 같은 C형이라 어댑터 불필요할 수 있음, 멀티탭 1개"),
   item("r-shoes", "편한 운동화 + 미끄럼 없는 신발", "대리석·자갈길·돌바닥. 저녁용 신발 따로"),
