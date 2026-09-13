@@ -138,18 +138,18 @@ const CHECK = [
     item("d20-dress", "성 베드로 대성당 복장", "무릎·어깨 가리는 옷 (남녀 모두)"),
     item("d20-qr", "투어 바우처·집합 시각·장소 확인", "집합 15분 전 도착"),
   ],
-  // 11 · 10/21 고대 로마
+  // 11 · 10/21 남부투어(포지타노·아말피)
   [
-    item("p-colosseum", "콜로세움 통합권 예약 <span class='tag hot'>30일 전 오픈</span>", "ticketing.colosseo.it €18(포로·팔라티노 포함). 9/21 오픈 즉시, 09:00~09:30 슬롯"),
-    item("p-pantheon", "판테온 시간지정 티켓 €7 <span class='tag hot'>가격 인상</span>", "2026.7.1부터 €7/인(구 €5). museiitaliani.it. 안 하면 현장 대기 20~40분"),
-    item("p-michelin-aroma", "(뷰 원하면) Aroma 10/21 저녁 예약", "콜로세움 정면 테라스 1스타. 2~3개월 전"),
-    item("d21-gate", "콜로세움 게이트 15분 전 도착", "지정 시각 엄수"),
+    item("p-southtour", "남부투어 예약 완료 확인 <span class='tag hot'>예약완료</span>", "우노트래블 #3440846, 06:20 Hotel Galles 픽업. 해산 시각 미공지 → 확정서 확인"),
+    item("d21-early", "06:00 기상 · 전날 밤 요기거리 준비", "숙소 조식 불가. 20일 밤 일찍 취침"),
+    item("d21-pack", "수영복·선글라스·편한 신발", "폼페이입장·점심·미니버스·페리는 현장 별도 결제(2인 약 €130)"),
   ],
-  // 12 · 10/22 여유일
+  // 12 · 10/22 고대 로마+판테온+트라스테베레 (21일에서 이동)
   [
-    item("p-borghese", "보르게세 미술관 예약", "galleriaborghese.beniculturali.it. 2시간 지정입장, 목요일 정상. 가방 클로크룸 의무"),
-    item("p-roscioli", "Roscioli 점심 예약 (12:30)", "salumeriaroscioli.com. 노쇼 €20/인, 취소는 메일로만"),
-    item("p-michelin-perme", "(음식 중심) Per Me 10/22 저녁 예약", "현대 로마·해산물 1스타, 격식 없음. 2~3개월 전"),
+    item("p-colosseum", "콜로세움 통합권 예약 <span class='tag hot'>30일 전 오픈·날짜변경</span>", "21일→22일로 이동. ticketing.colosseo.it €18(포로·팔라티노 포함). 9/22 오픈 즉시, 09:00~09:30 슬롯"),
+    item("p-pantheon", "판테온 시간지정 티켓 €7 <span class='tag hot'>가격 인상·날짜변경</span>", "21일→22일로 이동. 2026.7.1부 €7/인(구 €5). museiitaliani.it"),
+    item("p-roscioli", "Roscioli 점심 예약 (14:30)", "salumeriaroscioli.com. 오전 콜로세움 일정 감안해 14:30 슬롯. 노쇼 €20/인, 취소는 메일로만"),
+    item("p-michelin", "마지막 만찬(미슐랭) 예약", "Aroma(콜로세움 야경) 또는 Per Me(음식 중심), 2~3개월 전. 낮 Roscioli와 겹치니 저녁은 가볍게 조절"),
   ],
   // 13 · 10/23 귀국
   [
@@ -175,10 +175,10 @@ const prepGeneral = [
   item("r-daybag", "보안 크로스백 + 물통", "로마 지하철·트라스테베레·나보나 소매치기. 유럽 수돗물·분수 식수 가능"),
 ];
 const prepCalendar = `<div class="note-card">📅 <b>예약 캘린더 (역산)</b><br>
-· <b>지금</b>: 가이드 회신 · 마이리얼트립 아테네 투어 · hhticket 통합권 · ATH/FR 항공 확인 · 여권/보험/eSIM<br>
-· <b>미슐랭</b>(Aroma 10/21 / Per Me 10/22): 2~3개월 전<br>
-· <b>콜로세움</b> 통합권: 30일 전(9/21) 오픈 즉시<br>
-· <b>보르게세 · 산토리니 와인투어 · 요트투어 · Roscioli · 산토리니 디너 3건</b>: 3주~1주 전<br>
+· <b>지금</b>: 가이드 회신 · 마이리얼트립 아테네 투어 · hhticket 통합권 · ATH/FR/국제선 항공 확인 · 여권/보험/eSIM · 10/21 남부투어 확정서 확인(예약완료)<br>
+· <b>미슐랭</b>(Aroma 또는 Per Me, 10/22 저녁): 2~3개월 전<br>
+· <b>콜로세움·판테온</b>(10/22로 이동): 콜로세움 30일 전(9/22) 오픈 즉시, 판테온은 여유<br>
+· <b>산토리니 와인투어 · 요트투어 · Roscioli</b>: 3주~1주 전<br>
 · <b>바티칸 가이드투어</b>: 1~2주 전<br>
 · <b>출발 1주 전</b>: 유적 개장시간·파업 재확인</div>`;
 
