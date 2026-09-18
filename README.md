@@ -16,6 +16,17 @@
 | `sw.js` | 서비스워커 — 앱 셸·Leaflet·아이콘·PDF 프리캐시, 지도 타일은 본 곳만 캐시 |
 | `icon-192.png` / `icon-512.png` | 앱 아이콘 |
 | `greece-italy-honeymoon.pdf` | 지도 포함 인쇄본 (오프라인 백업) |
+| `test.js` | 빌드 산출물 자체 점검 (`node test.js`) — 일자 스왑·좌표·런타임 문법·거리 계산 |
+
+## 여행 중 쓰는 기능
+
+- **오늘 자동 이동** — 앱을 열면 그날 페이지가 바로 뜹니다(여행 전이면 준비 페이지). 상단 **오늘** 버튼으로 언제든 복귀.
+- **“지금” 표시** — 현재 시각이 지난 마지막 일정 행에 주황 띠 + `지금` 배지. 1분마다, 화면 복귀 때마다 갱신.
+- **내 위치** — 지도 아래 **📍 내 위치** → GPS 실시간 추적(파란 점 + 정확도 원). 켜두면 동선 칩마다 **현재 위치에서의 거리**가 붙고, 가장 가까운 지점을 알려줍니다. 한 번 켜면 다음 실행에도 자동. GPS라 오프라인에서도 동작.
+- **길찾기** — 모든 장소에 **🧭 길찾기**(현재 위치 → 그 장소, 구글지도 앱으로 바로), 마커 팝업에도 동일. 지도 아래 **이 날 동선 전체 길찾기**는 경유지까지 넣은 통짜 경로.
+- **폴드 대응** — 접으면 1단, 펼치면 **좌 일정 / 우 고정 지도** 2단(≥700px). 접기·펼치기 때 지도 크기와 보던 페이지를 그대로 유지합니다. 힌지가 있는 기기(`horizontal-viewport-segments: 2`)는 가운데 여백을 더 줍니다.
+
+> 지도 라이브러리는 **Leaflet**, 타일은 **OpenStreetMap** — 둘은 대체 관계가 아니라 이미 같이 쓰는 조합입니다(교체 불필요).
 
 ## 오프라인 동작
 
@@ -25,5 +36,14 @@
 
 ## 갱신
 
-`index.html`은 `build.js`로 원본(`greece-italy-honeymoon-2026.src.html`)에서 생성됩니다. 지도 캡처는 `mkmapshot.js`+헤드리스 크롬.
+`index.html`은 `build.js`로 원본(`greece-italy-honeymoon-2026.src.html`)에서 생성됩니다. 고치고 나면 `node build.js && node test.js`.
 서비스워커 캐시 버전은 `sw.js`의 `APP_CACHE` 값을 올리면 강제 갱신됩니다.
+
+지도 캡처(인쇄/오프라인용 `map-*.png`)는 `node mkmapshot.js`로 `mapshot.html`을 만든 뒤 헤드리스 크롬으로:
+
+```
+chrome --headless=new --disable-gpu --hide-scrollbars --virtual-time-budget=12000 \
+  --window-size=820,470 --screenshot=map-2.png "file:///…/mapshot.html?d=2"
+```
+
+⚠️ `build.js`의 `RUNTIME`은 **템플릿 리터럴**입니다 — 안에 정규식을 쓸 땐 백슬래시를 두 번(`\\d`) 써야 산출물에 `\d`로 남습니다. `test.js`가 이 경우를 잡아줍니다.

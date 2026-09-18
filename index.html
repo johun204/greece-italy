@@ -208,6 +208,37 @@
   .leaflet-popup-content { font-size: 12px; font-weight: 600; margin: 8px 12px; }
   .leaflet-container { font: inherit; }
 
+  /* --- 오늘 / 지금 할 일 --- */
+  .chip.today { border-color: var(--accent); color: var(--accent); }
+  .chip.today.on { background: var(--accent); color: #fff; }
+  .row.now { background: color-mix(in srgb, var(--accent) 9%, transparent); border-radius: 10px; box-shadow: inset 3px 0 0 var(--accent); padding-left: 9px; margin-left: -9px; }
+  .row.now .time::after { content: "지금"; display: block; font-size: 9px; font-weight: 800; color: #fff; background: var(--accent); border-radius: 4px; padding: 0 4px; margin-top: 3px; width: fit-content; letter-spacing: .02em; }
+  .nowbtn { flex: none; border: 1px solid var(--accent); background: var(--accent); color: #fff; font: inherit; font-weight: 800; font-size: 12px; border-radius: 8px; padding: 3px 9px; cursor: pointer; white-space: nowrap; }
+
+  /* --- 내 위치 --- */
+  .maptools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
+  .geobtn { border: 1px solid color-mix(in srgb, var(--indigo) 45%, transparent); background: var(--card); color: var(--indigo); font: inherit; font-weight: 700; font-size: 11.5px; border-radius: 7px; padding: 3px 9px; cursor: pointer; white-space: nowrap; }
+  .geobtn.on { background: var(--indigo); color: #fff; }
+  .geonote { font-size: 11.5px; color: var(--sub); font-weight: 600; }
+  .rt-item i { font-style: normal; color: var(--indigo); font-weight: 700; margin-left: 4px; font-size: 10.5px; }
+  .me-dot { width: 16px; height: 16px; border-radius: 50%; background: #1a73e8; border: 3px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.25), 0 1px 5px rgba(0,0,0,.4); }
+  .map.nav { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .leaflet-popup-content a { color: var(--accent); font-weight: 700; text-decoration: none; }
+
+  /* --- 폴드: 펼치면 2단(좌 일정 / 우 고정 지도) --- */
+  @media (min-width: 700px) {
+    .daypage { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); column-gap: 18px; align-content: start; }
+    .daypage > * { grid-column: 1; min-width: 0; }
+    .daypage > .daymap-wrap { grid-column: 2; grid-row: 1 / span 99; position: sticky; top: 0; align-self: start; margin-top: 0; }
+    .daypage > .daymap-wrap .daymap { height: min(56vh, 480px); }
+  }
+  /* 폴더블 힌지: 두 화면 세그먼트면 가운데를 비워 접힘선에 글자가 안 걸리게 */
+  @media (horizontal-viewport-segments: 2) {
+    .daypage { column-gap: 44px; }
+  }
+  /* 펼침/접힘 전환 시 주소창 높이 변화 대응 */
+  @supports (height: 100dvh) { .deck { height: calc(100dvh - var(--hdrH, 132px)); } }
+
   @media print {
     body { overflow: visible; height: auto; }
     .hdr, .deck-arrow, #pdfbtn, .fontbtn, .emerg-btn { display: none !important; }
@@ -226,6 +257,7 @@
   <div class="hdr-top">
     <h1>아테네·산토리니·로마 <span class="k">14일</span></h1>
     <div class="hdr-btns">
+      <button class="nowbtn" id="todaybtn" title="오늘 일정으로">오늘</button>
       <button class="fontbtn emerg-btn" id="emerg-btn" title="긴급정보">🚨</button>
       <button class="fontbtn" id="pdfbtn" title="PDF로 저장/인쇄">⬇︎PDF</button>
       <button class="fontbtn" id="fontbtn" title="글자 크게">가A</button>
@@ -250,22 +282,23 @@
 <main class="deck" id="deck">
 <section class="daypage" id="pg-prep">
   <div class="day-h"><div class="daytag" style="--c: var(--teal)"><div><span class="dow">준비</span><div class="dt">D-day</div></div></div><div><div class="title">출발 전 준비</div><div class="sub">여권·비자·보험·현금 · 예약 캘린더 · 긴급정보</div></div></div>
-  <div class="sec daysec"><div class="sec-h"><h2>🧳 챙길 것 · 확인</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="p-passport" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">여권 3개월+ 유효 · 사본 폰 저장 <span class='tag hot'>필수</span></span><span class="desc">솅겐 출국(10/23) 기준 잔여 3개월 이상 + 발급 10년 이내. 갱신 2~3주. 여권 사진·사본 클라우드 저장</span></span></label><label class="item"><input type="checkbox" data-k="p-etias" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">솅겐 ETIAS 시행 여부 확인</span><span class="desc">travel-europe.europa.eu. 시행됐으면 신청(€7, 몇 분). 한국 여권 90일 무비자는 유지</span></span></label><label class="item"><input type="checkbox" data-k="p-insurance" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">여행자보험 가입 (2인, 10/10~10/24)</span><span class="desc">의료+휴대품+항공지연. 증권 PDF 폰 저장</span></span></label><label class="item"><input type="checkbox" data-k="p-esim" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">EU 전역 eSIM</span><span class="desc">Airalo/Holafly 등 10~15GB. 그리스·이탈리아 공용</span></span></label><label class="item"><input type="checkbox" data-k="p-strike-check" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">출발 1주 전 유적 개장시간·파업 재확인</span><span class="desc">그리스는 유적·박물관 노조 파업으로 당일 휴관 생김. culture.gov.gr 공지. 아크로폴리스 2026년 10월 개장(확인 완료): 10/1~10/15 08:00~18:30(마감 18:00), 10/16~10/31 08:00~18:00(마감 17:30)</span></span></label><label class="item"><input type="checkbox" data-k="r-cards-cash" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">해외결제 카드 2장 + 유로 현금 2인 €700~900</span><span class="desc">€50 이하 지폐로. 산토리니 버스·택시·소형 식당은 현금</span></span></label><label class="item"><input type="checkbox" data-k="r-adapter" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">C타입 유럽 플러그(220V)</span><span class="desc">한국과 같은 C형이라 어댑터 불필요할 수 있음, 멀티탭 1개</span></span></label><label class="item"><input type="checkbox" data-k="r-shoes" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">편한 운동화 + 미끄럼 없는 신발</span><span class="desc">대리석·자갈길·돌바닥. 저녁용 신발 따로</span></span></label><label class="item"><input type="checkbox" data-k="r-layers" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10월 옷차림 낮 22~26℃ / 밤 15~18℃</span><span class="desc">얇은 겉옷, 산토리니 저녁 바람막이, 성당용 어깨·무릎 가리는 옷, 수영복</span></span></label><label class="item"><input type="checkbox" data-k="r-sun" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">선크림·선글라스·모자</span><span class="desc">아크로폴리스·포로 로마노·산토리니 능선 그늘 없음</span></span></label><label class="item"><input type="checkbox" data-k="r-meds" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">상비약 + 멀미약</span><span class="desc">진통·지사·밴드·물집밴드. FR3021·요트 멀미약</span></span></label><label class="item"><input type="checkbox" data-k="r-daybag" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">보안 크로스백 + 물통</span><span class="desc">로마 지하철·트라스테베레·나보나 소매치기. 유럽 수돗물·분수 식수 가능</span></span></label></div></div>
+  <div class="sec daysec"><div class="sec-h"><h2>🧳 챙길 것 · 확인</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="p-cavo-season" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Cavo Tagoo <b>10/19 시즌 종료</b> 메일 확인 <span class='tag hot'>최우선</span></span><span class="desc">2026 시즌이 <b>4/30~10/19</b>로 공지돼 있어 <b>체크아웃 날이 시즌 마지막 날</b>입니다. 막바지엔 스파·레스토랑을 먼저 닫는 사례가 있고 드물게 폐관일을 앞당깁니다. 메일 4문항: ① 10/16~19 예약 유효 ② <b>10/18 커플 스파 운영</b> ③ 인피니티풀·케이브 레스토랑 10/19까지 정상 ④ 10/19 레이트 체크아웃</span></span></label><label class="item"><input type="checkbox" data-k="p-brewtour" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">🍺 아테네 브루어리 홉핑 투어 예약 (10/12 저녁)</span><span class="desc">그리스 법상 브루어리 상설 탭룸 금지 → <b>Noctua는 가이드 투어로만 내부 진입</b>. 3~3.5h, 2인 €100~150, 시음+안주(저녁 겸용). GetYourGuide·Viator·gastronomytours.com. 플랜B = Strange Brew 탭룸(숙소 도보 5분, 예약 불필요)</span></span></label><label class="item"><input type="checkbox" data-k="p-passport" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">여권 3개월+ 유효 · 사본 폰 저장 <span class='tag hot'>필수</span></span><span class="desc">솅겐 출국(10/23) 기준 잔여 3개월 이상 + 발급 10년 이내. 갱신 2~3주. 여권 사진·사본 클라우드 저장</span></span></label><label class="item"><input type="checkbox" data-k="p-etias" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">솅겐 ETIAS 시행 여부 확인</span><span class="desc">travel-europe.europa.eu. 시행됐으면 신청(€7, 몇 분). 한국 여권 90일 무비자는 유지</span></span></label><label class="item"><input type="checkbox" data-k="p-insurance" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">여행자보험 가입 (2인, 10/10~10/24)</span><span class="desc">의료+휴대품+항공지연. 증권 PDF 폰 저장</span></span></label><label class="item"><input type="checkbox" data-k="p-esim" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">EU 전역 eSIM</span><span class="desc">Airalo/Holafly 등 10~15GB. 그리스·이탈리아 공용</span></span></label><label class="item"><input type="checkbox" data-k="p-strike-check" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">출발 1주 전 유적 개장시간·파업 재확인</span><span class="desc">그리스는 유적·박물관 노조 파업으로 당일 휴관 생김. culture.gov.gr 공지. 아크로폴리스 2026년 10월 개장(확인 완료): 10/1~10/15 08:00~18:30(마감 18:00), 10/16~10/31 08:00~18:00(마감 17:30)</span></span></label><label class="item"><input type="checkbox" data-k="r-cards-cash" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">해외결제 카드 2장 + 유로 현금 2인 €700~900</span><span class="desc">€50 이하 지폐로. 산토리니 버스·택시·소형 식당은 현금</span></span></label><label class="item"><input type="checkbox" data-k="r-adapter" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">C타입 유럽 플러그(220V)</span><span class="desc">한국과 같은 C형이라 어댑터 불필요할 수 있음, 멀티탭 1개</span></span></label><label class="item"><input type="checkbox" data-k="r-shoes" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">편한 운동화 + 미끄럼 없는 신발</span><span class="desc">대리석·자갈길·돌바닥. 저녁용 신발 따로</span></span></label><label class="item"><input type="checkbox" data-k="r-layers" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10월 옷차림 낮 22~26℃ / 밤 15~18℃</span><span class="desc">얇은 겉옷, 산토리니 저녁 바람막이, 성당용 어깨·무릎 가리는 옷, 수영복</span></span></label><label class="item"><input type="checkbox" data-k="r-sun" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">선크림·선글라스·모자</span><span class="desc">아크로폴리스·포로 로마노·산토리니 능선 그늘 없음</span></span></label><label class="item"><input type="checkbox" data-k="r-meds" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">상비약 + 멀미약</span><span class="desc">진통·지사·밴드·물집밴드. FR3021·요트 멀미약</span></span></label><label class="item"><input type="checkbox" data-k="r-daybag" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">보안 크로스백 + 물통</span><span class="desc">로마 지하철·트라스테베레·나보나 소매치기. 유럽 수돗물·분수 식수 가능</span></span></label></div></div>
   <div class="note-card">📅 <b>예약 캘린더 (역산)</b><br>
 · <b>지금</b>: 가이드 회신 · 마이리얼트립 아테네 투어 · hhticket 통합권 · ATH/FR/국제선 항공 확인 · 여권/보험/eSIM · 10/21 남부투어 확정서 확인(예약완료)<br>
 · <b>미슐랭</b>(Aroma 또는 Per Me, 10/22 저녁): 2~3개월 전<br>
 · <b>콜로세움·판테온</b>(10/22로 이동): 콜로세움 30일 전(9/22) 오픈 즉시, 판테온은 여유<br>
-· <b>산토리니 와인투어 · 요트투어 · Roscioli</b>: 3주~1주 전<br>
+· <b>산토리니 와인투어 · 요트투어(10/17) · Roscioli · 아테네 브루어리 투어</b>: 3주~1주 전<br>
+· <b>Cavo Tagoo 시즌 종료(10/19) 확인</b>: 지금 바로 메일<br>
 · <b>바티칸 가이드투어</b>: 1~2주 전<br>
 · <b>출발 1주 전</b>: 유적 개장시간·파업 재확인</div>
   <div class="note-card">💰 <b>여행 전체 경비 합계 (2인 · 숙박·쇼핑 제외):</b><br>
       · 도시 내 교통·택시 합 ≈ <b>€900~1,100</b><br>
       · 입장권·미술관 합(콜로세움·판테온€7/인·폼페이 등) ≈ <b>€340~385</b><br>
-      · 투어 4건 2인: 10/11 아테네 한국어 <b>€95</b> · <b>10/15 산토리니 와인투어 €120~500</b> · 10/18 선셋 요트투어 <b>€290~320</b> · <b>10/21 남부투어(포지타노·아말피) €345</b>(예약완료, 요트·와인투어·남부투어는 식사 일부/전부 포함)<br>
+      · 투어 4건 2인: 10/11 아테네 한국어 <b>€95</b> · <b>10/15 산토리니 와인투어 €120~500</b> · 10/17 선셋 요트투어 <b>€290~320</b> · <b>10/21 남부투어(포지타노·아말피) €345</b>(예약완료, 요트·와인투어·남부투어는 식사 일부/전부 포함)<br>
       · 식비 합(11~12일 점심·저녁, 조식은 숙소 가정) ≈ <b>€900~1,100</b><br>
       · 도시 간 항공 2인(ATH→JTR + FR3021) ≈ <b>€220~350</b><br>
       → <b>총 대략 €3,170~4,100 (약 460만~590만원)</b> · 1인 1일 약 €115~145<br>
-      <span class="en">10/17 커플 스파 선택 시 +€200~350 · 10/22 마지막 만찬 미슐랭 선택 시 +€170~270 · 별도: 숙박비·쇼핑·귀국 항공(OZ)·여행자보험</span>
+      <span class="en">10/18 커플 스파 선택 시 +€200~350 · 10/22 마지막 만찬 미슐랭 선택 시 +€170~270 · 별도: 숙박비·쇼핑·귀국 항공(OZ)·여행자보험</span>
     </div>
   <div class="sec daysec"><div class="sec-h"><h2>🚨 긴급 정보 · 필수 회화</h2></div>
   <div class="note-card">
@@ -346,29 +379,32 @@
 <section class="daypage" id="pg-2" data-day="2">
 <div class="day-h">
         <div class="daytag" style="--c: var(--persimmon)"><div><span class="dow">월</span><div class="dt">10/12</div></div></div>
-        <div><div class="title">아크로폴리스 박물관 · 여유로운 하루 <span class="pill">가벼워짐</span></div><div class="sub">아크로폴리스 박물관 · 로만 아고라·하드리아누스 도서관 · Meat the Greek · 리카비토스 일몰</div></div>
+        <div><div class="title">아크로폴리스 박물관 · 리카비토스 · 🍺 브루어리 <span class="pill">맥주투어</span></div><div class="sub">아크로폴리스 박물관 · 로만 아고라 · Meat the Greek · 리카비토스 일몰 · 저녁 브루어리 홉핑</div></div>
       </div>
-      <div class="day-intro">🏛️ <b>어제 투어 덕분에 오늘은 여유롭습니다.</b> 아크로폴리스 언덕 자체는 어제 봤으니, 오늘은 투어에 없던 <b>아크로폴리스 박물관</b>과 <b>로만 아고라·하드리아누스 도서관</b>만 느긋하게 봅니다(어제 산 통합권 그대로 사용). 점심은 원하시던 기로스(Meat the Greek) — 오늘은 시간 압박이 없어 여유 있게. 오후엔 완전 자유시간, 해질녘 리카비토스.<br><br><b>💶 오늘 경비(2인)</b> · 🚶 도보 + 케이블카: 교통 €15 · 입장 €30(아크로폴리스 박물관 €15×2, 로만아고라·도서관은 어제 통합권으로 무료) · 식비 €90(Meat the Greek €20·저녁 메제 €70) → <b>약 €135</b></div>
+      <div class="day-intro">🏛️ <b>어제 투어 덕분에 오늘은 여유롭습니다.</b> 아크로폴리스 언덕 자체는 어제 봤으니, 오늘은 투어에 없던 <b>아크로폴리스 박물관</b>과 <b>로만 아고라·하드리아누스 도서관</b>만 느긋하게 봅니다(어제 산 통합권 그대로 사용). 점심은 원하시던 기로스(Meat the Greek) — 오늘은 시간 압박이 없어 여유 있게. 오후엔 낮잠, 해질녘 리카비토스, 그리고 <b>저녁엔 아테네 브루어리 홉핑 투어</b>.<br><br>🍺 <b>맥주 투어를 오늘 넣었습니다.</b> 14일 중 유일하게 오후가 통째로 빈 날이라 일정 손실이 0입니다. 그리스는 법상 브루어리 상설 탭룸이 금지라 <b>Noctua 같은 양조장은 가이드 투어·이벤트 데이가 아니면 내부 진입이 안 됩니다</b> — 그래서 투어로 잡습니다.<br>→ <b>플랜B</b>: 투어 예약이 안 되거나 피곤하면 <b>Strange Brew 탭룸</b>(Falirou 86, 쿠카키)이 <b>숙소에서 도보 5분</b>입니다. 예약 불필요, 탭 10개, 2인 €20 안팎. 아래 19:30 항목 참고.<br><br><b>💶 오늘 경비(2인)</b> · 🚶 도보 + 케이블카 + 택시: 교통 €25 · 입장 €30(아크로폴리스 박물관 €15×2, 로만아고라·도서관은 어제 통합권으로 무료) · 식비·시음 €120(Meat the Greek €20 · 브루어리 투어 2인 €100~150 <span class="en">또는 탭룸 €20 + 저녁 €70</span>) → <b>약 €175~205</b> <span class="en">(플랜B 탭룸이면 약 €145)</span></div>
       <div class="stats">
         <div class="stat"><b>09:30</b><span>출발</span></div>
-        <div class="stat"><b>21:00</b><span>복귀</span></div>
-        <div class="stat"><b>0:50</b><span>이동</span></div>
-        <div class="stat"><b>4.5km</b><span>도보</span></div>
-        <div class="stat"><b>4곳</b><span>관광</span></div>
+        <div class="stat"><b>~23:00</b><span>복귀</span></div>
+        <div class="stat"><b>1:10</b><span>이동</span></div>
+        <div class="stat"><b>5.0km</b><span>도보</span></div>
+        <div class="stat"><b>🍺투어</b><span>저녁</span></div>
       </div>
       <div class="rows">
         <div class="row"><div class="time">09:30</div><div class="act">코코맷 BC → 아크로폴리스 박물관<span class="note">도보 5분. <b>월요일은 09:00~17:00 단축 운영</b>이니 오전에 여유 있게. €15/인, 파르테논 갤러리(유리층)·카리아티드 실물. 1~1.5h. 3층 카페 전망</span><span class="addr">📍 Μουσείο Ακρόπολης, Dionysiou Areopagitou 15</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Acropolis+Museum" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
         <div class="row"><div class="time">11:15</div><div class="act">로만 아고라 + 하드리아누스 도서관<span class="note">어제 산 통합권으로 무료 입장(5일권). 도보 15분. 30~40분. 고대 아고라는 어제 투어에서 이미 봤으니 여기만</span><span class="addr">📍 Roman Agora, Polygnotou 3</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Roman+Agora+Athens" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
         <div class="row"><div class="time">12:15</div><div class="act">점심 · <b>Meat the Greek</b> (식당탭 10/12 A)<span class="note">Fokionos 2-4, 신타그마. 월~토 12:00~24:00. 도보 15분(플라카 통과). 오늘은 시간 여유 있으니 12:15 도착이면 돼지 기로스도 안전</span><span class="addr">📍 Fokionos 2-4, Syntagma <span class="en">(☎ +30 21 0322 2832 · 예약 불필요, 카드 가능)</span></span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Meat+the+Greek+Athens" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
-        <div class="row"><div class="time">13:30</div><div class="act">자유시간<span class="note">코코맷 수영장·낮잠, 콜로나키 카페 산책, 또는 베나키 박물관(본관) 중 택. 오늘은 정해진 것 없이 편하게</span></div></div>
+        <div class="row"><div class="time">13:30</div><div class="act">자유시간 · <b>낮잠 권장</b><span class="note">저녁이 길어지니 여기서 회복. 코코맷 수영장·낮잠, 콜로나키 카페 산책, 또는 베나키 박물관(본관) 중 택</span></div></div>
         <div class="row"><div class="time">17:15</div><div class="act">리카비토스 언덕 (푸니쿨라)<span class="note">콜로나키에서 케이블카 왕복 €10. 정상서 아크로폴리스+에게해. 일몰 약 18:38. 정상 카페</span><span class="addr">📍 Lycabettus Funicular, Aristippou 1</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Lycabettus+Funicular" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
-        <div class="row"><div class="time">19:30</div><div class="act">저녁 (식당탭 10/12 A/B) · 판그라티 또는 페트랄로나</div></div>
+        <div class="row"><div class="time">19:30</div><div class="act">🍺 <b>아테네 브루어리 홉핑 투어</b> (약 3~3.5h) <span class="pill">예약필수</span><span class="note">가이드 동행으로 <b>Noctua</b>(아카디미아 플라토노스 — 그리스 법상 상설 탭룸 불가, 투어로만 내부 진입) + <b>Strange Brew / Paragon</b> 탭룸. 시음 8~12종 + 안주 포함이라 <b>저녁 겸용</b>. 2인 €100~150. 예약: GetYourGuide·Viator·gastronomytours.com ‘Athens brewery hopping / beer tasting tour’<br>⚠️ <b>집합 시각은 업체가 정합니다</b> — 18:00 집합이면 리카비토스를 16:30으로 당기세요. 예약 확정 후 이 줄의 시각을 맞추면 됩니다</span><span class="addr">📍 Noctua Brewery, Leonidou 62, Athens 104 36</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Noctua+Brewery+Athens" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
+        <div class="row"><div class="time">19:30<br><span class="en">플랜B</span></div><div class="act">🍻 <b>Strange Brew 탭룸</b> — 숙소 도보 5분<span class="note">투어 예약 실패·피곤·비 오는 날의 대안. 쿠카키 크래프트 비어 탭룸, 탭 10개(그리스 마이크로브루어리 위주) + 병·캔. 예약 불필요, 2인 €20 안팎. 코코맷 BC에서 400m. 저녁은 식당탭 10/12 A/B로 따로</span><span class="addr">📍 Strange Brew Taproom, Falirou 86, Koukaki, Athens 117 41</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Strange+Brew+Taproom+Falirou+86+Athens" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
+        <div class="row"><div class="time">~23:00</div><div class="act">숙소 복귀<span class="note">내일(10/13)은 09:30 시작 + 박물관 13:00 개관이라 아침은 여유. 단 수니온 일몰까지 가는 날이니 과음은 금물</span></div></div>
       </div>
       
-<div class="sec daysec"><div class="sec-h"><h2>🍽️ 오늘 식당 선택</h2></div><div class="list"><div class="note-card" style="margin:0 0 8px">🍽️ 점심 Ⓐ Meat the Greek / Ⓑ Kostas &nbsp;·&nbsp; 저녁 Ⓐ To Mavro Provato / Ⓑ Oikonomou</div><label class="item"><input type="checkbox" data-k="f-ath-1012-meatthegreek" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 점심 <span class="tag a">A</span> Meat the Greek <span class="tag hot">추천받은 곳</span></span><span class="desc">돼지 기로스·수블라키. €5~10 · Fokionos 2-4, Syntagma · 월~토 12:00~24:00, 일요일 휴무 · 돼지 기로스 13시 전 소진 · 카드OK · 예약 불필요</span></span></label><label class="item"><input type="checkbox" data-k="f-ath-1012-kostas" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 점심 <span class="tag b">B</span> Kostas</span><span class="desc">1950년 작은 수블라키 노포, 모나스티라키. 돼지꼬치+피타+매운소스. € 현금 · 평일 낮만, 재료 소진 시 조기 마감</span></span></label><label class="item"><input type="checkbox" data-k="f-ath-1012d-mavroprovato" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 저녁 <span class="tag a">A</span> To Mavro Provato</span><span class="desc">판그라티 인기 메제도폴리오. 나눠먹는 소접시 다수, 활기. €€ · Arrianou 31-33 · ☎+30 210 722 3466 <span class="tag hot">예약 필수</span></span></span></label><label class="item"><input type="checkbox" data-k="f-ath-1012d-oikonomou" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 저녁 <span class="tag b">B</span> Oikonomou</span><span class="desc">아노 페트랄로나 가정식 마제이레프타(냄비요리), 진열대서 지목. €€ 현금 · 예약 불필요, 일찍 가기</span></span></label></div></div>
-<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="d12-museum" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">아크로폴리스 박물관 월요일 09:00~17:00 확인</span><span class="desc">단축 운영. 오전에 여유 있게</span></span></label><label class="item"><input type="checkbox" data-k="d12-lunch" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Meat the Greek 12:15 도착</span><span class="desc">돼지 기로스는 13시 전 소진. 일요일 휴무라 오늘</span></span></label></div></div>
+<div class="sec daysec"><div class="sec-h"><h2>🍽️ 오늘 식당 선택</h2></div><div class="list"><div class="note-card" style="margin:0 0 8px">🍽️ 점심 Ⓐ Meat the Greek / Ⓑ Kostas &nbsp;·&nbsp; 저녁 🍺 브루어리 투어(안주 포함) / 플랜B Strange Brew 탭룸 + Ⓐ To Mavro Provato / Ⓑ Oikonomou</div><label class="item"><input type="checkbox" data-k="f-ath-1012-meatthegreek" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 점심 <span class="tag a">A</span> Meat the Greek <span class="tag hot">추천받은 곳</span></span><span class="desc">돼지 기로스·수블라키. €5~10 · Fokionos 2-4, Syntagma · 월~토 12:00~24:00, 일요일 휴무 · 돼지 기로스 13시 전 소진 · 카드OK · 예약 불필요</span></span></label><label class="item"><input type="checkbox" data-k="f-ath-1012-kostas" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 점심 <span class="tag b">B</span> Kostas</span><span class="desc">1950년 작은 수블라키 노포, 모나스티라키. 돼지꼬치+피타+매운소스. € 현금 · 평일 낮만, 재료 소진 시 조기 마감</span></span></label><label class="item"><input type="checkbox" data-k="f-ath-1012d-mavroprovato" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 저녁 <span class="tag a">A</span> To Mavro Provato</span><span class="desc">판그라티 인기 메제도폴리오. 나눠먹는 소접시 다수, 활기. €€ · Arrianou 31-33 · ☎+30 210 722 3466 <span class="tag hot">예약 필수</span></span></span></label><label class="item"><input type="checkbox" data-k="f-ath-1012d-oikonomou" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 저녁 <span class="tag b">B</span> Oikonomou</span><span class="desc">아노 페트랄로나 가정식 마제이레프타(냄비요리), 진열대서 지목. €€ 현금 · 예약 불필요, 일찍 가기</span></span></label><label class="item"><input type="checkbox" data-k="f-ath-1012d-brewtour" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 저녁 🍺 <b>브루어리 홉핑 투어</b> <span class="tag hot">예약</span></span><span class="desc">Noctua + Strange Brew/Paragon, 가이드 동행 3~3.5h, 시음 8~12종 + 안주 포함이라 <b>저녁 겸용</b>. 2인 €100~150. GetYourGuide·Viator·gastronomytours.com 검색 ‘Athens brewery tour’</span></span></label><label class="item"><input type="checkbox" data-k="f-ath-1012d-strangebrew" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/12 저녁 🍻 Strange Brew 탭룸 <span class="tag b">플랜B</span></span><span class="desc">Falirou 86, 쿠카키 — <b>코코맷 BC에서 도보 5분(400m)</b>. 탭 10개, 예약 불필요, 2인 €20 안팎. 투어를 안 하거나 예약 실패 시 여기 + 위 A/B 식당으로 저녁</span></span></label></div></div>
+<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="d12-museum" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">아크로폴리스 박물관 월요일 09:00~17:00 확인</span><span class="desc">단축 운영. 오전에 여유 있게</span></span></label><label class="item"><input type="checkbox" data-k="d12-lunch" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Meat the Greek 12:15 도착</span><span class="desc">돼지 기로스는 13시 전 소진. 일요일 휴무라 오늘</span></span></label><label class="item"><input type="checkbox" data-k="d12-brew" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">🍺 브루어리 투어 집합 시각·장소 확인</span><span class="desc">업체가 정한 집합 시각에 맞춰 <b>리카비토스 시각을 조정</b>(18:00 집합이면 리카비토스 16:30). 예약 실패·피곤하면 플랜B = Strange Brew 탭룸(Falirou 86, 숙소 도보 5분·예약 불필요)</span></span></label><label class="item"><input type="checkbox" data-k="d12-nap" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">오후 낮잠</span><span class="desc">저녁이 23시까지 길어짐. 내일 수니온 일몰까지 가니 과음 금물</span></span></label></div></div>
 <div class="alts">
-        <span class="alt">☔ 비: 아크로폴리스 박물관은 실내라 무관. 자유시간은 베나키 박물관·콜로나키 카페로 대체</span>
+        <span class="alt">☔ 비: 아크로폴리스 박물관은 실내라 무관. 자유시간은 베나키 박물관·콜로나키 카페로 대체. 리카비토스는 생략하고 브루어리를 앞당기기</span>
+        <span class="alt">🍺 투어 예약 실패: 도보 5분 <b>Strange Brew 탭룸</b>(쿠카키)으로 — 예약 불필요, 저녁은 따로</span>
         <span class="alt">🈳 저녁 만석: Oikonomou(페트랄로나 가정식, 현금) 또는 Karavitis(판그라티)</span>
       </div>
 </section>
@@ -486,7 +522,7 @@
       </div>
       
 <div class="sec daysec"><div class="sec-h"><h2>🍽️ 오늘 식당 선택</h2></div><div class="list"><div class="note-card" style="margin:0 0 8px">🍽️ 점심 Ⓐ Metaxi Mas(예약) / Ⓑ 호텔 &nbsp;·&nbsp; 저녁 Ⓐ Aktaion / Ⓑ Cavo Tagoo 다이닝</div><label class="item"><input type="checkbox" data-k="f-jtr-1016-metaximas" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/16 점심 <span class="tag a">A</span> Metaxi Mas</span><span class="desc">엑소 고니아, ‘현지인이 먹는 곳’ 1순위. 크레타·산토리니 요리, 소꼬리·볼살. €€ · ☎+30 22860 31323 <span class="tag hot">필수 예약</span> (며칠 전)</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1016-psaraki" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/16 점심 <span class="tag b">B</span> To Psaraki</span><span class="desc">블리하다 항구, 어부 직송 해산물·전망. €€ · ☎+30 22860 82783 예약 권장</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1016d-aktaion" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/16 저녁 <span class="tag a">A</span> Aktaion</span><span class="desc">피로스테파니, 섬에서 가장 오래된 식당(1922). 전통·합리적, 광장 자리. €€ · 예약 권장</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1016d-cavodining" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/16 저녁 <span class="tag b">B</span> Cavo Tagoo 다이닝</span><span class="desc">체크인 첫날 피곤하면 호텔에서. 그릭·지중해, 칼데라뷰. €€€ · 투숙객 예약</span></span></label></div></div>
-<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="p-cavo-spa" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Cavo Tagoo 얼리 체크인 + 커플 스파 예약</span><span class="desc">10/16 오후 일찍 도착 → 얼리 체크인·레이트 체크아웃(10/19) 문의. 10/17 커플 스파(2인 €200~350)</span></span></label><label class="item"><input type="checkbox" data-k="p-dinner-ammoudi-metaxi" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Metaxi Mas 예약 <span class='tag hot'>필수</span></span><span class="desc">☎ +30 22860 31323, 며칠 전 (10/16 점심)</span></span></label><label class="item"><input type="checkbox" data-k="d16-taxi" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">오이아→(아크로티리)→Cavo Tagoo 택시 사전 콜</span><span class="desc">직행 €30~35 / 아크로티리 경유 대절 €80~90</span></span></label><label class="item"><input type="checkbox" data-k="d16-cavo" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">체크인 시 인피니티풀·케이브 레스토랑 예약</span><span class="desc">컨시어지에</span></span></label></div></div>
+<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="p-cavo-spa" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Cavo Tagoo 얼리 체크인 + 커플 스파 예약</span><span class="desc">10/16 오후 일찍 도착 → 얼리 체크인·레이트 체크아웃(10/19) 문의. <b>10/18</b> 커플 스파(2인 €200~350) — 시즌 종료(10/19) 직전이라 운영 여부부터 확인</span></span></label><label class="item"><input type="checkbox" data-k="p-dinner-ammoudi-metaxi" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Metaxi Mas 예약 <span class='tag hot'>필수</span></span><span class="desc">☎ +30 22860 31323, 며칠 전 (10/16 점심)</span></span></label><label class="item"><input type="checkbox" data-k="d16-taxi" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">오이아→(아크로티리)→Cavo Tagoo 택시 사전 콜</span><span class="desc">직행 €30~35 / 아크로티리 경유 대절 €80~90</span></span></label><label class="item"><input type="checkbox" data-k="d16-cavo" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">체크인 시 인피니티풀·케이브 레스토랑 예약</span><span class="desc">컨시어지에</span></span></label></div></div>
 <div class="alts">
         <span class="alt">☔ 비: 아크로티리(실내)만 하고 호텔 스파·라운지로. 저녁은 호텔 다이닝</span>
         <span class="alt">🈳 Metaxi Mas 예약 실패: To Psaraki(블리하다 항구 해산물) 또는 Cavo Tagoo 다이닝</span>
@@ -495,59 +531,61 @@
 <section class="daypage" id="pg-7" data-day="7">
 <div class="day-h">
         <div class="daytag" style="--c: var(--gold)"><div><span class="dow">토</span><div class="dt">10/17</div></div></div>
-        <div><div class="title">Cavo Tagoo 온전한 하루 — 아무 데도 안 감 <span class="pill">숙소 뽕뽑기</span></div><div class="sub">인피니티풀 · 커플 스파 · 긴 점심 · 테라스 일몰 · (선택)Skaros</div></div>
-      </div>
-      <div class="day-intro">💤 <b>오늘은 계획이 없는 게 계획.</b> 비싼 숙소값을 제대로 쓰는 날 — 체크아웃도 관광도 없이 <b>하루 종일 Cavo Tagoo</b>. 늦잠 → 인피니티풀 → <b>커플 스파(전날 예약)</b> → 칼데라뷰에서 긴 점심 → 다시 풀 → 테라스에서 일몰. 몸이 근질거리면 숙소 바로 아래 <b>Skaros Rock</b>만 30~40분 다녀오면 됩니다(그마저 선택). 피르고스 마을은 뺐어요 — 어제 와인 투어가 대개 피르고스·산토와인즈를 지납니다.<br><br><b>💶 오늘 경비(2인)</b> · 이동 거의 없음: 교통 €0~15 · 입장 €0 · 식비 €140(긴 점심 €50·칼데라뷰 디너 €90) · <b>커플 스파 €200~350</b>(선택) → <b>약 €140</b> (스파 포함 시 €340~490)</div>
-      <div class="stats">
-        <div class="stat"><b>—</b><span>늦잠</span></div>
-        <div class="stat"><b>종일</b><span>호텔</span></div>
-        <div class="stat"><b>0</b><span>이동</span></div>
-        <div class="stat"><b>0~2km</b><span>도보</span></div>
-        <div class="stat"><b>0곳</b><span>관광</span></div>
-      </div>
-      <div class="rows">
-        <div class="row"><div class="time">오전</div><div class="act">늦잠 · 조식 · 인피니티풀 · 칼데라뷰 라운징</div></div>
-        <div class="row"><div class="time">12:00</div><div class="act">커플 스파 트리트먼트<span class="note">도착일(10/16)에 미리 예약. 커플 마사지·페이셜. 2인 €200~350. 스파 후 풀사이드에서 회복</span></div></div>
-        <div class="row"><div class="time">14:00</div><div class="act">칼데라뷰에서 긴 점심 (호텔 레스토랑 or Cave Restaurant)<span class="note">서두르지 않고. 와인 한 잔</span></div></div>
-        <div class="row"><div class="time">16:30</div><div class="act">(선택) Skaros Rock 짧게<span class="note">이메로비글리 교회 옆에서 출발, 왕복 30~40분(끝까지 안 가도 뷰 충분), 무료. 옛 중세 요새 터. 발밑 자갈 주의 — 귀찮으면 생략</span><span class="addr">📍 Skaros Rock, Imerovigli</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Skaros+Rock+Santorini" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
-        <div class="row"><div class="time">18:30</div><div class="act">숙소 테라스에서 일몰<span class="note">일몰 약 18:52. 룸 프라이빗 테라스 or 인피니티풀 데크</span></div></div>
-        <div class="row"><div class="time">19:45</div><div class="act">저녁 · 칼데라뷰 (식당탭 10/17 A/B) 또는 호텔 다이닝</div></div>
-      </div>
-      
-<div class="sec daysec"><div class="sec-h"><h2>🍽️ 오늘 식당 선택</h2></div><div class="list"><div class="note-card" style="margin:0 0 8px">🍽️ 긴 점심 Ⓐ Cavo Tagoo 레스토랑 &nbsp;·&nbsp; 저녁 Ⓐ Mylos(예약) / Ⓑ Anogi / 호텔 다이닝</div><label class="item"><input type="checkbox" data-k="f-jtr-1017d-mylos" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/17 저녁 <span class="tag a">A</span> Mylos</span><span class="desc">피로스테파니 풍차 자리, 모던 그릭·칼데라뷰. 신혼 저녁용. €€€ · <span class="tag hot">예약</span> (일몰 시간대 창가)</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1017d-anogi" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/17 저녁 <span class="tag b">B</span> Anogi</span><span class="desc">이메로비글리, 전통가옥 세팅에 정성스런 그릭. 뷰보다 음식·분위기. €€ · 예약 권장</span></span></label></div></div>
-<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="d17-spa" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">커플 스파 트리트먼트 시간 재확인</span><span class="desc">전날 예약분</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1017-resv" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Mylos 또는 Anogi 저녁 예약</span><span class="desc">칼데라뷰. 호텔 다이닝도 가능</span></span></label></div></div>
-<div class="alts">
-        <span class="alt">☔ 비: 스파·실내 라운지·룸서비스로 하루 종일. 오히려 완벽한 핑계</span>
-        <span class="alt">🚶 더 움직이고 싶으면: 이메로비글리↔피로스테파니 능선 산책(평탄, 왕복 1h) 후 Mylos 저녁</span>
-        <span class="alt">🈳 Mylos/Anogi 만석: Aktaion(피로스테파니 1922년) 또는 숙소 다이닝</span>
-      </div>
-</section>
-<section class="daypage" id="pg-8" data-day="8">
-<div class="day-h">
-        <div class="daytag" style="--c: var(--indigo)"><div><span class="dow">일</span><div class="dt">10/18</div></div></div>
         <div><div class="title">산토리니 하이라이트 · 선셋 요트투어 <span class="pill">신혼 강추</span></div><div class="sub">칼데라 세미프라이빗 요트 5h · 레드/화이트 비치·화산온천·일몰 · 선상 디너 포함</div></div>
       </div>
-      <div class="day-intro">⛵ <b>산토리니에서 딱 하나만 한다면 이것.</b> 실제 신혼여행 후기들이 <b>“일정 중 최고 · 또 온다면 1순위”</b>로 꼽는 <b>세미프라이빗 선셋 요트투어</b>(8~12인, 5시간)를 오늘 넣습니다. 숙소 앞 픽업 → 이아·피라 지나 승선 → 레드비치·화이트비치·화산온천에서 스노클링 → 선상에서 즉석 요리 저녁 + 음료·와인 → 칼데라 위에서 일몰 → 어두워진 뒤 숙소 앞 드롭. <b>저녁 식사가 포함</b>이라 오늘은 마지막 만찬을 따로 안 잡습니다.<br><br><b>💶 오늘 경비(2인)</b> · 요트투어(픽업·드롭·식사·음료·주류·장비 전부 포함) <b>≈ €280~320</b>(마이리얼트립 세미프라이빗 기준, 후기 실측 2인 ₩430,000) · 그 외 지출 거의 없음 → <b>약 €280~320</b> <span class="en">(대형 공유 카타마란은 €95~140/인로 더 쌈)</span></div>
+      <div class="day-intro">⛵ <b>산토리니에서 딱 하나만 한다면 이것.</b> 실제 신혼여행 후기들이 <b>“일정 중 최고 · 또 온다면 1순위”</b>로 꼽는 <b>세미프라이빗 선셋 요트투어</b>(8~12인, 5시간). 숙소 앞 픽업 → 이아·피라 지나 승선 → 레드비치·화이트비치·화산온천에서 스노클링 → 선상에서 즉석 요리 저녁 + 음료·와인 → 칼데라 위에서 일몰 → 어두워진 뒤 숙소 앞 드롭. <b>저녁 식사가 포함</b>이라 오늘은 저녁을 따로 안 잡습니다.<br><br>🌬️ <b>요트를 10/18 → 오늘(10/17)로 당겼습니다.</b> 10월은 바람으로 당일·전날 기상취소가 실제로 생기는데, 원래대로 10/18이면 다음 날(10/19)이 로마行이라 <b>재시도가 불가능</b>했습니다. 이제 <b>10/18이 예비일</b>이라 오늘 취소돼도 내일 한 번 더 기회가 있습니다. 대신 휴양·커플 스파는 10/18로 옮겼습니다.<br><br><b>💶 오늘 경비(2인)</b> · 요트투어(픽업·드롭·식사·음료·주류·장비 전부 포함) <b>≈ €280~320</b>(마이리얼트립 세미프라이빗 기준, 후기 실측 2인 ₩430,000) · 그 외 지출 거의 없음 → <b>약 €280~320</b> <span class="en">(대형 공유 카타마란은 €95~140/인로 더 쌈)</span></div>
       <div class="stats">
-        <div class="stat"><b>~14:30</b><span>픽업</span></div>
+        <div class="stat"><b>~14:00</b><span>픽업</span></div>
         <div class="stat"><b>~20:00</b><span>드롭</span></div>
         <div class="stat"><b>배편</b><span>이동</span></div>
         <div class="stat"><b>0.5km</b><span>도보</span></div>
         <div class="stat"><b>1투어</b><span>액티비티</span></div>
       </div>
       <div class="rows">
-        <div class="row"><div class="time">~오전</div><div class="act">Cavo Tagoo 수영장·스파 마지막 휴식 · 브런치</div></div>
-        <div class="row"><div class="time">~14:00</div><div class="act">숙소 앞 픽업 (요트 업체 승합차)<span class="note">예약 후 호텔명 전달하면 정확한 픽업 시각 통보. 후기 기준 업체는 <b>Vista Yachting</b>. 승합차로 이아·피라 지나 승선지 이동</span></div></div>
+        <div class="row"><div class="time">~오전</div><div class="act">Cavo Tagoo 인피니티풀 · 느긋한 브런치<span class="note">오후 요트라 오전은 호텔에서. 물놀이 전이니 과식 금물</span></div></div>
+        <div class="row"><div class="time">~12:00</div><div class="act">⚠️ 업체 ‘윈드 콜’ 확인<span class="note">10월엔 전날 저녁 또는 당일 오전에 기상 판단 연락이 옵니다. 연락 없으면 먼저 전화. <b>취소 통보 시 그 자리에서 내일(10/18) 같은 시간으로 재예약</b> — 10/18이 예비일입니다</span></div></div>
+        <div class="row"><div class="time">~14:00</div><div class="act">숙소 앞 픽업 (요트 업체 승합차)<span class="note">예약 후 호텔명(Cavo Tagoo, 이메로비글리) 전달하면 정확한 픽업 시각 통보. 후기 기준 업체는 <b>Vista Yachting</b>. 승합차로 이아·피라 지나 승선지 이동</span></div></div>
         <div class="row"><div class="time">~14:45</div><div class="act">🛥️ <b>세미프라이빗 선셋 요트투어</b> (약 5h) <span class="pill">예약필수</span><span class="note">코스: <b>레드비치 → 화이트비치 → 화산온천(팔레아 카메니)</b> 스노클링 → 선상 디너(토마토파스타·피타·차지키·구운닭·디저트) + 화이트와인·음료 → <b>칼데라 일몰</b>. 튜브·구명조끼·스노클·비치타월 제공, 화장실 있음. 10월 수온 22~23℃(쌀쌀하면 타월). 예약: 마이리얼트립 ‘산토리니 선셋 요트투어 / 칼데라 카타마란 크루즈(식사+오픈바+온천)’</span><span class="addr">📍 예약: 마이리얼트립 앱 ‘산토리니 요트투어’ 검색</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Santorini+catamaran+sunset+cruise" target="_blank" rel="noopener">🔗 검색</a></div></div>
-        <div class="row"><div class="time">~20:00</div><div class="act">숙소 앞 드롭 → 짐 정리(내일 오전 출발 대비) · 취침<span class="note">배에서 저녁까지 먹고 오므로 따로 저녁 불필요</span></div></div>
+        <div class="row"><div class="time">~20:00</div><div class="act">숙소 앞 드롭 → 취침<span class="note">배에서 저녁까지 먹고 오므로 따로 저녁 불필요. 짐 정리는 내일 해도 됨(10/19 오전 출발)</span></div></div>
       </div>
       
-<div class="sec daysec"><div class="sec-h"><h2>🍽️ 오늘 식당 선택</h2></div><div class="list"><div class="note-card" style="margin:0 0 8px">🍽️ 저녁 — 요트투어 선상 디너 포함(별도 예약 불필요). 취소 시 Ⓐ Aktaion / Ⓑ Cavo Tagoo 다이닝</div><label class="item"><input type="checkbox" data-k="f-jtr-1018d-yacht" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/18 저녁 = <b>요트투어 선상 디너 포함</b></span><span class="desc">파스타·피타·차지키·구운닭·디저트 + 화이트와인. 별도 예약 불필요</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1018d-selene" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/18 저녁 <span class="en">(요트 취소 시)</span> Aktaion / Selene <span class="tag b">기념</span></span><span class="desc">요트투어가 기상취소되면: Aktaion(피로스테파니, 전통) 또는 기념일용 Selene(피르고스, 산토리니 식재료 테이스팅 €80~120/인, <span class="tag hot">예약 필수</span>)</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1018d-katharos" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/18 저녁 <span class="en">(요트 취소 시·담백)</span> Cavo Tagoo 다이닝</span><span class="desc">투숙객 예약. 칼데라뷰. 마지막 밤 편하게</span></span></label></div></div>
-<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="p-cruise" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">선셋 요트투어 예약 <span class='tag hot'>출발 전</span></span><span class="desc">세미프라이빗(8~12인) 5h · 픽업·식사·음료·주류·장비 포함 · 2인 약 ₩430,000 · 업체 Vista Yachting. 10월 바람 기상취소 대비 전액환불 조건 확인</span></span></label><label class="item"><input type="checkbox" data-k="d18-pickup" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">요트 픽업 시각 통보 확인</span><span class="desc">예약 후 호텔명 전달 → 픽업 시각 안내</span></span></label><label class="item"><input type="checkbox" data-k="d18-pack" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">수영복·선크림·멀미약</span><span class="desc">타월·스노클·구명조끼는 배에서 제공</span></span></label><label class="item"><input type="checkbox" data-k="d18-prepack" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">내일 오전 출발 대비 짐 정리</span><span class="desc"></span></span></label></div></div>
+<div class="sec daysec"><div class="sec-h"><h2>🍽️ 오늘 식당 선택</h2></div><div class="list"><div class="note-card" style="margin:0 0 8px">🍽️ 저녁 — 요트투어 선상 디너 포함(별도 예약 불필요). 기상취소 시 10/18로 재시도, 오늘 저녁은 Ⓐ Aktaion / Ⓑ Cavo Tagoo 다이닝</div><label class="item"><input type="checkbox" data-k="f-jtr-1017d-yacht" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/17 저녁 = <b>요트투어 선상 디너 포함</b></span><span class="desc">파스타·피타·차지키·구운닭·디저트 + 화이트와인. 별도 예약 불필요</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1017d-selene" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/17 저녁 <span class="en">(요트 취소 시)</span> Aktaion / Selene <span class="tag b">기념</span></span><span class="desc">요트투어가 기상취소되면(그리고 10/18 재시도도 포기하면): Aktaion(피로스테파니, 전통) 또는 기념일용 Selene(피르고스, 산토리니 식재료 테이스팅 €80~120/인, <span class="tag hot">예약 필수</span>)</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1017d-katharos" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/17 저녁 <span class="en">(요트 취소 시·담백)</span> Cavo Tagoo 다이닝</span><span class="desc">투숙객 예약. 칼데라뷰. 마지막 밤 편하게</span></span></label></div></div>
+<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="p-cruise" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">선셋 요트투어 예약 <span class='tag hot'>출발 전</span></span><span class="desc">세미프라이빗(8~12인) 5h · 픽업·식사·음료·주류·장비 포함 · 2인 약 ₩430,000 · 업체 Vista Yachting. <b>10/17로 잡고 10/18을 예비일로</b> — 예약 시 ‘기상취소 시 다음 날 같은 시간 대체 가능한지’와 전액환불 조건을 반드시 확인</span></span></label><label class="item"><input type="checkbox" data-k="d17-windcall" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">당일 오전 ‘윈드 콜’ 확인 <span class='tag hot'>10월 필수</span></span><span class="desc">10월엔 전날 저녁·당일 오전에 기상 판단 연락이 옵니다. 연락 없으면 먼저 전화. <b>취소 통보 시 그 자리에서 내일(10/18) 같은 시간으로 재예약</b></span></span></label><label class="item"><input type="checkbox" data-k="d17-pickup" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">요트 픽업 시각 통보 확인</span><span class="desc">예약 후 호텔명(Cavo Tagoo, 이메로비글리) 전달 → 픽업 시각 안내</span></span></label><label class="item"><input type="checkbox" data-k="d17-pack" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">수영복·선크림·멀미약</span><span class="desc">타월·스노클·구명조끼는 배에서 제공</span></span></label></div></div>
 <div class="alts">
-        <span class="alt">🌬️ 10월은 바람으로 <b>당일/전날 아침 기상취소</b> 가능 → 전액 환불 확인하고 예약. 취소 시 오늘은 Cavo Tagoo 휴양 + 페리사·카마리 검은모래 해변, 저녁은 Aktaion 또는 숙소 다이닝</span>
-        <span class="alt">📅 버퍼가 필요하면 <b>10/17로 당겨</b> 예약(그날 피르고스는 생략) → 10/18을 예비일로</span>
-        <span class="alt">💤 물놀이 생각 없으면: 대형 공유 카타마란(더 저렴, 스노클링 스킵 가능) 또는 그냥 휴양일로</span>
+        <span class="alt">🌬️ 기상취소 시: <b>내일(10/18)로 재예약</b> — 오늘이 예비일 구조의 본편입니다. 오늘은 그대로 Cavo Tagoo 휴양 + 스파를 당겨서</span>
+        <span class="alt">💤 물놀이 생각 없으면: 대형 공유 카타마란(더 저렴, 스노클링 스킵 가능)</span>
+        <span class="alt">🈳 요트를 아예 안 하게 되면: 페리사·카마리 검은모래 해변 + Aktaion 저녁</span>
+      </div>
+</section>
+<section class="daypage" id="pg-8" data-day="8">
+<div class="day-h">
+        <div class="daytag" style="--c: var(--indigo)"><div><span class="dow">일</span><div class="dt">10/18</div></div></div>
+        <div><div class="title">Cavo Tagoo 온전한 하루 <span class="pill">숙소 뽕뽑기 · 예비일</span></div><div class="sub">인피니티풀 · 커플 스파 · 긴 점심 · 테라스 일몰 · (선택)Skaros</div></div>
+      </div>
+      <div class="day-intro">💤 <b>오늘은 계획이 없는 게 계획.</b> 비싼 숙소값을 제대로 쓰는 날 — 체크아웃도 관광도 없이 <b>하루 종일 Cavo Tagoo</b>. 늦잠 → 인피니티풀 → <b>커플 스파</b> → 칼데라뷰에서 긴 점심 → 다시 풀 → 테라스에서 일몰. 몸이 근질거리면 숙소 바로 아래 <b>Skaros Rock</b>만 30~40분(그마저 선택).<br><br>🌬️ <b>오늘은 요트 예비일이기도 합니다.</b> 어제 바람으로 취소됐다면 오늘 14:00 픽업으로 재시도 — 그 경우 <b>커플 스파를 오전(10:00)으로 당기고</b> 점심은 가볍게, 저녁은 선상 디너로 해결됩니다.<br><br>⚠️ <b>Cavo Tagoo는 10/19가 2026 시즌 마지막 날</b>입니다. 시즌 막바지엔 스파·레스토랑을 먼저 닫는 경우가 있어, 오늘 일정 전체가 호텔 시설 정상 운영에 걸려 있습니다 — 출발 전 메일 확인 필수(준비 탭).<br><br><b>💶 오늘 경비(2인)</b> · 이동 거의 없음: 교통 €0~15 · 입장 €0 · 식비 €140(긴 점심 €50·칼데라뷰 디너 €90) · <b>커플 스파 €200~350</b>(선택) → <b>약 €140</b> (스파 포함 시 €340~490)</div>
+      <div class="stats">
+        <div class="stat"><b>—</b><span>늦잠</span></div>
+        <div class="stat"><b>종일</b><span>호텔</span></div>
+        <div class="stat"><b>0</b><span>이동</span></div>
+        <div class="stat"><b>0~2km</b><span>도보</span></div>
+        <div class="stat"><b>예비일</b><span>요트 백업</span></div>
+      </div>
+      <div class="rows">
+        <div class="row"><div class="time">오전</div><div class="act">늦잠 · 조식 · 인피니티풀 · 칼데라뷰 라운징</div></div>
+        <div class="row"><div class="time">12:00</div><div class="act">커플 스파 트리트먼트<span class="note">체크인일(10/16)에 미리 예약. 커플 마사지·페이셜. 2인 €200~350. 스파 후 풀사이드에서 회복. <b>요트 재시도 시엔 10:00으로 당기기</b></span></div></div>
+        <div class="row"><div class="time">14:00</div><div class="act">칼데라뷰에서 긴 점심 (호텔 레스토랑 or Cave Restaurant)<span class="note">서두르지 않고. 와인 한 잔</span></div></div>
+        <div class="row"><div class="time">16:30</div><div class="act">(선택) Skaros Rock 짧게<span class="note">이메로비글리 교회 옆에서 출발, 왕복 30~40분(끝까지 안 가도 뷰 충분), 무료. 옛 중세 요새 터. 발밑 자갈 주의 — 귀찮으면 생략</span><span class="addr">📍 Skaros Rock, Imerovigli</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Skaros+Rock+Santorini" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
+        <div class="row"><div class="time">18:30</div><div class="act">숙소 테라스에서 일몰<span class="note">일몰 약 18:52. 룸 프라이빗 테라스 or 인피니티풀 데크</span></div></div>
+        <div class="row"><div class="time">19:45</div><div class="act">저녁 · 칼데라뷰 (식당탭 10/18 A/B) 또는 호텔 다이닝<span class="note">식사 후 내일 오전 출발 대비 짐 정리</span></div></div>
+      </div>
+      
+<div class="sec daysec"><div class="sec-h"><h2>🍽️ 오늘 식당 선택</h2></div><div class="list"><div class="note-card" style="margin:0 0 8px">🍽️ 긴 점심 Ⓐ Cavo Tagoo 레스토랑 &nbsp;·&nbsp; 저녁 Ⓐ Mylos(예약) / Ⓑ Anogi / 호텔 다이닝</div><label class="item"><input type="checkbox" data-k="f-jtr-1018d-mylos" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/18 저녁 <span class="tag a">A</span> Mylos</span><span class="desc">피로스테파니 풍차 자리, 모던 그릭·칼데라뷰. 신혼 저녁용. €€€ · <span class="tag hot">예약</span> (일몰 시간대 창가)</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1018d-anogi" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/18 저녁 <span class="tag b">B</span> Anogi</span><span class="desc">이메로비글리, 전통가옥 세팅에 정성스런 그릭. 뷰보다 음식·분위기. €€ · 예약 권장</span></span></label></div></div>
+<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="d18-backup" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">요트 취소됐으면 오늘 재시도 <span class='tag hot'>예비일</span></span><span class="desc">14:00 픽업. 그 경우 커플 스파를 <b>10:00으로 당기고</b> 점심은 가볍게 — 저녁은 선상 디너로 해결</span></span></label><label class="item"><input type="checkbox" data-k="d18-spa" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">커플 스파 트리트먼트 시간 재확인</span><span class="desc">체크인일(10/16) 예약분. ⚠️ Cavo Tagoo 시즌 종료(10/19) 직전이라 스파 운영 여부를 출발 전 메일로 확정해 둘 것</span></span></label><label class="item"><input type="checkbox" data-k="f-jtr-1018-resv" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Mylos 또는 Anogi 저녁 예약</span><span class="desc">칼데라뷰. 호텔 다이닝도 가능</span></span></label><label class="item"><input type="checkbox" data-k="d18-prepack" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">내일 오전 출발 대비 짐 정리</span><span class="desc">10/19 12:00 체크아웃 → 14:30 공항</span></span></label></div></div>
+<div class="alts">
+        <span class="alt">🌬️ 어제 요트 취소됐으면: 오늘 14:00 픽업으로 재시도. 스파는 10:00으로 당기고 점심 가볍게</span>
+        <span class="alt">☔ 비: 스파·실내 라운지·룸서비스로 하루 종일. 오히려 완벽한 핑계</span>
+        <span class="alt">🚶 더 움직이고 싶으면: 이메로비글리↔피로스테파니 능선 산책(평탄, 왕복 1h) 후 Mylos 저녁</span>
+        <span class="alt">🈳 Mylos/Anogi 만석: Aktaion(피로스테파니 1922년) 또는 숙소 다이닝</span>
       </div>
 </section>
 <section class="daypage" id="pg-9" data-day="9">
@@ -666,7 +704,7 @@
       </div>
       
 <div class="sec daysec"><div class="sec-h"><h2>🍽️ 오늘 식당 선택</h2></div><div class="list"><div class="note-card" style="margin:0 0 8px">🍽️ 점심 ★ Roscioli(예약 14:30, 대안 Ⓐ La Carbonara / Ⓑ Alle Carrette) &nbsp;·&nbsp; 저녁 ⭐ Per Me 또는 Aroma(미슐랭) / Ⓐ Roma Sparita / Ⓑ Tonnarello</div><label class="item"><input type="checkbox" data-k="f-rom-1022l-roscioli" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 점심 ★ Roscioli Salumeria con Cucina</span><span class="desc">부라타·살루미 플래터·카초에페페·아마트리치아나, 와인 셀렉션 로마 최고 수준. 미슐랭 가이드 등재. €€€ · Via dei Giubbonari 21 · 월~토, 일 휴무 · <span class="tag hot">14:30 슬롯 예약</span>(salumeriaroscioli.com, 오전 콜로세움 일정 감안), 노쇼 €20/인</span></span></label><label class="item"><input type="checkbox" data-k="f-rom-1022l-lacarbonara" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 점심 <span class="en">(Roscioli 대신·콜로세움 인근)</span> La Carbonara</span><span class="desc">몬티, 상호 그대로 카르보나라·카치오에페페·아마트리치아나. 벽 낙서 전통. €€ · Via Panisperna 214 · 예약 권장</span></span></label><label class="item"><input type="checkbox" data-k="f-rom-1022l-allecarrette" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 점심 <span class="en">(Roscioli 대신·콜로세움 인근)</span> Alle Carrette</span><span class="desc">몬티, 화덕 피자를 점심에도. 얇고 큰 로마식. € · Via della Madonna dei Monti 95</span></span></label><label class="item"><input type="checkbox" data-k="f-rom-1022d-aroma" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 저녁 ⭐ Aroma (미슐랭 1스타·선택)</span><span class="desc">Palazzo Manfredi 옥상, 콜로세움 정면 야경. 신혼 기념 한 끼. 테이스팅 €180~250/인 · Via Labicana 125 · <span class="tag hot">테라스석 지정 예약, 2~3개월 전</span> · aromarestaurant.it</span></span></label><label class="item"><input type="checkbox" data-k="f-rom-1022l-daenzo" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 점심 <span class="tag a">A</span> Da Enzo al 29 <span class="en">(Roscioli 대신)</span></span><span class="desc">트라스테베레 대표 트라토리아. 카초에페페·폴페테·부팔라. €€ 현금 선호 · <span class="tag hot">예약 안 받음</span> — 12:00 전 도착 or 웨이팅 등록</span></span></label><label class="item"><input type="checkbox" data-k="f-rom-1022l-dateo" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 점심 <span class="tag b">B</span> Da Teo <span class="en">(Roscioli 대신)</span></span><span class="desc">트라스테베레 광장, 현지 단골 많은 정통 트라토리아. €€ · ☎+39 06 581 8355 예약 권장</span></span></label><label class="item"><input type="checkbox" data-k="f-rom-1022d-perme" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 저녁 ⭐ Per Me – Giulio Terrinoni (미슐랭 1스타·선택)</span><span class="desc">캄포 인근, 현대 로마·해산물을 소분 테이스팅으로. 격식 없이 편안. €120~160/인 · Vicolo del Malpasso 9 · <span class="tag hot">예약 2~3개월 전</span> · permerome.com / TheFork. (이 날 점심 Roscioli와 겹치니 점심은 가볍게)</span></span></label><label class="item"><input type="checkbox" data-k="f-rom-1022d-romasparita" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 저녁 <span class="tag a">A</span> Roma Sparita</span><span class="desc">트라스테베레, 파르미지아노 바구니에 담아주는 카치오에페페로 유명. €€ · Piazza di Santa Cecilia 24 · <span class="tag hot">예약</span></span></span></label><label class="item"><input type="checkbox" data-k="f-rom-1022d-tonnarello" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">10/22 저녁 <span class="tag b">B</span> Tonnarello</span><span class="desc">트라스테베레, 큰 규모·라이브·정통 로마 메뉴. 대기 있어도 빠름. €€ · 워크인</span></span></label></div></div>
-<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="p-colosseum" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">콜로세움 통합권 예약 <span class='tag hot'>30일 전 오픈·날짜변경</span></span><span class="desc">21일→22일로 이동. ticketing.colosseo.it €18(포로·팔라티노 포함). 9/22 오픈 즉시, 09:00~09:30 슬롯</span></span></label><label class="item"><input type="checkbox" data-k="p-pantheon" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">판테온 시간지정 티켓 €7 <span class='tag hot'>가격 인상·날짜변경</span></span><span class="desc">21일→22일로 이동. 2026.7.1부 €7/인(구 €5). museiitaliani.it</span></span></label><label class="item"><input type="checkbox" data-k="p-roscioli" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Roscioli 점심 예약 (14:30)</span><span class="desc">salumeriaroscioli.com. 오전 콜로세움 일정 감안해 14:30 슬롯. 노쇼 €20/인, 취소는 메일로만</span></span></label><label class="item"><input type="checkbox" data-k="p-michelin" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">마지막 만찬(미슐랭) 예약</span><span class="desc">Aroma(콜로세움 야경) 또는 Per Me(음식 중심), 2~3개월 전. 낮 Roscioli와 겹치니 저녁은 가볍게 조절</span></span></label></div></div>
+<div class="sec daysec"><div class="sec-h"><h2>✅ 오늘 체크리스트</h2></div><div class="list"><label class="item"><input type="checkbox" data-k="p-colosseum" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">콜로세움 통합권 예약 <span class='tag hot'>30일 전 오픈·날짜변경</span></span><span class="desc">21일→22일로 이동. <b>ticketing.colosseo.it</b>(CoopCulture 아님 — 공식 창구가 바뀌었음) €18, 포로·팔라티노 24h 포함. <b>9/22(월) 오픈 즉시</b>, 전날 남부투어 피로 감안해 <b>09:30 슬롯</b></span></span></label><label class="item"><input type="checkbox" data-k="p-pantheon" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">판테온 시간지정 티켓 €7 <span class='tag hot'>가격 인상·날짜변경</span></span><span class="desc">21일→22일로 이동. 2026.7.1부 €7/인(구 €5). museiitaliani.it</span></span></label><label class="item"><input type="checkbox" data-k="p-roscioli" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">Roscioli 점심 예약 (14:30)</span><span class="desc">salumeriaroscioli.com. 오전 콜로세움 일정 감안해 14:30 슬롯. 노쇼 €20/인, 취소는 메일로만</span></span></label><label class="item"><input type="checkbox" data-k="p-michelin" /><span class="box"><svg viewBox="0 0 14 14"><path d="M2 7.5 L6 11 L12 3" /></svg></span><span class="txt"><span class="name">마지막 만찬(미슐랭) 예약</span><span class="desc">Aroma(콜로세움 야경) 또는 Per Me(음식 중심), 2~3개월 전. 낮 Roscioli와 겹치니 저녁은 가볍게 조절</span></span></label></div></div>
 <div class="alts">
         <span class="alt">☔ 비: 오전 유적은 우비로 강행 or 도리아 팜필리·카피톨리니 박물관(실내)으로 대체, 트라스테베레는 골목+성당 위주로 축소</span>
         <span class="alt">🈳 Roscioli 예약 실패: Da Enzo al 29 또는 Da Teo(둘 다 트라스테베레, 예약 불가·워크인)</span>
@@ -715,13 +753,13 @@
 var DAYS = [
       [ [37.9364,23.9445,"아테네공항 ATH 도착 · 22:15"],[37.9666,23.7275,"아테네 스튜디오 취침 · 23:55"] ],
       [ [37.9666,23.7275,"아테네 스튜디오 출발 · 10:15"],[37.9668,23.7286,"코코맷 BC 짐 보관 · 10:30"],[37.9693,23.7331,"제우스 신전 · 11:00"],[37.9723,23.7295,"플라카·아나피오티카 · 11:45"],[37.9762,23.7255,"모나스티라키 벼룩시장 · 12:30"],[37.9761,23.7250,"점심 · 13:00"],[37.9679,23.7285,"아크로폴리스역 집합 · 13:45"],[37.9686,23.7218,"한국어 투어: 아크로폴리스·아고라·필로파포스 · ~18:00"],[37.9772,23.7238,"저녁(프시리) · 19:30"],[37.9668,23.7286,"코코맷 BC 취침 · 21:00"] ],
-      [ [37.9668,23.7286,"코코맷 BC 출발 · 09:15"],[37.9683,23.7286,"아크로폴리스 박물관 · 09:30"],[37.9745,23.7263,"로만 아고라·하드리아누스 도서관 · 11:15"],[37.9761,23.7318,"Meat the Greek 점심 · 12:15"],[37.9807,23.7419,"리카비토스 언덕 · 17:15"],[37.9713,23.7432,"저녁(판그라티) · 19:30"],[37.9668,23.7286,"코코맷 BC 취침 · 21:00"] ],
+      [ [37.9668,23.7286,"코코맷 BC 출발 · 09:15"],[37.9683,23.7286,"아크로폴리스 박물관 · 09:30"],[37.9745,23.7263,"로만 아고라·하드리아누스 도서관 · 11:15"],[37.9761,23.7318,"Meat the Greek 점심 · 12:15"],[37.9807,23.7419,"리카비토스 언덕 · 17:15"],[37.9905,23.7050,"🍺 브루어리 홉핑 투어 · 19:30"],[37.9668,23.7286,"코코맷 BC 취침 · 23:00"] ],
       [ [37.9668,23.7286,"코코맷 BC 출발 · 09:15"],[37.9682,23.7411,"파나티나이코 경기장 · 09:30"],[37.9697,23.7378,"자피온·국립정원 · 10:45"],[37.9748,23.7355,"점심(판그라티/신타그마) · 12:00"],[37.9890,23.7326,"국립고고학 박물관 · 13:30"],[37.6503,24.0246,"수니온 곶 포세이돈 신전 · 17:30"],[37.9668,23.7286,"코코맷 BC 취침 · 21:00"] ],
       [ [37.9668,23.7286,"코코맷 BC 출발 · 10:45"],[37.9364,23.9445,"아테네공항 ATH · 11:45"],[36.3992,25.4793,"산토리니공항 JTR 도착 · 14:55"],[36.4610,25.3760,"Armenaki 오이아 체크인 · 16:15"],[36.4623,25.3736,"오이아 성채 일몰 · 18:00"],[36.4640,25.3720,"암무디 베이 저녁 · 19:30"],[36.4610,25.3760,"Armenaki 취침 · 21:00"] ],
       [ [36.4610,25.3760,"Armenaki(오이아) · 느긋한 오전"],[36.4600,25.3740,"오이아 골목·블루돔 · 09:00"],[36.4585,25.3820,"Domaine Sigalas · 15:00"],[36.3800,25.4530,"Estate Argyros · 16:30"],[36.3838,25.4470,"Santo Wines 선셋 · 19:00"],[36.4610,25.3760,"Armenaki 취침 · 21:00"] ],
       [ [36.4610,25.3760,"Armenaki 체크아웃 · 11:00"],[36.3517,25.4030,"(선택) 아크로티리 유적 · 11:30"],[36.4290,25.4245,"Cavo Tagoo 체크인 · 13:30"],[36.4290,25.4245,"인피니티풀·테라스 일몰 · 18:30"],[36.4235,25.4270,"저녁 이메로비글리 · 19:45"],[36.4290,25.4245,"Cavo Tagoo 취침 · 22:00"] ],
-      [ [36.4290,25.4245,"Cavo Tagoo — 온전한 하루"],[36.4290,25.4245,"인피니티풀·커플 스파 · 오전~오후"],[36.4345,25.4210,"(선택) Skaros Rock · 16:30"],[36.4290,25.4245,"테라스 일몰·저녁 · 18:30"],[36.4290,25.4245,"Cavo Tagoo 취침 · 22:00"] ],
       [ [36.4290,25.4245,"Cavo Tagoo 픽업 · 14:00"],[36.3385,25.4390,"블리하다 승선 · 14:45"],[36.3480,25.3950,"레드비치 스노클링 · 15:30"],[36.3430,25.3830,"화이트비치 · 16:15"],[36.3980,25.4060,"화산온천(팔레아 카메니) · 17:00"],[36.4550,25.3600,"칼데라 일몰 · 18:30"],[36.4290,25.4245,"Cavo Tagoo 드롭·취침 · 20:00"] ],
+      [ [36.4290,25.4245,"Cavo Tagoo — 온전한 하루"],[36.4290,25.4245,"인피니티풀·커플 스파 · 오전~오후"],[36.4345,25.4210,"(선택) Skaros Rock · 16:30"],[36.4290,25.4245,"테라스 일몰·저녁 · 18:30"],[36.4290,25.4245,"Cavo Tagoo 취침 · 22:00"] ],
       [ [36.4290,25.4245,"Cavo Tagoo 출발 · 14:30"],[36.3992,25.4793,"산토리니공항 JTR · 15:00"],[41.8003,12.2389,"피우미치노 공항 FCO · 18:55"],[41.9036,12.4890,"Casa Guttmann 체크인 · 20:15"],[41.9009,12.4833,"트레비 분수 야경 · 20:45"],[41.9036,12.4890,"Casa Guttmann 취침 · 22:00"] ],
       [ [41.9036,12.4890,"Casa Guttmann 출발 · 08:20"],[41.9065,12.4536,"바티칸 박물관·시스티나 · 09:00"],[41.9022,12.4539,"성 베드로 대성당 · 12:00"],[41.9070,12.4600,"점심 Prati/Borgo · 13:30"],[41.9031,12.4663,"천사의 성 · 15:00"],[41.8986,12.4769,"저녁 판테온 인근 · 19:00"],[41.9036,12.4890,"Casa Guttmann 취침 · 21:00"] ],
       [ [41.9036,12.4890,"Casa Guttmann 출발 · 06:00"],[41.9075,12.5025,"픽업 Hotel Galles · 06:20"],[40.7461,14.4989,"폼페이 유적 · 09:00"],[40.6263,14.3757,"소렌토 전망대 · 11:00"],[40.6270,14.5310,"아말피 코스트 해안도로 · 13:00"],[40.6280,14.4849,"포지타노 자유시간 · 15:00"],[40.6824,14.7681,"살레르노 페리 도착 · 18:00"],[41.9036,12.4890,"로마 도착·해산 · 21:00(추정)"] ],
@@ -731,13 +769,13 @@ var DAYS = [
 var FOOD = [
       null,
       "점심 Ⓐ Mani Mani / Ⓑ Kalimarmaro &nbsp;·&nbsp; 저녁 Ⓐ Klimataria / Ⓑ To Kafeneio",
-      "점심 Ⓐ Meat the Greek / Ⓑ Kostas &nbsp;·&nbsp; 저녁 Ⓐ To Mavro Provato / Ⓑ Oikonomou",
+      "점심 Ⓐ Meat the Greek / Ⓑ Kostas &nbsp;·&nbsp; 저녁 🍺 브루어리 투어(안주 포함) / 플랜B Strange Brew 탭룸 + Ⓐ To Mavro Provato / Ⓑ Oikonomou",
       "점심 Ⓐ Kalimarmaro(판그라티) / Ⓑ Nikitas &nbsp;·&nbsp; 저녁 Ⓐ Strofi(전망) / Ⓑ Ktistakis(야식)",
       "저녁 Ⓐ Dimitris Ammoudi / Ⓑ Sunset Ammoudi &nbsp;(예약) &nbsp;— GQ350이 17:15면 이 디너는 10/15로",
       "점심 가볍게 Ⓐ Lucky's Souvlakis / Ⓑ 오이아 카페 &nbsp;·&nbsp; 저녁(와인투어 후) Ⓐ Krinaki(피니키아·라이브) / Ⓑ 오이아 가볍게 &nbsp;— 투어에 안주 포함",
       "점심 Ⓐ Metaxi Mas(예약) / Ⓑ 호텔 &nbsp;·&nbsp; 저녁 Ⓐ Aktaion / Ⓑ Cavo Tagoo 다이닝",
+      "저녁 — 요트투어 선상 디너 포함(별도 예약 불필요). 기상취소 시 10/18로 재시도, 오늘 저녁은 Ⓐ Aktaion / Ⓑ Cavo Tagoo 다이닝",
       "긴 점심 Ⓐ Cavo Tagoo 레스토랑 &nbsp;·&nbsp; 저녁 Ⓐ Mylos(예약) / Ⓑ Anogi / 호텔 다이닝",
-      "저녁 — 요트투어 선상 디너 포함(별도 예약 불필요). 취소 시 Ⓐ Aktaion / Ⓑ Cavo Tagoo 다이닝",
       "저녁 Ⓐ Antica Birreria Peroni / Ⓑ Piccolo Arancio",
       "점심 Ⓐ Pizzarium Bonci / Ⓑ 200 Gradi &nbsp;·&nbsp; 저녁 Ⓐ Armando al Pantheon(예약) / Ⓑ Vecchia Roma",
       "점심 폼페이·소렌토 인근(투어 경유, 자유식 €15/인) &nbsp;·&nbsp; 저녁 늦은 도착 — 숙소 근처 가벼운 야식",
@@ -768,7 +806,58 @@ function buildSvg(pts) {
     }
   var MAPS = [];
   function ll(p) { return p[0] + "," + p[1]; }
-  var DRIVE = { 0: 1, 3: 1, 4: 1, 6: 1, 8: 1, 9: 1, 13: 1 };
+  var DRIVE = { 0: 1, 3: 1, 4: 1, 6: 1, 7: 1, 9: 1, 13: 1 };
+  /* --- 실시간 내 위치 --- */
+  function distM(a, b) {
+    var R = 6371000, r = Math.PI / 180;
+    var dLat = (b[0] - a[0]) * r, dLng = (b[1] - a[1]) * r;
+    var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLng / 2) * Math.sin(dLng / 2) * Math.cos(a[0] * r) * Math.cos(b[0] * r);
+    return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+  }
+  function fmtD(m) { return m < 1000 ? Math.round(m / 10) * 10 + "m" : (m / 1000).toFixed(m < 10000 ? 1 : 0) + "km"; }
+  var GEO = {
+    pos: null, acc: 0, watch: null, panels: [], layers: [],
+    start: function () {
+      if (this.watch != null || !navigator.geolocation) return;
+      var self = this;
+      this.watch = navigator.geolocation.watchPosition(function (p) {
+        self.pos = [p.coords.latitude, p.coords.longitude];
+        self.acc = p.coords.accuracy || 0;
+        self.render();
+      }, function (err) {
+        self.panels.forEach(function (pn) { pn.note.textContent = err && err.code === 1 ? "위치 권한 거부됨" : "위치를 못 잡음"; });
+      }, { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 });
+      try { localStorage.setItem("gi_geo_on", "1"); } catch (e) {}
+    },
+    attach: function (map) {
+      var dot = L.marker([0, 0], { icon: L.divIcon({ className: "", html: '<div class="me-dot"></div>', iconSize: [16, 16], iconAnchor: [8, 8] }), interactive: false, zIndexOffset: 1000 });
+      var ring = L.circle([0, 0], { radius: 0, color: "#1a73e8", weight: 1, fillColor: "#1a73e8", fillOpacity: 0.12, interactive: false });
+      this.layers.push({ map: map, dot: dot, ring: ring, on: false });
+      this.render();
+    },
+    render: function () {
+      var me = this.pos;
+      if (!me) return;
+      this.layers.forEach(function (L2) {
+        if (!L2.on) { L2.dot.addTo(L2.map); L2.ring.addTo(L2.map); L2.on = true; }
+        L2.dot.setLatLng(me); L2.ring.setLatLng(me).setRadius(Math.max(8, this.acc));
+      }, this);
+      this.panels.forEach(function (pn) {
+        pn.btn.classList.add("on");
+        var best = null, bi = 0;
+        pn.pts.forEach(function (p, n) { var d = distM(me, [p[0], p[1]]); if (best === null || d < best) { best = d; bi = n; } });
+        pn.note.textContent = "가장 가까운 곳: " + (bi + 1) + ". " + pn.pts[bi][2].split(" · ")[0] + " " + fmtD(best);
+        Array.prototype.forEach.call(pn.list.querySelectorAll(".rt-item"), function (el) {
+          var n = +el.dataset.i, d = distM(me, [pn.pts[n][0], pn.pts[n][1]]);
+          var tag = el.querySelector("i");
+          if (!tag) { tag = document.createElement("i"); el.appendChild(tag); }
+          tag.textContent = fmtD(d);
+        });
+      });
+    }
+  };
+  try { if (localStorage.getItem("gi_geo_on") === "1") setTimeout(function () { GEO.start(); }, 400); } catch (e) {}
+
   var pages = Array.prototype.slice.call(document.querySelectorAll(".deck .daypage[data-day]"));
   pages.forEach(function (pg) {
     var i = +pg.dataset.day;
@@ -789,8 +878,12 @@ function buildSvg(pts) {
     var mode = DRIVE[i] ? "driving" : "walking";
     var gm = "https://www.google.com/maps/dir/?api=1&travelmode=" + mode + "&origin=" + ll(pts[0]) + "&destination=" + ll(pts[pts.length - 1]);
     if (pts.length > 2) gm += "&waypoints=" + pts.slice(1, -1).map(ll).join("|");
-    var link = document.createElement("a"); link.className = "dayroute-link"; link.href = gm; link.target = "_blank"; link.rel = "noopener"; link.textContent = "🗺️ Google 지도로 이 날 동선 열기";
-    wrap.appendChild(imgEl); wrap.appendChild(mapDiv); wrap.appendChild(svgDiv); wrap.appendChild(listDiv); wrap.appendChild(link);
+    var link = document.createElement("a"); link.className = "dayroute-link"; link.href = gm; link.target = "_blank"; link.rel = "noopener"; link.textContent = "🗺️ 이 날 동선 전체 길찾기";
+    var tools = document.createElement("div"); tools.className = "maptools";
+    var geoBtn = document.createElement("button"); geoBtn.type = "button"; geoBtn.className = "geobtn"; geoBtn.textContent = "📍 내 위치";
+    var geoNote = document.createElement("span"); geoNote.className = "geonote";
+    tools.appendChild(link); tools.appendChild(geoBtn); tools.appendChild(geoNote);
+    wrap.appendChild(imgEl); wrap.appendChild(mapDiv); wrap.appendChild(svgDiv); wrap.appendChild(listDiv); wrap.appendChild(tools);
     rows.parentNode.insertBefore(wrap, rows);
     var map = null, markers = [], built = false, latlngs = pts.map(function (p) { return [p[0], p[1]]; });
     svgDiv.style.display = "block";
@@ -801,14 +894,17 @@ function buildSvg(pts) {
         map = L.map(mapDiv, { scrollWheelZoom: false, zoomControl: true });
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(map);
         pts.forEach(function (p, n) {
-          markers.push(L.marker([p[0], p[1]], { icon: L.divIcon({ className: "", html: '<div class="mk-num">' + (n + 1) + "</div>", iconSize: [22, 22], iconAnchor: [11, 11] }) }).addTo(map).bindPopup((n + 1) + ". " + p[2]));
+          markers.push(L.marker([p[0], p[1]], { icon: L.divIcon({ className: "", html: '<div class="mk-num">' + (n + 1) + "</div>", iconSize: [22, 22], iconAnchor: [11, 11] }) }).addTo(map).bindPopup(
+            (n + 1) + ". " + p[2] +
+            '<br><a href="https://www.google.com/maps/dir/?api=1&travelmode=' + mode + "&destination=" + ll(p) + '" target="_blank" rel="noopener">🧭 여기로 길찾기</a>'
+          ));
         });
         L.polyline(latlngs, { color: "#bf5137", weight: 3, opacity: 0.85, dashArray: "6 5" }).addTo(map);
         var applyView = function () {
           var z = map.getBoundsZoom(L.latLngBounds(latlngs), false, L.point(34, 34));
           map.setView(latlngs[0], Math.min(15, Math.max(3, z - 1)));
         };
-        map._fit = applyView; MAPS.push(map);
+        map._fit = applyView; MAPS.push(map); GEO.attach(map);
         mapDiv.style.display = "block"; svgDiv.style.display = "none";
         setTimeout(function () { map.invalidateSize(); applyView(); }, 60);
       } catch (e) { built = false; map = null; mapDiv.style.display = "none"; svgDiv.style.display = "block"; }
@@ -824,6 +920,24 @@ function buildSvg(pts) {
       el.addEventListener("click", go);
       el.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") go(ev); });
     });
+    geoBtn.addEventListener("click", function () {
+      GEO.start();
+      buildLeaflet();
+      if (GEO.pos && map) map.setView(GEO.pos, 16);
+      geoNote.textContent = GEO.pos ? "" : "위치 잡는 중…";
+    });
+    GEO.panels.push({ pts: pts, list: listDiv, note: geoNote, btn: geoBtn, getMap: function () { return map; } });
+  });
+
+  /* --- 모든 장소에 구글지도 길찾기 링크 추가 --- */
+  Array.prototype.forEach.call(document.querySelectorAll('a.map[href*="maps/search"]'), function (a) {
+    var q = (a.href.split("query=")[1] || "").split("&")[0];
+    if (!q) return;
+    var b = document.createElement("a");
+    b.className = "map nav"; b.target = "_blank"; b.rel = "noopener";
+    b.href = "https://www.google.com/maps/dir/?api=1&travelmode=walking&destination=" + q;
+    b.textContent = "🧭 길찾기";
+    a.parentNode.insertBefore(b, a.nextSibling);
   });
 
   /* --- 체크리스트 저장 --- */
@@ -839,9 +953,9 @@ function buildSvg(pts) {
   var deck = document.querySelector(".deck");
   var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
   function pageEls() { return Array.prototype.slice.call(deck.children); }
-  function goto(target) {
+  function goto(target, instant) {
     var el = target === "prep" ? document.getElementById("pg-prep") : document.getElementById("pg-" + target);
-    if (el) deck.scrollTo({ left: el.offsetLeft, behavior: "smooth" });
+    if (el) deck.scrollTo({ left: el.offsetLeft, behavior: instant ? "auto" : "smooth" });
   }
   chips.forEach(function (c) { c.addEventListener("click", function () { goto(c.dataset.go); }); });
   function curIndex() {
@@ -868,7 +982,20 @@ function buildSvg(pts) {
 
   /* --- 헤더 높이 → 덱 높이 --- */
   function setH() { document.documentElement.style.setProperty("--hdrH", document.querySelector(".hdr").offsetHeight + "px"); }
-  setH(); window.addEventListener("resize", setH);
+  setH();
+  // 폴드 접기/펼치기 = viewport 변경 → 헤더 높이·지도 크기·현재 페이지 위치를 다시 잡는다
+  var rzT;
+  function onResize() {
+    clearTimeout(rzT);
+    rzT = setTimeout(function () {
+      var keep = pageEls()[curIndex()];
+      setH();
+      MAPS.forEach(function (m) { m.invalidateSize(); if (m._fit) m._fit(); });
+      if (keep) deck.scrollTo({ left: keep.offsetLeft, behavior: "auto" });
+    }, 160);
+  }
+  window.addEventListener("resize", onResize);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", onResize);
 
   /* --- 긴급정보 토글 --- */
   var eb = document.getElementById("emerg-btn"), ebx = document.getElementById("emerg");
@@ -890,7 +1017,47 @@ function buildSvg(pts) {
   /* --- 서비스워커 --- */
   if ("serviceWorker" in navigator) window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
 
-  setTimeout(function () { syncChips(); goto("0"); }, 50);
+  /* --- 오늘 / 지금 할 일 --- */
+  var TRIP0 = new Date(2026, 9, 10); // 10/10(토) = day 0
+  function todayIdx() {
+    var t = new Date(), d = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+    var n = Math.round((d - TRIP0) / 86400000);
+    return (n >= 0 && n <= 13) ? n : null;
+  }
+  function markNow() {
+    var i = todayIdx();
+    Array.prototype.forEach.call(document.querySelectorAll(".row.now"), function (r) { r.classList.remove("now"); });
+    if (i === null) return null;
+    var pg = document.getElementById("pg-" + i);
+    if (!pg) return null;
+    var t = new Date(), mins = t.getHours() * 60 + t.getMinutes(), hit = null;
+    Array.prototype.forEach.call(pg.querySelectorAll(".rows .row"), function (r) {
+      var el = r.querySelector(".time"); if (!el) return;
+      var m = (el.textContent || "").match(/(\d{1,2}):(\d{2})/);
+      if (!m) return;
+      if (+m[1] * 60 + +m[2] <= mins) hit = r;
+    });
+    if (hit) hit.classList.add("now");
+    return hit;
+  }
+  function goToday(scrollRow, instant) {
+    var i = todayIdx();
+    goto(i === null ? "prep" : String(i), instant);
+    var hit = markNow();
+    if (hit && scrollRow) setTimeout(function () { hit.scrollIntoView({ block: "center", behavior: instant ? "auto" : "smooth" }); }, instant ? 60 : 420);
+  }
+  var tb = document.getElementById("todaybtn");
+  if (tb) tb.addEventListener("click", function () { goToday(true, false); });
+  // 여행 기간이면 오늘 칩을 강조
+  (function () {
+    var i = todayIdx();
+    var c = document.querySelector('.chip[data-go="' + (i === null ? "prep" : i) + '"]');
+    if (c) c.classList.add("today");
+  })();
+  setInterval(markNow, 60000);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) markNow(); });
+
+  setTimeout(function () { goToday(true, true); syncChips(); }, 50);
 
 })();
 </script>

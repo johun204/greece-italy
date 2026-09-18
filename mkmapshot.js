@@ -1,6 +1,7 @@
 // 원본 HTML에서 DAYS 배열을 뽑아 스크린샷용 mapshot.html 생성
 const fs = require("fs");
-const src = fs.readFileSync("C:/Claude/greece-italy-honeymoon-2026.html", "utf8");
+const path = require("path");
+const src = fs.readFileSync(path.join(__dirname, "greece-italy-honeymoon-2026.src.html"), "utf8");
 const m = src.match(/var DAYS = \[[\s\S]*?\n    \];/);
 if (!m) throw new Error("DAYS 배열 못 찾음");
 const DAYS_SRC = m[0];
@@ -35,5 +36,5 @@ map.fitBounds(fitPts,{padding:[46,46]});
 setTimeout(function(){ map.invalidateSize(); map.fitBounds(fitPts,{padding:[46,46]}); }, 250);
 </script>
 </body></html>`;
-fs.writeFileSync("C:/Claude/gi-build/mapshot.html", html, "utf8");
+fs.writeFileSync(path.join(__dirname, "mapshot.html"), html, "utf8");
 console.log("mapshot.html 생성, DAYS 항목:", (DAYS_SRC.match(/\n      \[ \[/g) || []).length);
