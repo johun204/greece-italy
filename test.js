@@ -24,7 +24,22 @@ assert(DRIVE[7] && !DRIVE[8], "차량 이동 플래그가 요트 날(7)로 옮�
 const d12 = html.slice(html.indexOf('id="pg-2"'), html.indexOf('id="pg-3"'));
 assert(/브루어리 홉핑 투어/.test(d12) && /Strange Brew/.test(d12), "10/12에 브루어리 투어+플랜B");
 
-/* 4. 모든 장소 링크가 길찾기로 확장되는지 (원본은 search 링크) */
+/* 4. 항공 스케줄 변경(2026-09-18 통보) 반영 — 옛 시각이 안내문 밖에 남아 있으면 안 됨 */
+const d10 = html.slice(html.indexOf('id="pg-0"'), html.indexOf('id="pg-1"'));
+const d23 = html.slice(html.indexOf('id="pg-13"'), html.indexOf('id="pg-end"'));
+assert(/08:30/.test(d10) && /~15:00/.test(d10), "OZ521 08:30 출발 / LHR ~15:00 도착 반영");
+assert(/1시간 35분/.test(d10) && /A3609/.test(d10), "LHR 환승 95분 경고 + 미스커넥트 플랜B");
+assert(/22:45/.test(d23) && /19:45/.test(d23), "OZ562 22:45 출발 / FCO 19:45 하드마감 반영");
+assert(/팔라초 마시모/.test(d23) && /안 가도 됩니다/.test(d23), "10/23 선택 일정 + '안 가도 됨' 명시");
+// 옛 시각은 "07:50 → 08:30" 같은 변경 안내 문맥에서만 허용
+for (const [day, old] of [[d10, "07:50"], [d23, "21:25"]]) {
+  const bare = day.replace(/<[^>]*>/g, " ").split(old).slice(1)
+    .filter((t) => !/^\s*(→|기준)/.test(t));
+  assert.strictEqual(bare.length, 0, "옛 시각 " + old + " 이 변경 안내 밖에 남아 있음");
+}
+assert(!/OZ562 FCO 21:25/.test(html), "마지막 페이지 OZ562 시각이 옛날 그대로");
+
+/* 5. 모든 장소 링크가 길찾기로 확장되는지 (원본은 search 링크) */
 assert(html.includes('a.map[href*="maps/search"]'), "길찾기 변환 코드 누락");
 assert(html.includes("maps/dir/?api=1&travelmode="), "길찾기 딥링크 누락");
 
@@ -65,6 +80,6 @@ assert.strictEqual(fmtD(42000), "42km");
 /* 6. 폴드 2단 레이아웃 + 오프라인 캐시 버전 */
 assert(/@media \(min-width: 700px\)[\s\S]*?grid-column: 2/.test(html), "펼침 2단 레이아웃 CSS 누락");
 assert(/horizontal-viewport-segments: 2/.test(html), "힌지 대응 미디어쿼리 누락");
-assert(/gi-app-v5/.test(fs.readFileSync("sw.js", "utf8")), "서비스워커 캐시 버전을 올려야 함");
+assert(/APP_CACHE = "gi-app-v\d+"/.test(fs.readFileSync("sw.js", "utf8")), "서비스워커 캐시 이름 형식(index.html을 고쳤으면 번호를 올릴 것)");
 
 console.log("모두 통과 ✅");

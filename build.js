@@ -69,8 +69,11 @@ const item = (k, name, desc) =>
 const CHECK = [
   // 0 · 10/10 인천→아테네
   [
-    item("p-flight-oz-intl", "OZ521+A3603 연결편 수하물·환승 확인 <span class='tag hot'>확인 안 됨</span>", "ICN→LHR(OZ521)→ATH(A3603), 히드로 환승 약 2시간15분(입국심사 없음). 수하물이 ATH까지 through-check 되는 단일 예약인지 지금 확인 — 별도 발권이면 환승시간 부족"),
+    item("p-flight-oz-intl", "🔴 OZ521 변경 → LHR 환승 95분, 구매처에 전화 <span class='tag hot'>최우선</span>", "<b>2026-09-18 통보: OZ521 07:50 → 08:30.</b> LHR 도착 약 15:00 → A3603(16:35) 환승이 <b>2h15 → 1h35</b>. 둘 다 히드로 T2라 터미널 이동은 없지만 여유가 5~35분뿐. <b>① e-티켓 자가진단</b>: 구간별 Ticket Number가 <b>988</b> 한 종류면 단일 발권(through-check 보장), A3603에 <b>390</b> 별도 번호면 별도 발권이라 95분으로 불가. <b>② 구매처 먼저</b>(발권처만 조회·변경 가능). 아시아나 직접이면 1588-8000(09:00~18:00). <b>메일 말고 전화</b>. <b>③ 요구</b>: single ticket 여부 · MCT 충족 여부 · <b>항공사 귀책이므로 무상 재조정</b> + A3609(22:15→ATH 03:50) 보호 확약"),
+    item("p-flight-oz562", "🟢 OZ562 변경 → 귀국 후 일정 재확인", "<b>10/23 FCO 출발 21:25 → 22:45.</b> 인천 도착 10/24(토) 15:40 → <b>약 17:00</b>. 10/24 공항 픽업·귀가 교통 등이 잡혀 있으면 다시 잡을 것"),
     item("p-athens-transfer", "아테네 스튜디오 심야 픽업 확인 <span class='tag hot'>출발 전</span>", "22:15 도착·심야 체크인 가능 메일. 픽업 제공되면 예약(심야 택시 흥정 방지)"),
+    item("d10-icn", "ICN 05:30 도착 (OZ521 08:30 출발)", "출발 3시간 전. 변경된 시각 기준 — 예전 07:50 기준으로 알람 맞춰두지 말 것"),
+    item("d10-lhr", "LHR 내리자마자 게이트 확인 후 직행", "환승 1시간 35분뿐. 라운지·면세는 시간 남을 때만. A3603 탑승 마감은 16:15가 실질 마감선. 도착 게이트가 T2B(위성)면 셔틀 5~10분 추가"),
     item("d10-esim", "eSIM 활성화 확인", "착륙 직후 데이터 켜지게. 안 되면 공항 와이파이로 재설정"),
     item("d10-cash", "공항 ATM에서 소액 유로 인출", "택시비용. 은행계열 ATM, ‘원화 환산(DCC)’ 뜨면 거부"),
   ],
@@ -159,7 +162,8 @@ const CHECK = [
   [
     item("d23-checkout", "Casa Guttmann 체크아웃 · 짐 보관", "숙소 or Radical Storage 앱(€5~6/개)"),
     item("d23-taxrefund", "택스리펀 서류 → FCO 세관", "출국심사 전 세관 승인/키오스크. 시간 걸리니 공항 일찍"),
-    item("d23-fco", "15:30~15:45 FCO 이동", "정액택시 €50 / 레오나르도 익스프레스 €14. 18:20 도착 목표(OZ562 21:25 → ICN 10/24 15:40)"),
+    item("d23-massimo", "(선택) 팔라초 마시모 15:00", "<b>안 가도 됨.</b> OZ562가 밀려 생긴 1h25를 쓰고 싶을 때만. 테르미니역 옆이라 공항 동선 위. 금 09:00~19:00(마지막 입장 18:00), €8/인, 예약 불필요. 지치면 생략하고 카페에서 쉬기"),
+    item("d23-fco", "17:00~17:15 FCO 이동", "정액택시 €50 / 레오나르도 익스프레스 €14. <b>19:45 도착 목표</b>(OZ562 <b>22:45</b> → ICN 10/24 <b>약 17:00</b>). 금요일 퇴근시간대 감안"),
   ],
 ];
 
@@ -181,7 +185,8 @@ const prepGeneral = [
   item("r-daybag", "보안 크로스백 + 물통", "로마 지하철·트라스테베레·나보나 소매치기. 유럽 수돗물·분수 식수 가능"),
 ];
 const prepCalendar = `<div class="note-card">📅 <b>예약 캘린더 (역산)</b><br>
-· <b>지금</b>: 가이드 회신 · 마이리얼트립 아테네 투어 · hhticket 통합권 · ATH/FR/국제선 항공 확인 · 여권/보험/eSIM · 10/21 남부투어 확정서 확인(예약완료)<br>
+· <b>🔴 오늘 당장</b>: <b>OZ521 스케줄 변경(07:50→08:30) → LHR 환승 95분</b> 구매처에 전화 · Cavo Tagoo 10/19 시즌 종료 확인 · GQ350 실제 시각 확정<br>
+· <b>지금</b>: 가이드 회신 · 마이리얼트립 아테네 투어 · hhticket 통합권 · 여권/보험/eSIM · 10/21 남부투어 확정서 확인(예약완료)<br>
 · <b>미슐랭</b>(Aroma 또는 Per Me, 10/22 저녁): 2~3개월 전<br>
 · <b>콜로세움·판테온</b>(10/22로 이동): 콜로세움 30일 전(9/22) 오픈 즉시, 판테온은 여유<br>
 · <b>산토리니 와인투어 · 요트투어(10/17) · Roscioli · 아테네 브루어리 투어</b>: 3주~1주 전<br>
@@ -629,7 +634,7 @@ const html = `<meta charset="utf-8" />
 <main class="deck" id="deck">
 ${pagesHtml}
 <section class="daypage" id="pg-end">
-  <div class="day-h"><div class="daytag" style="--c: var(--gold)"><div><span class="dow">토</span><div class="dt">10/24</div></div></div><div><div class="title">인천 도착</div><div class="sub">OZ562 FCO 21:25 → ICN 15:40</div></div></div>
+  <div class="day-h"><div class="daytag" style="--c: var(--gold)"><div><span class="dow">토</span><div class="dt">10/24</div></div></div><div><div class="title">인천 도착</div><div class="sub">OZ562 FCO 22:45 → ICN 약 17:00</div></div></div>
   <div class="note-card">집으로. 수고했어요 ✈️<br>지도는 인터넷 필요(오프라인은 각 날 ‘동선’ 텍스트 + 캡처 이미지). 값(영업시간·요금·시각)은 예약 전 공식 사이트 재확인.</div>
 </section>
 </main>
