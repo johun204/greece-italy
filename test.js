@@ -20,9 +20,15 @@ assert(DAYS[8].every((p) => p[0] === 36.4290 || /Skaros/.test(p[2])), "DAYS[8]�
 const DRIVE = eval("(" + html.match(/var DRIVE = (\{[^}]*\});/)[1] + ")");
 assert(DRIVE[7] && !DRIVE[8], "차량 이동 플래그가 요트 날(7)로 옮겨져야 함");
 
-/* 3. 10/12 브루어리 + 플랜B */
+/* 3. 10/12 = Strange Brew 탭룸(브루어리 투어는 뺌), 10/13 = 수니온 없이 CTC 19:15 */
 const d12 = html.slice(html.indexOf('id="pg-2"'), html.indexOf('id="pg-3"'));
-assert(/브루어리 홉핑 투어/.test(d12) && /Strange Brew/.test(d12), "10/12에 브루어리 투어+플랜B");
+assert(/Strange Brew/.test(d12) && !/홉핑 투어/.test(d12), "10/12는 Strange Brew, 브루어리 투어는 없어야 함");
+const d13 = html.slice(html.indexOf('id="pg-3"'), html.indexOf('id="pg-4"'));
+assert(/19:15/.test(d13) && /CTC Urban Gastronomy/.test(d13), "10/13에 CTC 19:15 저녁");
+assert(!/포세이돈|Sounion|필렐리논/.test(d13), "10/13에 수니온 일정이 남아 있음");
+assert(DAYS[3].every((p) => p[0] > 37.9), "DAYS[3]에 수니온 좌표가 남아 있음");
+assert(!DRIVE[3], "10/13은 차량 이동이 아님");
+assert(DAYS[3].some((p) => /CTC/.test(p[2])) && DAYS[2].some((p) => /Strange Brew/.test(p[2])), "동선에 CTC·Strange Brew 누락");
 
 /* 4. 항공 스케줄 변경(2026-09-18 통보) 반영 — 옛 시각이 안내문 밖에 남아 있으면 안 됨 */
 const d10 = html.slice(html.indexOf('id="pg-0"'), html.indexOf('id="pg-1"'));
@@ -67,15 +73,23 @@ const distM = (a, b) => {
   const h = Math.sin(dLat / 2) ** 2 + Math.sin(dLng / 2) ** 2 * Math.cos(a[0] * r) * Math.cos(b[0] * r);
   return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
 };
-// 코코맷 BC → Strange Brew 탭룸: 도보 5분(약 400m)이라고 본문에 썼으니 실제로 그 정도여야 함
-const d = distM([37.9668, 23.7286], [37.9645, 23.7255]);
-assert(d > 250 && d < 550, "코코맷↔Strange Brew 거리 이상: " + Math.round(d) + "m");
+// 코코맷 BC → Strange Brew 탭룸: 도보 약 8분(600m)이라고 본문에 썼으니 실제로 그 정도여야 함
+const d = distM([37.9668, 23.7286], [37.9626, 23.7231]);
+assert(d > 450 && d < 750, "코코맷↔Strange Brew 거리 이상: " + Math.round(d) + "m");
 
 const fmtD = (m) => (m < 1000 ? Math.round(m / 10) * 10 + "m" : (m / 1000).toFixed(m < 10000 ? 1 : 0) + "km");
 assert.strictEqual(fmtD(0), "0m");
 assert.strictEqual(fmtD(384), "380m");
 assert.strictEqual(fmtD(1240), "1.2km");
 assert.strictEqual(fmtD(42000), "42km");
+
+/* 환율: € 금액 옆 원화 병기 — 런타임과 같은 반올림 규칙 + 배포물에 정규식/입력창이 살아있는지 */
+const won = (e, fx) => "₩" + (Math.round(e * fx / 1000) * 1000).toLocaleString("en-US");
+assert.strictEqual(won(5, 1591), "₩8,000");
+assert.strictEqual(won(105, 1591), "₩167,000");
+assert.strictEqual(won(3150, 1591), "₩5,012,000");
+assert(/id="fx-rate"/.test(html) && /FXDEF = 1591/.test(html), "환율 입력/기본값 누락");
+assert(html.includes("€(\\d[\\d,]*)(?:~(\\d[\\d,]*))?"), "€ 금액 정규식이 이스케이프를 잃었음(build.js는 템플릿 리터럴)");
 
 /* 6. 폴드 2단 레이아웃 + 오프라인 캐시 버전 */
 assert(/@media \(min-width: 700px\)[\s\S]*?grid-column: 2/.test(html), "펼침 2단 레이아웃 CSS 누락");

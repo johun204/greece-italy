@@ -89,14 +89,14 @@ const CHECK = [
   [
     item("d12-museum", "아크로폴리스 박물관 월요일 09:00~17:00 확인", "단축 운영. 오전에 여유 있게"),
     item("d12-lunch", "Meat the Greek 12:15 도착", "돼지 기로스는 13시 전 소진. 일요일 휴무라 오늘"),
-    item("d12-brew", "🍺 브루어리 투어 집합 시각·장소 확인", "업체가 정한 집합 시각에 맞춰 <b>리카비토스 시각을 조정</b>(18:00 집합이면 리카비토스 16:30). 예약 실패·피곤하면 플랜B = Strange Brew 탭룸(Falirou 86, 숙소 도보 5분·예약 불필요)"),
-    item("d12-nap", "오후 낮잠", "저녁이 23시까지 길어짐. 내일 수니온 일몰까지 가니 과음 금물"),
+    item("d12-brew", "🍻 Strange Brew 탭룸 (21:15경)", "Falirou 86, 숙소 도보 약 8분·예약 불필요. 월요일 18:00~01:00. 병·캔은 사서 숙소로 가져가도 됨(보틀숍)"),
+    item("d12-nap", "오후 낮잠", "저녁이 길어짐. 내일 저녁 CTC 11코스가 있으니 과음 금물"),
   ],
-  // 3 · 10/13 박물관+수니온
+  // 3 · 10/13 박물관 + CTC 디너
   [
     item("d13-nam", "국립고고학박물관 화요일 13:00 개관 유의", "오전은 파나티나이코 경기장·국립정원"),
-    item("d13-sounion", "수니온 선셋 투어 픽업 시각 확인", "DIY면 KTEL 필렐리논街 승차. ⚠️ 막차는 여름 ~21:00/겨울 ~18:00로 계절차 큼, 10월은 애매하니 출발 전 공식시간표 재확인"),
-    item("d13-pack", "오늘 밤 산토리니行 짐 미리 싸기", "내일은 오후 비행(GQ350), 아침은 여유"),
+    item("d13-ctc", "CTC Urban Gastronomy 19:15 예약 확인 <span class='tag hot'>예약완료</span>", "확인 메일 폰 저장 · 알레르기/식이 제한 미리 전달 · 18:30 숙소 출발(택시 약 10분 / 도보 약 30분) · 늦으면 ☎ +30 210 722 8812"),
+    item("d13-pack", "저녁 전에 산토리니行 짐 미리 싸기", "내일은 오후 비행(GQ350), 10:45 체크아웃. CTC는 밤늦게 끝남"),
   ],
   // 4 · 10/14 →산토리니 오이아
   [
@@ -170,7 +170,6 @@ const CHECK = [
 /* ---------- 4) 준비 페이지 ---------- */
 const prepGeneral = [
   item("p-cavo-season", "Cavo Tagoo <b>10/19 시즌 종료</b> 메일 확인 <span class='tag hot'>최우선</span>", "2026 시즌이 <b>4/30~10/19</b>로 공지돼 있어 <b>체크아웃 날이 시즌 마지막 날</b>입니다. 막바지엔 스파·레스토랑을 먼저 닫는 사례가 있고 드물게 폐관일을 앞당깁니다. 메일 4문항: ① 10/16~19 예약 유효 ② <b>10/18 커플 스파 운영</b> ③ 인피니티풀·케이브 레스토랑 10/19까지 정상 ④ 10/19 레이트 체크아웃"),
-  item("p-brewtour", "🍺 아테네 브루어리 홉핑 투어 예약 (10/12 저녁)", "그리스 법상 브루어리 상설 탭룸 금지 → <b>Noctua는 가이드 투어로만 내부 진입</b>. 3~3.5h, 2인 €100~150, 시음+안주(저녁 겸용). GetYourGuide·Viator·gastronomytours.com. 플랜B = Strange Brew 탭룸(숙소 도보 5분, 예약 불필요)"),
   item("p-passport", "여권 3개월+ 유효 · 사본 폰 저장 <span class='tag hot'>필수</span>", "솅겐 출국(10/23) 기준 잔여 3개월 이상 + 발급 10년 이내. 갱신 2~3주. 여권 사진·사본 클라우드 저장"),
   item("p-etias", "솅겐 ETIAS 시행 여부 확인", "travel-europe.europa.eu. 시행됐으면 신청(€7, 몇 분). 한국 여권 90일 무비자는 유지"),
   item("p-insurance", "여행자보험 가입 (2인, 10/10~10/24)", "의료+휴대품+항공지연. 증권 PDF 폰 저장"),
@@ -189,7 +188,7 @@ const prepCalendar = `<div class="note-card">📅 <b>예약 캘린더 (역산)</
 · <b>지금</b>: 가이드 회신 · 마이리얼트립 아테네 투어 · hhticket 통합권 · 여권/보험/eSIM · 10/21 남부투어 확정서 확인(예약완료)<br>
 · <b>미슐랭</b>(Aroma 또는 Per Me, 10/22 저녁): 2~3개월 전<br>
 · <b>콜로세움·판테온</b>(10/22로 이동): 콜로세움 30일 전(9/22) 오픈 즉시, 판테온은 여유<br>
-· <b>산토리니 와인투어 · 요트투어(10/17) · Roscioli · 아테네 브루어리 투어</b>: 3주~1주 전<br>
+· <b>산토리니 와인투어 · 요트투어(10/17) · Roscioli</b>: 3주~1주 전<br>
 · <b>Cavo Tagoo 시즌 종료(10/19) 확인</b>: 지금 바로 메일<br>
 · <b>바티칸 가이드투어</b>: 1~2주 전<br>
 · <b>출발 1주 전</b>: 유적 개장시간·파업 재확인</div>`;
@@ -263,6 +262,11 @@ const NEW_CSS = `
   .chip.on { background: var(--indigo); color: #fff; border-color: var(--indigo); }
   .emerg { margin-top: 8px; }
   .emerg[hidden] { display: none; }
+  .fxbox { margin-top: 8px; font-size: 13px; line-height: 2.1; }
+  .fxbox[hidden] { display: none; }
+  .fxbox input { width: 5.6em; font: inherit; font-weight: 700; text-align: right; padding: 2px 6px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--card); color: var(--ink); }
+  .fxbox button { font: inherit; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--card); color: var(--sub); cursor: pointer; }
+  .krw { color: var(--teal); font-weight: 600; font-size: .9em; white-space: nowrap; }
 
   .deck { display: flex; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; height: calc(100vh - var(--hdrH, 132px)); scrollbar-width: none; }
   .deck::-webkit-scrollbar { display: none; }
@@ -347,7 +351,7 @@ ${foodLit}
 ${buildSvgFn}
   var MAPS = [];
   function ll(p) { return p[0] + "," + p[1]; }
-  var DRIVE = { 0: 1, 3: 1, 4: 1, 6: 1, 7: 1, 9: 1, 13: 1 };
+  var DRIVE = { 0: 1, 4: 1, 6: 1, 7: 1, 9: 1, 13: 1 };
   /* --- 실시간 내 위치 --- */
   function distM(a, b) {
     var R = 6371000, r = Math.PI / 180;
@@ -542,6 +546,52 @@ ${buildSvgFn}
   var eb = document.getElementById("emerg-btn"), ebx = document.getElementById("emerg");
   if (eb) eb.addEventListener("click", function () { ebx.hidden = !ebx.hidden; setH(); });
 
+  /* --- 환율 · 본문의 €금액 옆에 원화 병기 --- */
+  var FXKEY = KEY + "_fx", FXDEF = 1591, fx = FXDEF; // 1€=₩1,591 (2026-09-20 시장환율)
+  try { var fxs = parseFloat(localStorage.getItem(FXKEY)); if (fxs > 0) fx = fxs; } catch (e) {}
+  function won(e) { return "₩" + (Math.round(e * fx / 1000) * 1000).toLocaleString("en-US"); }
+  function fxRender() {
+    Array.prototype.forEach.call(document.querySelectorAll(".krw"), function (s) {
+      s.textContent = " (" + won(+s.dataset.lo) + (s.dataset.hi ? "~" + won(+s.dataset.hi).slice(1) : "") + ")";
+    });
+  }
+  (function () {
+    var w = document.createTreeWalker(document.getElementById("deck"), NodeFilter.SHOW_TEXT), ns = [], n;
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf("€") >= 0) ns.push(n);
+    var re = /€(\\d[\\d,]*)(?:~(\\d[\\d,]*))?/g;
+    ns.forEach(function (n) {
+      var t = n.nodeValue, f = document.createDocumentFragment(), last = 0, m, hit = false;
+      re.lastIndex = 0;
+      while ((m = re.exec(t))) {
+        if (m[0] === "€0" || /\\(약 $/.test(t.slice(0, m.index))) continue; // €0은 병기 안 함 // "₩140,000(약 €88)" 처럼 원화가 원가인 환산값은 그대로
+        var end = m.index + m[0].length, s = document.createElement("span");
+        f.appendChild(document.createTextNode(t.slice(last, end)));
+        s.className = "krw"; s.dataset.lo = m[1].replace(/,/g, ""); if (m[2]) s.dataset.hi = m[2].replace(/,/g, "");
+        f.appendChild(s); last = end; hit = true;
+      }
+      if (!hit) return;
+      f.appendChild(document.createTextNode(t.slice(last)));
+      n.parentNode.replaceChild(f, n);
+    });
+    fxRender();
+    var fr = document.getElementById("fx-rate"), fe = document.getElementById("fx-eur"), fk = document.getElementById("fx-krw");
+    function conv(fromEur) {
+      if (fromEur) fk.value = fe.value === "" ? "" : Math.round(fe.value * fx);
+      else fe.value = fk.value === "" ? "" : (fk.value / fx).toFixed(2);
+    }
+    function setRate(v) {
+      fx = v; fr.value = v; fxRender(); conv(true);
+      try { if (v === FXDEF) localStorage.removeItem(FXKEY); else localStorage.setItem(FXKEY, v); } catch (e) {}
+    }
+    fr.value = fx;
+    fr.addEventListener("input", function () { var v = parseFloat(fr.value); if (v > 0) { fx = v; fxRender(); conv(true); try { localStorage.setItem(FXKEY, v); } catch (e) {} } });
+    document.getElementById("fx-reset").addEventListener("click", function () { setRate(FXDEF); });
+    fe.addEventListener("input", function () { conv(true); });
+    fk.addEventListener("input", function () { conv(false); });
+    var fb2 = document.getElementById("fxbtn"), fbx = document.getElementById("fxbox");
+    fb2.addEventListener("click", function () { fbx.hidden = !fbx.hidden; setH(); });
+  })();
+
   /* --- 글자 크게 --- */
   var FKEY = KEY + "_big", big = false;
   try { big = localStorage.getItem(FKEY) === "1"; } catch (e) {}
@@ -619,12 +669,18 @@ const html = `<meta charset="utf-8" />
     <h1>아테네·산토리니·로마 <span class="k">14일</span></h1>
     <div class="hdr-btns">
       <button class="nowbtn" id="todaybtn" title="오늘 일정으로">오늘</button>
+      <button class="fontbtn" id="fxbtn" title="환율 계산기">💶</button>
       <button class="fontbtn emerg-btn" id="emerg-btn" title="긴급정보">🚨</button>
       <button class="fontbtn" id="pdfbtn" title="PDF로 저장/인쇄">⬇︎PDF</button>
       <button class="fontbtn" id="fontbtn" title="글자 크게">가A</button>
     </div>
   </div>
   <div class="emerg" id="emerg" hidden>${emergCard}</div>
+  <div class="note-card fxbox" id="fxbox" hidden>
+    💶 <b>환율</b> 1€ = ₩<input id="fx-rate" type="number" inputmode="decimal" min="1" step="any" aria-label="1유로당 원화" /> <button id="fx-reset" type="button">기본값</button><br>
+    <input id="fx-eur" type="number" inputmode="decimal" min="0" step="any" aria-label="유로" /> € = ₩<input id="fx-krw" type="number" inputmode="numeric" min="0" step="any" aria-label="원화" /><br>
+    <span class="en">기본값은 2026-09-20 기준 시장환율. 카드·환전소 환율은 보통 1~3% 다르니 실제 값으로 고쳐 입력하세요. 이 기기에 저장됩니다.</span>
+  </div>
   <div class="navwrap">${navHtml}</div>
 </header>
 
