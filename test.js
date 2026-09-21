@@ -7,15 +7,16 @@ const html = fs.readFileSync("index.html", "utf8");
 /* 1. 일자 스왑이 데이터·본문·식당 전부에 반영됐는지 */
 const d17 = html.slice(html.indexOf('id="pg-7"'), html.indexOf('id="pg-8"'));
 const d18 = html.slice(html.indexOf('id="pg-8"'), html.indexOf('id="pg-9"'));
-assert(/10\/17/.test(d17) && /요트투어/.test(d17), "10/17 = 요트투어여야 함");
+assert(/10\/17/.test(d17) && /피르고스/.test(d17) && /선사시대 티라 박물관/.test(d17), "10/17 = 피라·피르고스 일정이어야 함");
+assert(!/선셋 요트투어|Vista|윈드 콜/.test(d17), "10/17에 요트 일정이 남아 있음");
 assert(/10\/18/.test(d18) && /커플 스파/.test(d18), "10/18 = 휴양·스파여야 함");
 assert(!/커플 스파 트리트먼트/.test(d17), "스파가 10/17에 남아 있음");
-assert(/예비일/.test(d18), "10/18이 예비일로 표시돼야 함");
+assert(!/예비일|요트/.test(d18), "10/18에 요트 예비일 표기가 남아 있음");
 
 /* 2. 좌표 배열도 같이 스왑됐는지 (요트 = 화산온천 좌표 포함) */
 const DAYS = eval(html.match(/var DAYS = (\[[\s\S]*?\n {4}\]);/)[1]);
 assert.strictEqual(DAYS.length, 14);
-assert(DAYS[7].some((p) => /화산온천/.test(p[2])), "DAYS[7]이 요트 동선이어야 함");
+assert(DAYS[7].some((p) => /피르고스/.test(p[2])) && !DAYS[7].some((p) => /요트|화산온천/.test(p[2])), "DAYS[7]이 피라·피르고스 동선이어야 함");
 assert(DAYS[8].every((p) => p[0] === 36.4290 || /Skaros/.test(p[2])), "DAYS[8]은 호텔 주변이어야 함");
 const DRIVE = eval("(" + html.match(/var DRIVE = (\{[^}]*\});/)[1] + ")");
 assert(DRIVE[7] && !DRIVE[8], "차량 이동 플래그가 요트 날(7)로 옮겨져야 함");
@@ -40,6 +41,21 @@ assert(!DAYS[5].some((p) => /Sigalas|Argyros|Santo/.test(p[2])), "DAYS[5]에 옛
 const ov = html.slice(html.indexOf('id="pg-ov"'), html.indexOf('id="pg-prep"'));
 assert.strictEqual((ov.match(/class="ov-row"/g) || []).length, 14, "한눈에 보기 행이 14개여야 함");
 assert(/data-go="ov"/.test(html) && /CTC Urban Gastronomy/.test(ov) && /와이너리 미식 투어/.test(ov), "한눈에 보기 내용/칩 누락");
+
+/* 3d. 10/20 바티칸 = 예약한 마이리얼트립 투어, 10/22 마지막 만찬 = 미슐랭 아님 */
+const d20 = html.slice(html.indexOf('id="pg-10"'), html.indexOf('id="pg-11"'));
+const d22 = html.slice(html.indexOf('id="pg-12"'), html.indexOf('id="pg-13"'));
+assert(/3415360/.test(d20) && /OKAIDI/.test(d20) && /입장권은 투어비에 불포함/.test(d20), "10/20 바티칸 투어 반영");
+assert(/Le Mani in Pasta/.test(d22) && !/Aroma|Per Me|미슐랭 1스타/.test(d22), "10/22 마지막 만찬은 Le Mani in Pasta여야 함(미슐랭 제거)");
+assert(DAYS[12].some((p) => /Le Mani/.test(p[2])), "DAYS[12]에 Le Mani in Pasta 좌표 누락");
+
+/* 3e. 한눈에 보기 = 예약완료만(⏳·⚠️ 없음), 준비 페이지 = 예약·확인 필요, 상단 메뉴 접기 */
+const ovHtml = html.slice(html.indexOf('id="pg-ov"'), html.indexOf('id="pg-prep"'));
+const prepHtml = html.slice(html.indexOf('id="pg-prep"'), html.indexOf('id="pg-0"'));
+assert(!/⏳|⚠️|ov-todo|ov-warn/.test(ovHtml), "한눈에 보기에 미예약/확인 항목이 표시됨");
+assert(/⏳/.test(prepHtml) && /날짜별 예약·확인 필요/.test(prepHtml), "준비 페이지에 예약·확인 필요 목록 누락");
+assert(!/미슐랭|Aroma|Per Me/.test(prepHtml) && !/Aroma|Per Me/.test(d22), "준비/10-22에 미슐랭 예약이 남아 있음");
+assert(/id="hdrbtn"/.test(html) && /_hdr/.test(html), "상단 메뉴 접기 버튼/저장 누락");
 
 /* 4. 항공 스케줄 변경(2026-09-18 통보) 반영 — 옛 시각이 안내문 밖에 남아 있으면 안 됨 */
 const d10 = html.slice(html.indexOf('id="pg-0"'), html.indexOf('id="pg-1"'));

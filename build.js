@@ -118,16 +118,15 @@ const CHECK = [
     item("d16-taxi", "오이아→(아크로티리)→Cavo Tagoo 택시 사전 콜", "직행 €30~35 / 아크로티리 경유 대절 €80~90"),
     item("d16-cavo", "체크인 시 인피니티풀·케이브 레스토랑 예약", "컨시어지에"),
   ],
-  // 7 · 10/17 요트투어 (10/18에서 당김 — 10/18이 예비일)
+  // 7 · 10/17 이메로비글리↔피라 · 피르고스
   [
-    item("p-cruise", "선셋 요트투어 예약 <span class='tag hot'>출발 전</span>", "세미프라이빗(8~12인) 5h · 픽업·식사·음료·주류·장비 포함 · 2인 약 ₩430,000 · 업체 Vista Yachting. <b>10/17로 잡고 10/18을 예비일로</b> — 예약 시 ‘기상취소 시 다음 날 같은 시간 대체 가능한지’와 전액환불 조건을 반드시 확인"),
-    item("d17-windcall", "당일 오전 ‘윈드 콜’ 확인 <span class='tag hot'>10월 필수</span>", "10월엔 전날 저녁·당일 오전에 기상 판단 연락이 옵니다. 연락 없으면 먼저 전화. <b>취소 통보 시 그 자리에서 내일(10/18) 같은 시간으로 재예약</b>"),
-    item("d17-pickup", "요트 픽업 시각 통보 확인", "예약 후 호텔명(Cavo Tagoo, 이메로비글리) 전달 → 픽업 시각 안내"),
-    item("d17-pack", "수영복·선크림·멀미약", "타월·스노클·구명조끼는 배에서 제공"),
+    item("d17-museum", "선사시대 티라 박물관 개관 확인", "10월 08:30~15:30, 화요일 휴관(10/17은 토요일). 입장 약 €10/인 — 개관 시간·요금은 출발 전 공식 사이트로 재확인"),
+    item("d17-bus", "피라 → 피르고스 버스 시간표 확인 (안 맞으면 택시)", "피라 중앙 버스터미널 출발. 시간표는 현장·KTEL에서 확인"),
+    item("d17-dinner", "피르고스 저녁 예약 (Selene 등) <span class='tag hot'>예약</span>", "Selene는 예약 필수(테이스팅 €80~120/인) — 영업 여부·시각 확인. 안 잡으면 숙소 복귀 후 Cavo Tagoo 다이닝"),
+    item("d17-taxi", "피르고스 → 숙소 복귀 택시 콜 (컨시어지)", "밤엔 택시 잡기 어려움 — 호텔 컨시어지에 21:00경 콜 요청. 겉옷(피르고스 저녁은 쌀쌀), 편한 신발"),
   ],
-  // 8 · 10/18 리조트 데이 (요트 예비일)
+  // 8 · 10/18 리조트 데이
   [
-    item("d18-backup", "요트 취소됐으면 오늘 재시도 <span class='tag hot'>예비일</span>", "14:00 픽업. 그 경우 커플 스파를 <b>10:00으로 당기고</b> 점심은 가볍게 — 저녁은 선상 디너로 해결"),
     item("d18-spa", "커플 스파 트리트먼트 시간 재확인", "체크인일(10/16) 예약분. ⚠️ Cavo Tagoo 시즌 종료(10/19) 직전이라 스파 운영 여부를 출발 전 메일로 확정해 둘 것"),
     item("f-jtr-1018-resv", "Mylos 또는 Anogi 저녁 예약", "칼데라뷰. 호텔 다이닝도 가능"),
     item("d18-prepack", "내일 오전 출발 대비 짐 정리", "10/19 12:00 체크아웃 → 14:30 공항"),
@@ -141,9 +140,9 @@ const CHECK = [
   ],
   // 10 · 10/20 바티칸
   [
-    item("p-vatican", "바티칸 가이드 투어 예약 <span class='tag hot'>1~2주 전</span>", "유로자전거나라 프리미엄 / 마이리얼트립 8인 소규모 / 프라이빗 중 택. <b>총액(투어비+입장료+현장비)</b> 확인. 공식 규정상 발권 후 환불·변경 불가"),
+    item("p-vatican", "🇰🇷 바티칸 오전 한국어 투어 예약완료 — 바우처 확인 <span class='tag hot'>예약완료</span>", "마이리얼트립 #3415360 · 약 5h. <b>시작 시각은 옵션에 따라 08·09·10시(박물관 배정) 또는 06:15</b>, 집합 = 오타비아노역 맞은편 OKAIDI 매장. <b>입장권 불포함</b>: 패스트트랙 €45/인(사전 결제) / 비예약 €20/인(현장 현금)"),
     item("d20-dress", "성 베드로 대성당 복장", "무릎·어깨 가리는 옷 (남녀 모두)"),
-    item("d20-qr", "투어 바우처·집합 시각·장소 확인", "집합 15분 전 도착"),
+    item("d20-qr", "바우처 시작 시각·입장권 결제 방식 확인", "집합은 배정 입장 시각 20분 전. 성 베드로 대성당 내부는 투어 후 개별 입장(무료)"),
   ],
   // 11 · 10/21 남부투어(포지타노·아말피)
   [
@@ -156,7 +155,7 @@ const CHECK = [
     item("p-colosseum", "콜로세움 통합권 예약 <span class='tag hot'>30일 전 오픈·날짜변경</span>", "21일→22일로 이동. <b>ticketing.colosseo.it</b>(CoopCulture 아님 — 공식 창구가 바뀌었음) €18, 포로·팔라티노 24h 포함. <b>9/22(월) 오픈 즉시</b>, 전날 남부투어 피로 감안해 <b>09:30 슬롯</b>"),
     item("p-pantheon", "판테온 시간지정 티켓 €7 <span class='tag hot'>가격 인상·날짜변경</span>", "21일→22일로 이동. 2026.7.1부 €7/인(구 €5). museiitaliani.it"),
     item("p-roscioli", "Roscioli 점심 예약 (14:30)", "salumeriaroscioli.com. 오전 콜로세움 일정 감안해 14:30 슬롯. 노쇼 €20/인, 취소는 메일로만"),
-    item("p-michelin", "마지막 만찬(미슐랭) 예약", "Aroma(콜로세움 야경) 또는 Per Me(음식 중심), 2~3개월 전. 낮 Roscioli와 겹치니 저녁은 가볍게 조절"),
+    item("p-lastdinner", "마지막 만찬 예약 — Le Mani in Pasta (트라스테베레)", "☎ +39 06 581 6017 (전화 예약, 월요일 휴무 — 10/22는 목요일). 저녁 19:30~23:30, 20:00 권장. 낮 Roscioli가 묵직하니 저녁은 파스타 위주로 가볍게"),
   ],
   // 13 · 10/23 귀국
   [
@@ -180,17 +179,15 @@ const prepGeneral = [
   item("r-shoes", "편한 운동화 + 미끄럼 없는 신발", "대리석·자갈길·돌바닥. 저녁용 신발 따로"),
   item("r-layers", "10월 옷차림 낮 22~26℃ / 밤 15~18℃", "얇은 겉옷, 산토리니 저녁 바람막이, 성당용 어깨·무릎 가리는 옷, 수영복"),
   item("r-sun", "선크림·선글라스·모자", "아크로폴리스·포로 로마노·산토리니 능선 그늘 없음"),
-  item("r-meds", "상비약 + 멀미약", "진통·지사·밴드·물집밴드. FR3021·요트 멀미약"),
+  item("r-meds", "상비약 + 멀미약", "진통·지사·밴드·물집밴드. FR3021 멀미약"),
   item("r-daybag", "보안 크로스백 + 물통", "로마 지하철·트라스테베레·나보나 소매치기. 유럽 수돗물·분수 식수 가능"),
 ];
 const prepCalendar = `<div class="note-card">📅 <b>예약 캘린더 (역산)</b><br>
 · <b>🔴 오늘 당장</b>: <b>OZ521 스케줄 변경(07:50→08:30) → LHR 환승 95분</b> 구매처에 전화 · Cavo Tagoo 10/19 시즌 종료 확인 · GQ350 실제 시각 확정<br>
 · <b>지금</b>: 가이드 회신 · 마이리얼트립 아테네 투어 · hhticket 통합권 · 여권/보험/eSIM · 10/21 남부투어 확정서 확인(예약완료)<br>
-· <b>미슐랭</b>(Aroma 또는 Per Me, 10/22 저녁): 2~3개월 전<br>
 · <b>콜로세움·판테온</b>(10/22로 이동): 콜로세움 30일 전(9/22) 오픈 즉시, 판테온은 여유<br>
-· <b>요트투어(10/17) · Roscioli</b>: 3주~1주 전<br>
+· <b>Roscioli · 10/22 마지막 만찬(Le Mani in Pasta, 전화)</b>: 예약 가능해지는 대로<br>
 · <b>Cavo Tagoo 시즌 종료(10/19) 확인</b>: 지금 바로 메일<br>
-· <b>바티칸 가이드투어</b>: 1~2주 전<br>
 · <b>출발 1주 전</b>: 유적 개장시간·파업 재확인</div>`;
 
 /* ---------- 5) 페이지 HTML 조립 ---------- */
@@ -214,9 +211,38 @@ ${checkSec}
 ${alts}
 </section>`;
 }
+/* 한눈에 보기 데이터: [일자, 굵직한 일정, 예약완료[], 예약 필요[], 확인 필요]
+   예약완료 → '한눈에 보기' 페이지, 예약 필요·확인 필요 → '준비' 페이지. 예약하면 예약 필요에서 예약완료로 옮길 것 */
+const OV = [
+  [0, "인천 → 런던(환승) → 아테네 도착 22:15", ["OZ521 08:30 ICN→LHR", "A3603 16:35 LHR→ATH"], ["심야 공항 픽업 확인"], "런던 환승 95분 — 항공사 문의"],
+  [1, "제우스 신전·플라카·모나스티라키 + 오후 아크로폴리스 투어", ["14:00~18:00 한국어 아크로폴리스 투어(마이리얼트립)"], ["아크로폴리스 통합권 hhticket.gr 예매"], ""],
+  [2, "아크로폴리스 박물관·로만 아고라·리카비토스 일몰 · 밤엔 Strange Brew 탭룸", [], [], ""],
+  [3, "파나티나이코·국립고고학 박물관", ["19:15 CTC Urban Gastronomy(미슐랭 1스타)"], [], ""],
+  [4, "아테네 → 산토리니(오이아) · 첫 일몰", ["GQ350 ATH 14:00 → JTR"], ["Dimitris Ammoudi 저녁 예약"], "GQ350 실제 출발 시각 재확인"],
+  [5, "오이아 슬로우 모닝 · 오후 와이너리 투어", ["16:00 와이너리 미식 투어(호텔 픽업·하차, 5코스 정찬 포함)"], [], ""],
+  [6, "Cavo Tagoo 입성 · 인피니티풀·선셋", [], ["Metaxi Mas 점심 예약(전화 필수)", "10/18 커플 스파 예약"], "Cavo Tagoo 10/19 시즌 종료 — 메일로 운영 확인"],
+  [7, "이메로비글리→피라 산책 · 선사시대 티라 박물관 · 피르고스 일몰", [], ["피르고스 저녁 예약(Selene 등)", "귀가 택시 콜(컨시어지)"], ""],
+  [8, "리조트 데이 · 커플 스파", [], ["스파 시간 재확인", "Mylos/Anogi 저녁 예약"], ""],
+  [9, "체크아웃 → 산토리니 → 로마 · 트레비 야경", ["FR3021 JTR 17:30 → FCO 18:55"], [], ""],
+  [10, "바티칸 박물관·시스티나 · 성 베드로 대성당", ["바티칸 오전 한국어 투어(마이리얼트립, 약 5h)"], [], "투어 바우처의 시작 시각·입장권 결제 방식 확인"],
+  [11, "남부투어 — 폼페이·소렌토·아말피·포지타노", ["06:20 Hotel Galles 픽업(우노트래블)"], [], ""],
+  [12, "콜로세움·포로·판테온·트라스테베레 · 마지막 만찬", [], ["콜로세움 통합권 09:30(오픈 9/22)", "판테온 시간지정 티켓", "Roscioli 14:30 예약", "마지막 만찬 예약(Le Mani in Pasta, 전화)"], ""],
+  [13, "로마 마지막 날 → 귀국", ["OZ562 FCO 22:45 → ICN (10/24 약 17:00 도착)"], [], ""],
+];
+const STAY = ["아테네 스튜디오", "코코맷 BC", "코코맷 BC", "코코맷 BC", "Armenaki(오이아)", "Armenaki(오이아)", "Cavo Tagoo", "Cavo Tagoo", "Cavo Tagoo", "Casa Guttmann", "Casa Guttmann", "Casa Guttmann", "Casa Guttmann", "체크아웃 → 22:45 출국"];
+const ovRow = ([i, main, ok]) =>
+  `<button class="ov-row" type="button" data-go="${i}"><span class="ov-d"><b>10/${10 + i}</b><small>${DOW[i]}</small></span><span class="ov-b"><span class="ov-t">${main}</span>` +
+  ok.map((x) => `<span class="ov-ok">✅ ${x}</span>`).join("") + `<span class="ov-h">🏨 ${STAY[i]}</span></span></button>`;
+let ovBody = "";
+GROUPS.forEach((g) => g.subs.forEach((sub) => {
+  ovBody += `<div class="ov-band">${g.flag} ${sub.city}</div>` + sub.idx.map((i) => ovRow(OV[i])).join("");
+}));
+const prepTodo = `<div class="note-card">🗓️ <b>날짜별 예약·확인 필요</b><br>` + OV.filter((r) => r[3].length || r[4]).map((r) =>
+  `· <b>10/${10 + r[0]}</b> ` + r[3].map((x) => "⏳ " + x).concat(r[4] ? ["⚠️ " + r[4]] : []).join(" · ")).join("<br>") + `</div>`;
 const prepPage = `<section class="daypage" id="pg-prep">
   <div class="day-h"><div class="daytag" style="--c: var(--teal)"><div><span class="dow">준비</span><div class="dt">D-day</div></div></div><div><div class="title">출발 전 준비</div><div class="sub">여권·비자·보험·현금 · 예약 캘린더 · 긴급정보</div></div></div>
   ${daysec("🧳 챙길 것 · 확인", prepGeneral.join(""))}
+  ${prepTodo}
   ${prepCalendar}
   ${budgetCard}
   <div class="sec daysec"><div class="sec-h"><h2>🚨 긴급 정보 · 필수 회화</h2></div>
@@ -227,35 +253,9 @@ const prepPage = `<section class="daypage" id="pg-prep">
   </div>
 </section>`;
 
-/* 한눈에 보기: [일자, 굵직한 일정, 예약완료[], 예약 필요[], 확인 경고] — 예약 상태가 바뀌면 여기를 고칠 것 */
-const OV = [
-  [0, "인천 → 런던(환승) → 아테네 도착 22:15", ["OZ521 08:30 ICN→LHR", "A3603 16:35 LHR→ATH"], ["심야 공항 픽업 확인"], "런던 환승 95분 — 항공사 문의"],
-  [1, "제우스 신전·플라카·모나스티라키 + 오후 아크로폴리스 투어", ["14:00~18:00 한국어 아크로폴리스 투어(마이리얼트립)"], ["통합권 hhticket.gr 예매"], ""],
-  [2, "아크로폴리스 박물관·로만 아고라·리카비토스 일몰 · 밤엔 Strange Brew 탭룸", [], [], ""],
-  [3, "파나티나이코·국립고고학 박물관", ["19:15 CTC Urban Gastronomy(미슐랭 1스타)"], [], ""],
-  [4, "아테네 → 산토리니(오이아) · 첫 일몰", ["GQ350 ATH 14:00 → JTR"], ["Dimitris Ammoudi 저녁"], "GQ350 실제 출발 시각 재확인"],
-  [5, "오이아 슬로우 모닝 · 오후 와이너리 투어", ["16:00 와이너리 미식 투어(호텔 픽업·하차, 5코스 정찬 포함)"], [], ""],
-  [6, "Cavo Tagoo 입성 · 인피니티풀·선셋", [], ["Metaxi Mas 점심(전화 필수)", "10/18 커플 스파"], "Cavo Tagoo 10/19 시즌 종료 — 메일 확인"],
-  [7, "선셋 요트투어 5h (온천·비치·선상 디너)", [], ["요트투어 예약(기상취소 시 10/18 예비)"], ""],
-  [8, "리조트 데이 · 커플 스파 · (요트 예비일)", [], ["스파 시간 재확인", "Mylos/Anogi 저녁"], ""],
-  [9, "체크아웃 → 산토리니 → 로마 · 트레비 야경", ["FR3021 JTR 17:30 → FCO 18:55"], [], ""],
-  [10, "바티칸 박물관·시스티나·성 베드로 대성당", [], ["바티칸 가이드 투어(09:00)"], ""],
-  [11, "남부투어 — 폼페이·소렌토·아말피·포지타노", ["06:20 Hotel Galles 픽업(우노트래블)"], [], ""],
-  [12, "콜로세움·포로·판테온·트라스테베레 · 마지막 만찬", [], ["콜로세움 통합권 09:30", "판테온 시간지정", "Roscioli 14:30", "미슐랭 저녁(Aroma/Per Me)"], ""],
-  [13, "로마 마지막 날 → 귀국", ["OZ562 FCO 22:45 → ICN (10/24 약 17:00 도착)"], [], ""],
-];
-const STAY = ["아테네 스튜디오", "코코맷 BC", "코코맷 BC", "코코맷 BC", "Armenaki(오이아)", "Armenaki(오이아)", "Cavo Tagoo", "Cavo Tagoo", "Cavo Tagoo", "Casa Guttmann", "Casa Guttmann", "Casa Guttmann", "Casa Guttmann", "체크아웃 → 22:45 출국"];
-const ovRow = ([i, main, ok, todo, warn]) =>
-  `<button class="ov-row" type="button" data-go="${i}"><span class="ov-d"><b>10/${10 + i}</b><small>${DOW[i]}</small></span><span class="ov-b"><span class="ov-t">${main}</span>` +
-  ok.map((x) => `<span class="ov-ok">✅ ${x}</span>`).join("") + todo.map((x) => `<span class="ov-todo">⏳ ${x}</span>`).join("") +
-  (warn ? `<span class="ov-warn">⚠️ ${warn}</span>` : "") + `<span class="ov-h">🏨 ${STAY[i]}</span></span></button>`;
-let ovBody = "";
-GROUPS.forEach((g) => g.subs.forEach((sub) => {
-  ovBody += `<div class="ov-band">${g.flag} ${sub.city}</div>` + sub.idx.map((i) => ovRow(OV[i])).join("");
-}));
 const ovPage = `<section class="daypage" id="pg-ov">
-  <div class="day-h"><div class="daytag" style="--c: var(--indigo)"><div><span class="dow">전체</span><div class="dt">14일</div></div></div><div><div class="title">한눈에 보기</div><div class="sub">날짜별 굵직한 일정 · 예약 현황 (누르면 그날 상세로)</div></div></div>
-  <div class="ov-legend">✅ 예약완료 · ⏳ 아직 예약 안 함/예약 필요 · ⚠️ 확인 필요</div>
+  <div class="day-h"><div class="daytag" style="--c: var(--indigo)"><div><span class="dow">전체</span><div class="dt">14일</div></div></div><div><div class="title">한눈에 보기</div><div class="sub">날짜별 굵직한 일정 · 예약완료 항목 (누르면 그날 상세로)</div></div></div>
+  <div class="ov-legend">✅ 예약완료 항목만 표시 · 예약·확인이 필요한 것은 ‘준비’ 페이지</div>
   ${ovBody}
   <div class="ov-band">🏠 10/24 토 · 인천 도착 (약 17:00)</div>
 </section>`;
@@ -639,6 +639,13 @@ ${buildSvgFn}
     fb2.addEventListener("click", function () { fbx.hidden = !fbx.hidden; setH(); });
   })();
 
+  /* --- 상단 메뉴바(일자 칩) 접기/펴기 --- */
+  var HKEY = KEY + "_hdr", hc = false, nw = document.querySelector(".navwrap"), hbtn = document.getElementById("hdrbtn");
+  try { hc = localStorage.getItem(HKEY) === "1"; } catch (e) {}
+  function applyHdr() { nw.hidden = hc; hbtn.textContent = hc ? "▼" : "▲"; hbtn.title = hc ? "메뉴 펴기" : "메뉴 접기"; setH(); }
+  applyHdr();
+  hbtn.addEventListener("click", function () { hc = !hc; applyHdr(); try { localStorage.setItem(HKEY, hc ? "1" : "0"); } catch (e) {} });
+
   /* --- 글자 크게 --- */
   var FKEY = KEY + "_big", big = false;
   try { big = localStorage.getItem(FKEY) === "1"; } catch (e) {}
@@ -722,6 +729,7 @@ const html = `<meta charset="utf-8" />
       <button class="fontbtn emerg-btn" id="emerg-btn" title="긴급정보">🚨</button>
       <button class="fontbtn" id="pdfbtn" title="PDF로 저장/인쇄">⬇︎PDF</button>
       <button class="fontbtn" id="fontbtn" title="글자 크게">가A</button>
+      <button class="fontbtn" id="hdrbtn" title="메뉴 접기">▲</button>
     </div>
   </div>
   <div class="emerg" id="emerg" hidden>${emergCard}</div>
