@@ -30,6 +30,17 @@ assert(DAYS[3].every((p) => p[0] > 37.9), "DAYS[3]에 수니온 좌표가 남아
 assert(!DRIVE[3], "10/13은 차량 이동이 아님");
 assert(DAYS[3].some((p) => /CTC/.test(p[2])) && DAYS[2].some((p) => /Strange Brew/.test(p[2])), "동선에 CTC·Strange Brew 누락");
 
+/* 3b. 10/15 = 16:00 와이너리 미식 투어(호텔 픽업·하차, 정찬 포함 → 저녁 식당 후보 없음) */
+const d15 = html.slice(html.indexOf('id="pg-5"'), html.indexOf('id="pg-6"'));
+assert(/16:00/.test(d15) && /5824247/.test(d15) && /5코스 정찬/.test(d15), "10/15 와이너리 투어 16:00 반영");
+assert(!/Krinaki|Kastro Oia|14:30/.test(d15), "10/15에 옛 투어/저녁 후보가 남아 있음");
+assert(!DAYS[5].some((p) => /Sigalas|Argyros|Santo/.test(p[2])), "DAYS[5]에 옛 와이너리 좌표가 남아 있음");
+
+/* 3c. 한눈에 보기: 14일 전부 + 이동 칩 */
+const ov = html.slice(html.indexOf('id="pg-ov"'), html.indexOf('id="pg-prep"'));
+assert.strictEqual((ov.match(/class="ov-row"/g) || []).length, 14, "한눈에 보기 행이 14개여야 함");
+assert(/data-go="ov"/.test(html) && /CTC Urban Gastronomy/.test(ov) && /와이너리 미식 투어/.test(ov), "한눈에 보기 내용/칩 누락");
+
 /* 4. 항공 스케줄 변경(2026-09-18 통보) 반영 — 옛 시각이 안내문 밖에 남아 있으면 안 됨 */
 const d10 = html.slice(html.indexOf('id="pg-0"'), html.indexOf('id="pg-1"'));
 const d23 = html.slice(html.indexOf('id="pg-13"'), html.indexOf('id="pg-end"'));

@@ -107,9 +107,9 @@ const CHECK = [
   ],
   // 5 · 10/15 와인투어
   [
-    item("p-wine-tour", "산토리니 반일 와인 투어 예약 <span class='tag hot'>선셋 슬롯 3~5일전 마감</span>", "소그룹(≤10) €60~95/인 또는 프라이빗. 와이너리 3곳 + (브루어리 포함 상품이면 당나귀 맥주) + 로컬 안주. 오이아 호텔 픽업"),
-    item("d15-pickup", "와인투어 픽업 시각 확인 + 호텔명 전달", "예약 후 업체에 Armenaki 이름 전달"),
-    item("d15-water", "시음 전 물·간단한 요기", "12~14잔 시음. 점심은 가볍게"),
+    item("p-wine-tour", "🍷 와이너리 미식 투어 예약완료 — 바우처 확인 <span class='tag hot'>예약완료</span>", "마이리얼트립 #5824247 · <b>10/15 16:00 호텔(Armenaki) 픽업 → 투어 후 호텔 하차</b>. 와인 10종 + 5코스 정찬(페어링) 포함, 약 5h, 영어 진행, 최대 8명"),
+    item("d15-pickup", "픽업 시각·장소 확인 (바우처)", "픽업·하차 모두 Armenaki. 16:00 시작이라 늦어도 15:45엔 로비 대기"),
+    item("d15-water", "점심은 가볍게 · 편한 신발", "10종 시음 + 5코스 정찬이 투어에 포함(저녁 예약 없음). 와이너리 도보·동굴 저장고. 팁 불포함이라 소액 현금"),
   ],
   // 6 · 10/16 Cavo Tagoo 입성
   [
@@ -188,7 +188,7 @@ const prepCalendar = `<div class="note-card">📅 <b>예약 캘린더 (역산)</
 · <b>지금</b>: 가이드 회신 · 마이리얼트립 아테네 투어 · hhticket 통합권 · 여권/보험/eSIM · 10/21 남부투어 확정서 확인(예약완료)<br>
 · <b>미슐랭</b>(Aroma 또는 Per Me, 10/22 저녁): 2~3개월 전<br>
 · <b>콜로세움·판테온</b>(10/22로 이동): 콜로세움 30일 전(9/22) 오픈 즉시, 판테온은 여유<br>
-· <b>산토리니 와인투어 · 요트투어(10/17) · Roscioli</b>: 3주~1주 전<br>
+· <b>요트투어(10/17) · Roscioli</b>: 3주~1주 전<br>
 · <b>Cavo Tagoo 시즌 종료(10/19) 확인</b>: 지금 바로 메일<br>
 · <b>바티칸 가이드투어</b>: 1~2주 전<br>
 · <b>출발 1주 전</b>: 유적 개장시간·파업 재확인</div>`;
@@ -227,13 +227,46 @@ const prepPage = `<section class="daypage" id="pg-prep">
   </div>
 </section>`;
 
-const pagesHtml = [prepPage].concat(dayBlocks.map((_, i) => dayPage(i))).join("\n");
+/* 한눈에 보기: [일자, 굵직한 일정, 예약완료[], 예약 필요[], 확인 경고] — 예약 상태가 바뀌면 여기를 고칠 것 */
+const OV = [
+  [0, "인천 → 런던(환승) → 아테네 도착 22:15", ["OZ521 08:30 ICN→LHR", "A3603 16:35 LHR→ATH"], ["심야 공항 픽업 확인"], "런던 환승 95분 — 항공사 문의"],
+  [1, "제우스 신전·플라카·모나스티라키 + 오후 아크로폴리스 투어", ["14:00~18:00 한국어 아크로폴리스 투어(마이리얼트립)"], ["통합권 hhticket.gr 예매"], ""],
+  [2, "아크로폴리스 박물관·로만 아고라·리카비토스 일몰 · 밤엔 Strange Brew 탭룸", [], [], ""],
+  [3, "파나티나이코·국립고고학 박물관", ["19:15 CTC Urban Gastronomy(미슐랭 1스타)"], [], ""],
+  [4, "아테네 → 산토리니(오이아) · 첫 일몰", ["GQ350 ATH 14:00 → JTR"], ["Dimitris Ammoudi 저녁"], "GQ350 실제 출발 시각 재확인"],
+  [5, "오이아 슬로우 모닝 · 오후 와이너리 투어", ["16:00 와이너리 미식 투어(호텔 픽업·하차, 5코스 정찬 포함)"], [], ""],
+  [6, "Cavo Tagoo 입성 · 인피니티풀·선셋", [], ["Metaxi Mas 점심(전화 필수)", "10/18 커플 스파"], "Cavo Tagoo 10/19 시즌 종료 — 메일 확인"],
+  [7, "선셋 요트투어 5h (온천·비치·선상 디너)", [], ["요트투어 예약(기상취소 시 10/18 예비)"], ""],
+  [8, "리조트 데이 · 커플 스파 · (요트 예비일)", [], ["스파 시간 재확인", "Mylos/Anogi 저녁"], ""],
+  [9, "체크아웃 → 산토리니 → 로마 · 트레비 야경", ["FR3021 JTR 17:30 → FCO 18:55"], [], ""],
+  [10, "바티칸 박물관·시스티나·성 베드로 대성당", [], ["바티칸 가이드 투어(09:00)"], ""],
+  [11, "남부투어 — 폼페이·소렌토·아말피·포지타노", ["06:20 Hotel Galles 픽업(우노트래블)"], [], ""],
+  [12, "콜로세움·포로·판테온·트라스테베레 · 마지막 만찬", [], ["콜로세움 통합권 09:30", "판테온 시간지정", "Roscioli 14:30", "미슐랭 저녁(Aroma/Per Me)"], ""],
+  [13, "로마 마지막 날 → 귀국", ["OZ562 FCO 22:45 → ICN (10/24 약 17:00 도착)"], [], ""],
+];
+const STAY = ["아테네 스튜디오", "코코맷 BC", "코코맷 BC", "코코맷 BC", "Armenaki(오이아)", "Armenaki(오이아)", "Cavo Tagoo", "Cavo Tagoo", "Cavo Tagoo", "Casa Guttmann", "Casa Guttmann", "Casa Guttmann", "Casa Guttmann", "체크아웃 → 22:45 출국"];
+const ovRow = ([i, main, ok, todo, warn]) =>
+  `<button class="ov-row" type="button" data-go="${i}"><span class="ov-d"><b>10/${10 + i}</b><small>${DOW[i]}</small></span><span class="ov-b"><span class="ov-t">${main}</span>` +
+  ok.map((x) => `<span class="ov-ok">✅ ${x}</span>`).join("") + todo.map((x) => `<span class="ov-todo">⏳ ${x}</span>`).join("") +
+  (warn ? `<span class="ov-warn">⚠️ ${warn}</span>` : "") + `<span class="ov-h">🏨 ${STAY[i]}</span></span></button>`;
+let ovBody = "";
+GROUPS.forEach((g) => g.subs.forEach((sub) => {
+  ovBody += `<div class="ov-band">${g.flag} ${sub.city}</div>` + sub.idx.map((i) => ovRow(OV[i])).join("");
+}));
+const ovPage = `<section class="daypage" id="pg-ov">
+  <div class="day-h"><div class="daytag" style="--c: var(--indigo)"><div><span class="dow">전체</span><div class="dt">14일</div></div></div><div><div class="title">한눈에 보기</div><div class="sub">날짜별 굵직한 일정 · 예약 현황 (누르면 그날 상세로)</div></div></div>
+  <div class="ov-legend">✅ 예약완료 · ⏳ 아직 예약 안 함/예약 필요 · ⚠️ 확인 필요</div>
+  ${ovBody}
+  <div class="ov-band">🏠 10/24 토 · 인천 도착 (약 17:00)</div>
+</section>`;
+
+const pagesHtml = [ovPage, prepPage].concat(dayBlocks.map((_, i) => dayPage(i))).join("\n");
 
 /* 상단 네비 */
 function chip(target, label) {
   return `<button class="chip" data-go="${target}">${label}</button>`;
 }
-let navHtml = `<div class="navrow"><span class="grp">📋</span>${chip("prep", "준비")}</div>`;
+let navHtml = `<div class="navrow"><span class="grp">📋</span>${chip("ov", "한눈에")}${chip("prep", "준비")}</div>`;
 GROUPS.forEach((g) => {
   let inner = "";
   g.subs.forEach((sub) => {
@@ -262,6 +295,20 @@ const NEW_CSS = `
   .chip.on { background: var(--indigo); color: #fff; border-color: var(--indigo); }
   .emerg { margin-top: 8px; }
   .emerg[hidden] { display: none; }
+  .ov-legend { font-size: 12px; color: var(--sub); margin: 10px 2px 0; }
+  .ov-band { font-size: 12.5px; font-weight: 800; margin: 14px 2px 6px; }
+  .ov-row { display: flex; gap: 10px; width: 100%; text-align: left; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 9px 10px; margin: 0 0 6px; cursor: pointer; box-shadow: var(--shadow); -webkit-tap-highlight-color: transparent; }
+  .ov-d { flex: none; width: 44px; text-align: center; }
+  .ov-d b { display: block; font-size: 14px; }
+  .ov-d small { font-size: 10.5px; color: var(--faint); }
+  .ov-b { flex: 1; min-width: 0; }
+  .ov-b > span { display: block; }
+  .ov-t { font-weight: 700; font-size: 13.5px; line-height: 1.4; }
+  .ov-ok, .ov-todo, .ov-warn { font-size: 12px; line-height: 1.5; margin-top: 2px; }
+  .ov-ok { color: var(--teal); font-weight: 700; }
+  .ov-todo { color: var(--sub); }
+  .ov-warn { color: var(--accent); font-weight: 600; }
+  .ov-h { font-size: 11px; color: var(--faint); margin-top: 3px; }
   .fxbox { margin-top: 8px; font-size: 13px; line-height: 2.1; }
   .fxbox[hidden] { display: none; }
   .fxbox input { width: 5.6em; font: inherit; font-weight: 700; text-align: right; padding: 2px 6px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--card); color: var(--ink); }
@@ -637,6 +684,8 @@ ${buildSvgFn}
     var hit = markNow();
     if (hit && scrollRow) setTimeout(function () { hit.scrollIntoView({ block: "center", behavior: instant ? "auto" : "smooth" }); }, instant ? 60 : 420);
   }
+  /* --- 한눈에 보기: 행을 누르면 그날 상세로 --- */
+  Array.prototype.forEach.call(document.querySelectorAll(".ov-row"), function (r) { r.addEventListener("click", function () { goto(r.dataset.go); }); });
   var tb = document.getElementById("todaybtn");
   if (tb) tb.addEventListener("click", function () { goToday(true, false); });
   // 여행 기간이면 오늘 칩을 강조
