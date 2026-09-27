@@ -42,10 +42,10 @@ const ov = html.slice(html.indexOf('id="pg-ov"'), html.indexOf('id="pg-prep"'));
 assert.strictEqual((ov.match(/class="ov-row"/g) || []).length, 14, "한눈에 보기 행이 14개여야 함");
 assert(/data-go="ov"/.test(html) && /CTC Urban Gastronomy/.test(ov) && /와이너리 미식 투어/.test(ov), "한눈에 보기 내용/칩 누락");
 
-/* 3d. 10/20 바티칸 = 예약한 마이리얼트립 투어, 10/22 마지막 만찬 = 미슐랭 아님 */
+/* 3d. 10/20 바티칸 = 예약한 마이리얼트립 투어 + 입장권 구매완료, 10/22 마지막 만찬 = 미슐랭 아님 */
 const d20 = html.slice(html.indexOf('id="pg-10"'), html.indexOf('id="pg-11"'));
 const d22 = html.slice(html.indexOf('id="pg-12"'), html.indexOf('id="pg-13"'));
-assert(/3415360/.test(d20) && /OKAIDI/.test(d20) && /입장권은 투어비에 불포함/.test(d20), "10/20 바티칸 투어 반영");
+assert(/3415360/.test(d20) && /OKAIDI/.test(d20), "10/20 바티칸 투어 반영");
 assert(/Le Mani in Pasta/.test(d22) && !/Aroma|Per Me|미슐랭 1스타/.test(d22), "10/22 마지막 만찬은 Le Mani in Pasta여야 함(미슐랭 제거)");
 assert(DAYS[12].some((p) => /Le Mani/.test(p[2])), "DAYS[12]에 Le Mani in Pasta 좌표 누락");
 
@@ -56,6 +56,15 @@ assert(!/⏳|⚠️|ov-todo|ov-warn/.test(ovHtml), "한눈에 보기에 미예�
 assert(/⏳/.test(prepHtml) && /날짜별 예약·확인 필요/.test(prepHtml), "준비 페이지에 예약·확인 필요 목록 누락");
 assert(!/미슐랭|Aroma|Per Me/.test(prepHtml) && !/Aroma|Per Me/.test(d22), "준비/10-22에 미슐랭 예약이 남아 있음");
 assert(/id="hdrbtn"/.test(html) && /_hdr/.test(html), "상단 메뉴 접기 버튼/저장 누락");
+
+/* 3f. 호텔 답장 반영: 아르메나키 우체국 픽업, Cavo Tagoo 정오 완전 폐장, Casa Guttmann 셀프체크인 서류 */
+assert(/Hellenic Post Oia/.test(d15), "10/15 픽업지가 오이아 우체국으로 반영돼야 함");
+const d19 = html.slice(html.indexOf('id="pg-9"'), html.indexOf('id="pg-10"'));
+assert(/정오 완전 폐장|정확히 12:00/.test(d19), "10/19에 Cavo Tagoo 정오 폐장 반영 누락");
+assert(/여권 사본/.test(d19) && /331 178 2972/.test(d19), "10/19에 Casa Guttmann 셀프체크인 서류 안내 누락");
+assert(!/브런치\/수영/.test(d19), "10/19에 체크아웃 후 브런치가 옛 문구로 남아 있음");
+const prepHtml2 = html.slice(html.indexOf('id="pg-prep"'), html.indexOf('id="pg-0"'));
+assert(/구매완료/.test(prepHtml2), "준비 페이지에 구매완료 표시(아크로폴리스/바티칸/eSIM) 누락");
 
 /* 4. 항공 스케줄 변경(2026-09-18 통보) 반영 — 옛 시각이 안내문 밖에 남아 있으면 안 됨 */
 const d10 = html.slice(html.indexOf('id="pg-0"'), html.indexOf('id="pg-1"'));
