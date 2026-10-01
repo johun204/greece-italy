@@ -17,7 +17,8 @@ assert(!/예비일|요트/.test(d18), "10/18에 요트 예비일 표기가 남�
 const DAYS = eval(html.match(/var DAYS = (\[[\s\S]*?\n {4}\]);/)[1]);
 assert.strictEqual(DAYS.length, 14);
 assert(DAYS[7].some((p) => /피르고스/.test(p[2])) && !DAYS[7].some((p) => /요트|화산온천/.test(p[2])), "DAYS[7]이 피라·피르고스 동선이어야 함");
-assert(DAYS[8].every((p) => p[0] === 36.4290 || /Skaros/.test(p[2])), "DAYS[8]은 호텔 주변이어야 함");
+assert(DAYS[8].every((p) => p[0] === 36.4456 || /Skaros/.test(p[2])), "DAYS[8]은 호텔 주변이어야 함");
+assert(!/36\.4290/.test(html), "Cavo Tagoo 옛 좌표(36.4290)가 남아 있음 — 실제 위치는 36.4456,25.4265");
 const DRIVE = eval("(" + html.match(/var DRIVE = (\{[^}]*\});/)[1] + ")");
 assert(DRIVE[7] && !DRIVE[8], "차량 이동 플래그가 요트 날(7)로 옮겨져야 함");
 
@@ -29,7 +30,7 @@ assert(/19:15/.test(d13) && /CTC Urban Gastronomy/.test(d13), "10/13에 CTC 19:1
 assert(!/포세이돈|Sounion|필렐리논/.test(d13), "10/13에 수니온 일정이 남아 있음");
 assert(DAYS[3].every((p) => p[0] > 37.9), "DAYS[3]에 수니온 좌표가 남아 있음");
 assert(!DRIVE[3], "10/13은 차량 이동이 아님");
-assert(DAYS[3].some((p) => /CTC/.test(p[2])) && DAYS[2].some((p) => /Strange Brew/.test(p[2])), "동선에 CTC·Strange Brew 누락");
+assert(DAYS[3].some((p) => /CTC/.test(p[2])) && DAYS[2].some((p) => /Blame The Sun/.test(p[2])), "동선에 CTC·Blame The Sun 탭룸 누락");
 
 /* 3b. 10/15 = 16:00 와이너리 미식 투어(호텔 픽업·하차, 정찬 포함 → 저녁 식당 후보 없음) */
 const d15 = html.slice(html.indexOf('id="pg-5"'), html.indexOf('id="pg-6"'));
@@ -51,7 +52,7 @@ assert(DAYS[12].some((p) => /Le Mani/.test(p[2])), "DAYS[12]에 Le Mani in Pasta
 
 /* 3e. 한눈에 보기 = 예약완료만(⏳·⚠️ 없음), 준비 페이지 = 예약·확인 필요, 상단 메뉴 접기 */
 const ovHtml = html.slice(html.indexOf('id="pg-ov"'), html.indexOf('id="pg-prep"'));
-const prepHtml = html.slice(html.indexOf('id="pg-prep"'), html.indexOf('id="pg-0"'));
+const prepHtml = html.slice(html.indexOf('id="pg-prep"'), html.indexOf('id="pg-saved"'));
 assert(!/⏳|⚠️|ov-todo|ov-warn/.test(ovHtml), "한눈에 보기에 미예약/확인 항목이 표시됨");
 assert(/⏳/.test(prepHtml) && /날짜별 예약·확인 필요/.test(prepHtml), "준비 페이지에 예약·확인 필요 목록 누락");
 assert(!/미슐랭|Aroma|Per Me/.test(prepHtml) && !/Aroma|Per Me/.test(d22), "준비/10-22에 미슐랭 예약이 남아 있음");
@@ -63,7 +64,7 @@ const d19 = html.slice(html.indexOf('id="pg-9"'), html.indexOf('id="pg-10"'));
 assert(/정오 완전 폐장|정확히 12:00/.test(d19), "10/19에 Cavo Tagoo 정오 폐장 반영 누락");
 assert(/여권 사본/.test(d19) && /331 178 2972/.test(d19), "10/19에 Casa Guttmann 셀프체크인 서류 안내 누락");
 assert(!/브런치\/수영/.test(d19), "10/19에 체크아웃 후 브런치가 옛 문구로 남아 있음");
-const prepHtml2 = html.slice(html.indexOf('id="pg-prep"'), html.indexOf('id="pg-0"'));
+const prepHtml2 = html.slice(html.indexOf('id="pg-prep"'), html.indexOf('id="pg-saved"'));
 assert(/구매완료/.test(prepHtml2), "준비 페이지에 구매완료 표시(아크로폴리스/바티칸/eSIM) 누락");
 
 /* 4. 항공 스케줄 변경(2026-09-18 통보) 반영 — 옛 시각이 안내문 밖에 남아 있으면 안 됨 */
@@ -131,5 +132,32 @@ assert(html.includes("€(\\d[\\d,]*)(?:~(\\d[\\d,]*))?"), "€ 금액 정규식
 assert(/@media \(min-width: 700px\)[\s\S]*?grid-column: 2/.test(html), "펼침 2단 레이아웃 CSS 누락");
 assert(/horizontal-viewport-segments: 2/.test(html), "힌지 대응 미디어쿼리 누락");
 assert(/APP_CACHE = "gi-app-v\d+"/.test(fs.readFileSync("sw.js", "utf8")), "서비스워커 캐시 이름 형식(index.html을 고쳤으면 번호를 올릴 것)");
+
+/* 7. 저장 장소(구글맵 리스트) 반영 — 동선 가까운 저장 식당이 각 날에, 지리 오류 없음 */
+const pg = (i) => html.slice(html.indexOf('id="pg-' + i + '"'), html.indexOf('id="pg-' + (i + 1) + '"'));
+assert(/O Thanasis/.test(pg(1)) && /Thomas 1971/.test(pg(1)), "10/11 점심·저녁에 저장 식당(Thanasis·Thomas 1971) 누락");
+assert(/Blame The Sun/.test(pg(2)) && /Nolan/.test(pg(2)), "10/12 탭룸·저녁 저장 식당 누락");
+assert(/Karamanlidika/.test(pg(3)) && /Stani/.test(pg(3)), "10/13 점심·후식 저장 식당 누락");
+assert(!(pg(5).match(/<span class="name">[\s\S]*?<\/span><span class="desc">/g) || []).some((x) => /Lucky/.test(x)) && /Lotza/.test(pg(5)), "10/15 오이아 점심 후보에 피라 식당(Lucky's)이 남아 있음");
+assert(/Lucky's Souvlakis/.test(pg(7)) && /Tholoto/.test(pg(7)) && /약 4km/.test(pg(7)), "10/17 피라 점심/산책 거리 보정 누락");
+assert(/Tasos Tavern/.test(pg(6)) && /Tasos Tavern/.test(pg(9)), "10/16 저녁·10/19 점심 Tasos Tavern 누락");
+assert(/Rione XIV/.test(pg(10)) && /Armando/.test(pg(10)), "10/20 바티칸 후 점심·저녁 누락");
+assert(/Il Chianti/.test(pg(9)) && /Babette/.test(pg(13)) && /Mercato Centrale/.test(pg(13)), "로마 저장 식당 누락");
+assert(/2시간 25분/.test(pg(9)) && !/실비행 약 1h25/.test(html), "FR3021 실비행시간(시차) 오류가 남아 있음");
+assert(!/식당탭/.test(html), "없어진 ‘식당탭’ 문구가 남아 있음");
+assert(DAYS[10].findIndex((p) => /Rione/.test(p[2])) < DAYS[10].findIndex((p) => /성 베드로/.test(p[2])), "10/20 동선 순서(점심→성 베드로)가 시간표와 다름");
+const SAVED = JSON.parse(fs.readFileSync("saved-places.json", "utf8"));
+assert.strictEqual(SAVED.length, 78, "저장 장소는 78곳(아테네 31·산토리니 19·로마 28)");
+assert.strictEqual((html.match(/class="sv-item"/g) || []).length, 78, "저장 장소 페이지 항목 수");
+SAVED.forEach((p) => assert(p[2] > 36 && p[2] < 42.1 && p[3] > 12 && p[3] < 26, "저장 장소 좌표 이상: " + p[1]));
+
+/* 8. 여행 중 UI: 한 줄 네비, 하단 바, 지금/다음 카드, 접는 소개문, 지도는 시간표 아래 */
+assert.strictEqual((html.match(/class="navrow"/g) || []).length, 1, "상단 네비는 한 줄이어야 함");
+assert(/class="bbar"/.test(html) && /id="bb-saved"/.test(html) && /id="todaybtn"/.test(html), "하단 빠른 메뉴 누락");
+assert.strictEqual((html.match(/class="nowcard" hidden/g) || []).length, 14, "일자마다 지금/다음 카드 자리");
+assert((html.match(/<details class="more">/g) || []).length >= 12, "소개문 접기 누락");
+assert(/insertBefore\(wrap, rows\.nextSibling\)/.test(html), "지도는 시간표 아래로");
+assert(/beforeprint/.test(html), "인쇄 시 접힌 내용 펼치기 누락");
+assert(!/\/\(d\{1,2\}\)/.test(html) && !/replace\(\/s\+\/g/.test(html), "런타임 정규식이 이스케이프를 잃었음(\\d → d, \\s → s)");
 
 console.log("모두 통과 ✅");

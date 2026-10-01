@@ -31,7 +31,7 @@ pts.forEach(function(p,n){
 });
 L.polyline(ll,{color:"#bf5137",weight:4,opacity:.9,dashArray:"8 6"}).addTo(map);
 // 대륙 넘어가는 이동일(4=아테네→산토리니, 9=산토리니→로마)은 도착지 위주로 화면을 맞춘다(마커 번호는 유지)
-var fitPts = d===4 ? ll.slice(2) : d===9 ? ll.slice(3) : ll;
+var fitPts = d===4 ? ll.slice(2) : d===9 ? ll.slice(4) : ll;
 map.fitBounds(fitPts,{padding:[46,46]});
 setTimeout(function(){ map.invalidateSize(); map.fitBounds(fitPts,{padding:[46,46]}); }, 250);
 </script>

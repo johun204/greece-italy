@@ -89,7 +89,8 @@ const CHECK = [
   [
     item("d12-museum", "아크로폴리스 박물관 월요일 09:00~17:00 확인", "단축 운영. 오전에 여유 있게"),
     item("d12-lunch", "Meat the Greek 12:15 도착", "돼지 기로스는 13시 전 소진. 일요일 휴무라 오늘"),
-    item("d12-brew", "🍻 Strange Brew 탭룸 (21:15경)", "Falirou 86, 숙소 도보 약 8분·예약 불필요. 월요일 18:00~01:00. 병·캔은 사서 숙소로 가져가도 됨(보틀숍)"),
+    item("d12-nolan", "Nolan 저녁 예약 (선택)", "신타그마 Voulis 31-33 · 미슐랭 빕구르망 · 월요일 19:00~ 영업. 예약 없이 가려면 O Lolos(쿠카키, 숙소 옆)"),
+    item("d12-brew", "🍻 Blame The Sun 탭룸 (21:15경)", "Veikou 60, 숙소 도보 약 8분·예약 불필요. 월요일 17:00~24:00. 근처 Strange Brew(Falirou 86, ~01:00)도 도보 10분"),
     item("d12-nap", "오후 낮잠", "저녁이 길어짐. 내일 저녁 CTC 11코스가 있으니 과음 금물"),
   ],
   // 3 · 10/13 박물관 + CTC 디너
@@ -102,7 +103,7 @@ const CHECK = [
   [
     item("p-flight-athjtr", "GQ350 시각·수하물·온라인 체크인 <span class='tag hot'>확인</span>", "티켓상 ATH 14:00 출발. ⚠️ 2026-09-13 재확인해도 공개 시간표는 여전히 17:15 — e-티켓 실제 시각 지금 재확인. SKY Basic·Joy+=15kg / Enjoy=23kg"),
     item("p-santorini-transfers", "아르메나키에 셔틀 선택 회신 <span class='tag hot'>회신 필요</span>", "호텔이 가격 확정: 합승 2인 €45 / 프라이빗 2인 €80(편도, 추가인원 +€10). <b>선택안 + 항공편명(GQ350)을 회신</b>해야 예약 진행"),
-    item("p-dinner-ammoudi", "Dimitris Ammoudi 예약", "이메일 예약, 물가 자리 요청 (10/14 저녁)"),
+    item("p-dinner-ammoudi", "암무디 저녁 예약 — Sunset Ammoudi(저장)", "온라인 예약, 보증금 1인 €20(계산서서 차감) · 19:30 물가 자리 요청. 대안 Dimitris Ammoudi(이메일)"),
     item("d14-checkout", "코코맷 10:45 체크아웃 → 택시로 ATH", "메트로는 Syntagma 환승, 짐 있으면 택시 €40"),
   ],
   // 5 · 10/15 와인투어
@@ -116,6 +117,7 @@ const CHECK = [
     item("p-cavo-spa", "Cavo Tagoo 커플 스파 트리트먼트·시간 회신", "호텔이 10/18 스파 가능 여부·가격을 확인해주겠다고 회신 — <b>원하는 트리트먼트·시간대를 답장</b>(대략 2인 €200~350). 얼리 체크인(10/16 13:00~13:30)은 최선을 다하겠다는 답변(확정 아님)"),
     item("p-dinner-ammoudi-metaxi", "Metaxi Mas 예약 <span class='tag hot'>필수</span>", "☎ +30 22860 31323, 며칠 전 (10/16 점심)"),
     item("d16-taxi", "오이아→(아크로티리)→Cavo Tagoo 택시 사전 콜", "직행 €30~35 / 아크로티리 경유 대절 €80~90"),
+    item("d16-tasos", "저녁 Tasos Tavern (도보 10분, 예약 불필요)", "18:00~23:00. 피곤하면 호텔 다이닝"),
     item("d16-cavo", "체크인 시 인피니티풀·케이브 레스토랑 예약 · 기념 세팅 문의", "컨시어지에. 원하면 꽃(€140)·샴페인(€170~650)·케이크(€70) 등 기념 세팅도 유료로 가능"),
   ],
   // 7 · 10/17 이메로비글리↔피라 · 피르고스
@@ -143,6 +145,8 @@ const CHECK = [
   [
     item("p-vatican", "🇰🇷 바티칸 투어 + 입장권 구매완료 <span class='tag hot'>구매완료</span>", "마이리얼트립 #3415360(약 5h) + 입장권 별도 구매완료. <b>시작 시각은 옵션에 따라 08·09·10시(박물관 배정) 또는 06:15</b> — 바우처로 정확한 시각 확인. 집합 = 오타비아노역 맞은편 OKAIDI 매장"),
     item("d20-dress", "성 베드로 대성당 복장", "무릎·어깨 가리는 옷 (남녀 모두)"),
+    item("p-armando", "Armando al Pantheon 저녁 예약 <span class='tag hot'>지금</span>", "몇 주 전 마감되는 곳 — 10/20(화) 19:00. ☎ +39 06 6880 3034 / 홈페이지. 안 되면 Osteria da Fortunata(예약 불가, 19시 전 줄)"),
+    item("p-rionexiv", "Rione XIV Bistrot 점심 예약 (14:00경)", "보르고 피오 18석, 화요일 점심 15:30까지 — 투어 종료 시각 보고 14:00~14:15로. 대안 La Cantina di Cesare(매일)"),
     item("d20-qr", "바우처·입장권 QR 폰에 저장", "정확한 시작 시각(08/09/10시 또는 06:15) 재확인. 집합은 배정 시각 20분 전. 성 베드로 대성당 내부는 투어 후 개별 입장(무료)"),
   ],
   // 11 · 10/21 남부투어(포지타노·아말피)
@@ -160,6 +164,7 @@ const CHECK = [
   ],
   // 13 · 10/23 귀국
   [
+    item("d23-babette", "Babette 점심 예약 (선택)", "Via Margutta 1d · ☎ +39 06 321 1559 · 금요일 영업. 대안 Il Vero Alfredo(12:30~) · Tartufi&Friends(브레이크 없음)"),
     item("d23-checkout", "Casa Guttmann 체크아웃 · 짐 보관", "숙소 or Radical Storage 앱(€5~6/개)"),
     item("d23-taxrefund", "택스리펀 서류 → FCO 세관", "출국심사 전 세관 승인/키오스크. 시간 걸리니 공항 일찍"),
     item("d23-massimo", "(선택) 팔라초 마시모 15:00", "<b>안 가도 됨.</b> OZ562가 밀려 생긴 1h25를 쓰고 싶을 때만. 테르미니역 옆이라 공항 동선 위. 금 09:00~19:00(마지막 입장 18:00), €8/인, 예약 불필요. 지치면 생략하고 카페에서 쉬기"),
@@ -189,14 +194,26 @@ const prepCalendar = `<div class="note-card">📅 <b>예약 캘린더 (역산)</
 · <b>콜로세움·판테온</b>(10/22로 이동): 콜로세움 30일 전(9/22) 오픈 즉시, 판테온은 여유<br>
 · <b>Roscioli · 10/22 마지막 만찬(Le Mani in Pasta, 전화)</b>: 예약 가능해지는 대로<br>
 · <b>Cavo Tagoo 시즌 종료(10/19) 확인</b>: 지금 바로 메일<br>
-· <b>출발 1주 전</b>: 유적 개장시간·파업 재확인</div>`;
+· <b>출발 1주 전</b>: 유적 개장시간·파업 재확인<br>
+· <b>🔴 10/1 점검 기준 아직 ⏳인 예약</b>: 콜로세움(9/22 오픈분 — 매진 전에) · Armando al Pantheon(몇 주 전 마감) · Roscioli 14:30 · Le Mani in Pasta(전화) · Sunset Ammoudi(온라인)</div>`;
 
 /* ---------- 5) 페이지 HTML 조립 ---------- */
 function daysec(title, listHtml) {
   return `<div class="sec daysec"><div class="sec-h"><h2>${title}</h2></div><div class="list">${listHtml}</div></div>`;
 }
+/* 소개문: 첫 문단만 보이고 나머지(배경 설명·오늘 경비)는 접기 — 여행 중엔 시간표가 먼저 보이게 */
+function foldIntro(block) {
+  return block.replace(/<div class="day-intro">([\s\S]*?)<\/div>/, (m, body) => {
+    const parts = body.split(/<br>\s*<br>/);
+    if (parts.length < 2) return m;
+    const rest = parts.slice(1);
+    const hasCost = rest.some((p) => /오늘 경비/.test(p));
+    const label = hasCost ? (rest.length > 1 ? "배경 설명 · 오늘 경비" : "오늘 경비") : "배경 설명";
+    return `<div class="day-intro">${parts[0]}<details class="more"><summary>${label} 더보기</summary>${rest.join("<br><br>")}</details></div>`;
+  });
+}
 function dayPage(i) {
-  const block = dayBlocks[i]; // day-h / day-intro / stats / rows / alts
+  const block = foldIntro(dayBlocks[i]).replace('<div class="day-intro">', '<div class="nowcard" hidden></div><div class="day-intro">'); // day-h / day-intro / stats / rows / alts
   const foodList = (foodByDate[dd(i)] || []).join("");
   const foodSum = FOODARR[i] ? `<div class="note-card" style="margin:0 0 8px">🍽️ ${FOODARR[i]}</div>` : "";
   const foodSec = foodList ? daysec("🍽️ 오늘 식당 선택", foodSum + foodList) : "";
@@ -217,18 +234,18 @@ ${alts}
 const OV = [
   [0, "인천 → 런던(환승) → 아테네 도착 22:15", ["OZ521 08:30 ICN→LHR", "A3603 16:35 LHR→ATH"], ["심야 공항 픽업 확인"], "런던 환승 95분 — 항공사 문의"],
   [1, "제우스 신전·플라카·모나스티라키 + 오후 아크로폴리스 투어", ["14:00~18:00 한국어 아크로폴리스 투어(마이리얼트립)", "아크로폴리스 통합권 구매완료"], [], ""],
-  [2, "아크로폴리스 박물관·로만 아고라·리카비토스 일몰 · 밤엔 Strange Brew 탭룸", [], [], ""],
+  [2, "아크로폴리스 박물관·로만 아고라·Meat the Greek·리카비토스 일몰 · 밤엔 Blame The Sun 탭룸", [], ["Nolan 저녁 예약(선택)"], ""],
   [3, "파나티나이코·국립고고학 박물관", ["19:15 CTC Urban Gastronomy(미슐랭 1스타)"], [], ""],
-  [4, "아테네 → 산토리니(오이아) · 첫 일몰", ["GQ350 ATH 14:00 → JTR"], ["Dimitris Ammoudi 저녁 예약", "아르메나키 셔틀 선택 회신(합승 €45/프라이빗 €80)"], "GQ350 실제 출발 시각 재확인"],
+  [4, "아테네 → 산토리니(오이아) · 첫 일몰", ["GQ350 ATH 14:00 → JTR"], ["Sunset Ammoudi 저녁 예약(온라인, 보증금 €20/인)", "아르메나키 셔틀 선택 회신(합승 €45/프라이빗 €80)"], "GQ350 실제 출발 시각 재확인"],
   [5, "오이아 슬로우 모닝 · 오후 와이너리 투어", ["16:00 와이너리 미식 투어(호텔 픽업·하차, 5코스 정찬 포함)"], [], ""],
   [6, "Cavo Tagoo 입성 · 인피니티풀·선셋", [], ["Metaxi Mas 점심 예약(전화 필수)", "10/18 커플 스파 시간 회신"], ""],
-  [7, "이메로비글리→피라 산책 · 선사시대 티라 박물관 · 피르고스 일몰", [], ["피르고스 저녁 예약(Selene 등)", "귀가 택시 콜(컨시어지)"], ""],
+  [7, "이메로비글리→피라 산책(약 4km) · 선사시대 티라 박물관 · 피르고스 일몰", [], ["피르고스 저녁 예약(Selene 등)", "귀가 택시 콜(컨시어지)"], ""],
   [8, "리조트 데이 · 커플 스파", [], ["스파 시간 재확인", "Mylos/Anogi 저녁 예약"], ""],
   [9, "체크아웃 → 산토리니 → 로마 · 트레비 야경", ["FR3021 JTR 17:30 → FCO 18:55"], ["Casa Guttmann에 여권 사본 사전 전송"], "Cavo Tagoo 12:00 완전 폐장 — 체크아웃 후 짐 보관 가능 여부 재확인"],
-  [10, "바티칸 박물관·시스티나 · 성 베드로 대성당", ["바티칸 오전 한국어 투어(마이리얼트립, 약 5h)", "입장권 구매완료"], [], "투어 바우처의 정확한 시작 시각(08/09/10시 또는 06:15) 확인"],
+  [10, "바티칸 박물관·시스티나 · 성 베드로 대성당", ["바티칸 오전 한국어 투어(마이리얼트립, 약 5h)", "입장권 구매완료"], ["Armando al Pantheon 저녁 예약(지금 — 몇 주 전 마감)", "Rione XIV Bistrot 점심 예약(18석)"], "투어 바우처의 정확한 시작 시각(08/09/10시 또는 06:15) 확인"],
   [11, "남부투어 — 폼페이·소렌토·아말피·포지타노", ["06:20 Hotel Galles 픽업(우노트래블)"], [], ""],
-  [12, "콜로세움·포로·판테온·트라스테베레 · 마지막 만찬", [], ["콜로세움 통합권 09:30(오픈 9/22)", "판테온 시간지정 티켓", "Roscioli 14:30 예약", "마지막 만찬 예약(Le Mani in Pasta, 전화)"], ""],
-  [13, "로마 마지막 날 → 귀국", ["OZ562 FCO 22:45 → ICN (10/24 약 17:00 도착)"], [], ""],
+  [12, "콜로세움·포로·판테온·트라스테베레 · 마지막 만찬", [], ["콜로세움 통합권 09:30 — 9/22 오픈, 아직이면 오늘 바로", "판테온 시간지정 티켓", "Roscioli 14:30 예약", "마지막 만찬 예약(Le Mani in Pasta, 전화)"], ""],
+  [13, "로마 마지막 날 → 귀국", ["OZ562 FCO 22:45 → ICN (10/24 약 17:00 도착)"], ["Babette 점심 예약(선택)"], ""],
 ];
 const STAY = ["아테네 스튜디오", "코코맷 BC", "코코맷 BC", "코코맷 BC", "Armenaki(오이아)", "Armenaki(오이아)", "Cavo Tagoo", "Cavo Tagoo", "Cavo Tagoo", "Casa Guttmann", "Casa Guttmann", "Casa Guttmann", "Casa Guttmann", "체크아웃 → 22:45 출국"];
 const ovRow = ([i, main, ok]) =>
@@ -242,9 +259,10 @@ const prepTodo = `<div class="note-card">🗓️ <b>날짜별 예약·확인 필
   `· <b>10/${10 + r[0]}</b> ` + r[3].map((x) => "⏳ " + x).concat(r[4] ? ["⚠️ " + r[4]] : []).join(" · ")).join("<br>") + `</div>`;
 const prepPage = `<section class="daypage" id="pg-prep">
   <div class="day-h"><div class="daytag" style="--c: var(--teal)"><div><span class="dow">준비</span><div class="dt">D-day</div></div></div><div><div class="title">출발 전 준비</div><div class="sub">여권·비자·보험·현금 · 예약 캘린더 · 긴급정보</div></div></div>
-  ${daysec("🧳 챙길 것 · 확인", prepGeneral.join(""))}
+  <div class="note-card dday" id="dday" hidden></div>
   ${prepTodo}
   ${prepCalendar}
+  ${daysec("🧳 챙길 것 · 확인", prepGeneral.join(""))}
   ${budgetCard}
   <div class="sec daysec"><div class="sec-h"><h2>🚨 긴급 정보 · 필수 회화</h2></div>
   ${emergCard}
@@ -261,20 +279,37 @@ const ovPage = `<section class="daypage" id="pg-ov">
   <div class="ov-band">🏠 10/24 토 · 인천 도착 (약 17:00)</div>
 </section>`;
 
-const pagesHtml = [ovPage, prepPage].concat(dayBlocks.map((_, i) => dayPage(i))).join("\n");
+/* 저장해 둔 장소(구글맵 리스트 3개) — saved-places.json: [도시, 이름, 위도, 경도, 분류, 일정태그, 메모, 검색어] */
+const CITIES = ["아테네", "산토리니", "로마"];
+const SAVED = JSON.parse(fs.readFileSync(path.join(__dirname, "saved-places.json"), "utf8"));
+const svRank = (p) => (/숙소/.test(p[4]) ? 0 : (p[5].match(/10\/(\d+)/) || [])[1] ? +p[5].match(/10\/(\d+)/)[1] : 99);
+SAVED.sort((a, b) => CITIES.indexOf(a[0]) - CITIES.indexOf(b[0]) || svRank(a) - svRank(b)); // 도시 내 순서: 숙소 → 일정 날짜 순 → 일정 외(위치 켜면 가까운 순)
+const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+const svItem = ([city, name, lat, lng, cat, plan, memo, q], n) =>
+  `<div class="sv-item" data-city="${city}" data-i="${n}" data-ll="${lat},${lng}"><div class="sv-main"><b>${esc(name)}</b><span class="sv-cat">${esc(cat)}</span>` +
+  (plan ? `<span class="sv-plan">📅 ${esc(plan)}</span>` : "") + (memo ? `<span class="sv-note">${esc(memo)}</span>` : "") +
+  `</div><div class="sv-act"><span class="sv-dist"></span><a class="sv-btn nav" href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" rel="noopener">🧭 길찾기</a><a class="sv-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}" target="_blank" rel="noopener">🗺️ 지도</a></div></div>`;
+const savedPage = `<section class="daypage" id="pg-saved">
+  <div class="day-h"><div class="daytag" style="--c: var(--gold)"><div><span class="dow">저장</span><div class="dt">${SAVED.length}곳</div></div></div><div><div class="title">📌 저장해 둔 곳</div><div class="sub">구글맵 리스트(아테네·산토리니·로마) · 📅 = 일정에 넣은 날 · 내 위치 켜면 가까운 순</div></div></div>
+  <div class="sv-bar"><div class="seg" role="tablist">${CITIES.map((c, k) => `<button type="button" class="seg-b${k ? "" : " on"}" data-city="${c}">${c}</button>`).join("")}</div>
+  <button type="button" class="geobtn" id="sv-geo">📍 가까운 순</button><label class="sv-only"><input type="checkbox" id="sv-plan" /> 일정에 넣은 곳만</label></div>
+  <div class="geonote" id="sv-note"></div>
+  <div class="sv-list" id="sv-list">${SAVED.map(svItem).join("")}</div>
+</section>`;
 
-/* 상단 네비 */
-function chip(target, label) {
-  return `<button class="chip" data-go="${target}">${label}</button>`;
+const pagesHtml = [ovPage, prepPage, savedPage].concat(dayBlocks.map((_, i) => dayPage(i))).join("\n");
+
+/* 상단 네비 — 한 줄 가로 스크롤 */
+function chip(target, label, cls) {
+  return `<button class="chip${cls ? " " + cls : ""}" data-go="${target}">${label}</button>`;
 }
-let navHtml = `<div class="navrow"><span class="grp">📋</span>${chip("ov", "한눈에")}${chip("prep", "준비")}</div>`;
+let navHtml = `<div class="navrow">${chip("ov", "한눈에")}${chip("prep", "준비")}${chip("saved", "📌 저장")}`;
 GROUPS.forEach((g) => {
-  let inner = "";
-  g.subs.forEach((sub) => {
-    inner += `<span class="sub">${sub.city}</span>` + sub.idx.map((i) => chip(String(i), `${10 + i}일<small>${DOW[i]}</small>`)).join("");
+  g.subs.forEach((sub, k) => {
+    navHtml += `<span class="sub">${k === 0 ? g.flag + " " : ""}${sub.city}</span>` + sub.idx.map((i) => chip(String(i), `${10 + i}<small>${DOW[i]}</small>`, "d")).join("");
   });
-  navHtml += `<div class="navrow"><span class="grp">${g.flag} ${g.label}</span>${inner}</div>`;
 });
+navHtml += `</div>`;
 
 /* ---------- 6) CSS ---------- */
 const NEW_CSS = `
@@ -294,8 +329,6 @@ const NEW_CSS = `
   .chip { flex: none; border: 1px solid var(--line-strong); background: var(--card); color: var(--sub); font: inherit; font-weight: 700; font-size: 12px; padding: 4px 9px; border-radius: 99px; cursor: pointer; white-space: nowrap; }
   .chip small { font-size: 9px; opacity: .7; margin-left: 2px; }
   .chip.on { background: var(--indigo); color: #fff; border-color: var(--indigo); }
-  .emerg { margin-top: 8px; }
-  .emerg[hidden] { display: none; }
   .ov-legend { font-size: 12px; color: var(--sub); margin: 10px 2px 0; }
   .ov-band { font-size: 12.5px; font-weight: 800; margin: 14px 2px 6px; }
   .ov-row { display: flex; gap: 10px; width: 100%; text-align: left; font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 9px 10px; margin: 0 0 6px; cursor: pointer; box-shadow: var(--shadow); -webkit-tap-highlight-color: transparent; }
@@ -310,7 +343,7 @@ const NEW_CSS = `
   .ov-todo { color: var(--sub); }
   .ov-warn { color: var(--accent); font-weight: 600; }
   .ov-h { font-size: 11px; color: var(--faint); margin-top: 3px; }
-  .fxbox { margin-top: 8px; font-size: 13px; line-height: 2.1; }
+  .fxbox { font-size: 13px; line-height: 2.1; }
   .fxbox[hidden] { display: none; }
   .fxbox input { width: 5.6em; font: inherit; font-weight: 700; text-align: right; padding: 2px 6px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--card); color: var(--ink); }
   .fxbox button { font: inherit; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--card); color: var(--sub); cursor: pointer; }
@@ -381,7 +414,7 @@ const NEW_CSS = `
   @media print {
     body { overflow: visible; height: auto; }
     .hdr, .deck-arrow, #pdfbtn, .fontbtn, .emerg-btn { display: none !important; }
-    .emerg { display: block !important; }
+    #emerg { display: block !important; }
     .deck { display: block !important; overflow: visible !important; height: auto !important; scroll-snap-type: none; }
     .daypage { display: block !important; width: auto !important; min-width: 0 !important; height: auto !important; overflow: visible !important; page-break-after: always; scroll-snap-align: none; padding: 0 0 12px; }
     .daymap, .dayroute-link { display: none !important; }
@@ -389,6 +422,96 @@ const NEW_CSS = `
     .daymap-static { display: block !important; }
     .day, .list, .note-card, .sec, .daymap-wrap { break-inside: avoid; page-break-inside: avoid; }
     a { color: #000; text-decoration: none; }
+  }
+
+  /* ===== 여행 중 사용성 개편 (2026-10) ===== */
+  .hdr { padding: calc(6px + env(safe-area-inset-top)) 12px 6px; }
+  .hdr h1 { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .hdr h1 .k { font-size: 13px; margin-left: 4px; }
+  .hdr-btns .fontbtn { min-width: 34px; min-height: 30px; }
+  .navwrap { margin-top: 6px; max-height: none; overflow: visible; }
+  .navrow { gap: 4px; padding: 2px 0 1px; scroll-padding: 0 40%; }
+  .navrow .sub { font-size: 10.5px; color: var(--sub); padding: 0 1px 0 8px; border-left: 1px solid var(--line-strong); margin-left: 3px; }
+  .chip { min-height: 34px; padding: 4px 11px; font-size: 12.5px; }
+  .chip.d { padding: 4px 8px; min-width: 40px; }
+  .chip.d small { display: block; font-size: 9px; line-height: 1; margin: 1px 0 0; }
+
+  /* 하단 빠른 메뉴 — 엄지로 닿는 곳 */
+  .bbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; justify-content: space-around; gap: 2px;
+    padding: 4px 6px calc(4px + env(safe-area-inset-bottom)); background: color-mix(in srgb, var(--card) 94%, transparent);
+    backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); border-top: 1px solid var(--line); }
+  .bb { flex: 1; max-width: 92px; display: flex; flex-direction: column; align-items: center; gap: 1px; border: 0; background: none; color: var(--ink);
+    font: inherit; padding: 5px 0 3px; border-radius: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .bb span { font-size: 19px; line-height: 1.1; font-weight: 800; }
+  .bb small { font-size: 10px; font-weight: 700; color: var(--sub); }
+  .bb:active, .bb.on { background: color-mix(in srgb, var(--indigo) 12%, transparent); }
+  .bb.today small { color: var(--accent); }
+  .daypage { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+  @media (min-width: 720px) { .deck-arrow { top: auto; bottom: calc(80px + env(safe-area-inset-bottom)); transform: none; } }
+
+  /* 시트(환율·긴급) — 헤더를 밀지 않고 하단 위로 */
+  .sheet { position: fixed; left: 8px; right: 8px; bottom: calc(64px + env(safe-area-inset-bottom)); z-index: 45; max-height: 70vh; overflow-y: auto;
+    background: var(--card); border: 1px solid var(--line-strong); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,.28); padding: 12px 14px; margin: 0; }
+  .sheet[hidden] { display: none; }
+  .sheet .note-card { margin: 0; border: 0; padding: 0; background: none; }
+  .sheet-h { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 14px; }
+  .sheet-x { border: 0; background: var(--paper); color: var(--sub); width: 32px; height: 32px; border-radius: 50%; font-size: 15px; cursor: pointer; }
+  @media (min-width: 720px) { .sheet { left: auto; right: 16px; width: 380px; } }
+
+  /* 지금 / 다음 카드 */
+  .nowcard { margin: 10px 0 2px; border-radius: 14px; padding: 10px 12px; background: color-mix(in srgb, var(--accent) 10%, var(--card)); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+  .nowcard[hidden] { display: none; }
+  .nc-row { display: flex; gap: 8px; align-items: baseline; font-size: 13.5px; line-height: 1.45; }
+  .nc-row + .nc-row { margin-top: 4px; }
+  .nc-k { flex: none; font-size: 10.5px; font-weight: 800; color: #fff; background: var(--accent); border-radius: 5px; padding: 1px 6px; }
+  .nc-k.n { background: var(--indigo); }
+  .nc-t { font-weight: 800; flex: none; }
+  .nc-a { min-width: 0; }
+  .nc-left { color: var(--sub); font-size: 12px; white-space: nowrap; }
+  .nc-go { display: inline-block; margin-top: 8px; font-size: 12.5px; font-weight: 800; color: #fff; background: var(--accent); border-radius: 9px; padding: 6px 12px; text-decoration: none; }
+  .nc-jump { margin: 8px 0 0 6px; font: inherit; font-size: 12.5px; font-weight: 700; color: var(--accent); background: none; border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 9px; padding: 5px 10px; cursor: pointer; }
+  .dday { font-size: 14px; }
+  .dday b { font-size: 18px; color: var(--accent); }
+
+  /* 소개문 접기 */
+  details.more { margin-top: 6px; }
+  details.more > summary { cursor: pointer; font-size: 12px; font-weight: 700; color: var(--teal); list-style: none; padding: 4px 0; }
+  details.more > summary::-webkit-details-marker { display: none; }
+  details.more > summary::before { content: "▸ "; }
+  details.more[open] > summary::before { content: "▾ "; }
+
+  /* 일정 행: 시각을 더 굵게, 지도/길찾기 버튼은 손가락 크기로 */
+  .row .time { font-variant-numeric: tabular-nums; }
+  .row a.map, .item a.map { display: inline-flex; align-items: center; min-height: 32px; padding: 3px 10px; margin-top: 6px; }
+  .item a.map { font-size: 11.5px; min-height: 28px; margin-top: 4px; }
+  .tag.sv { background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); border-color: color-mix(in srgb, var(--gold) 40%, transparent); }
+
+  /* 저장 장소 */
+  .sv-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 4px; }
+  .seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 10px; overflow: hidden; }
+  .seg-b { flex: none; white-space: nowrap; border: 0; background: var(--card); color: var(--sub); font: inherit; font-weight: 700; font-size: 13px; padding: 7px 12px; min-height: 36px; cursor: pointer; }
+  .seg-b + .seg-b { border-left: 1px solid var(--line-strong); }
+  .seg-b.on { background: var(--indigo); color: #fff; }
+  .sv-bar .geobtn { min-height: 36px; font-size: 12.5px; }
+  .sv-only { font-size: 12px; color: var(--sub); display: inline-flex; gap: 4px; align-items: center; }
+  .sv-list { margin-top: 8px; }
+  .sv-item { display: flex; gap: 10px; align-items: center; justify-content: space-between; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 9px 10px; margin-bottom: 6px; }
+  .sv-item[hidden] { display: none; }
+  .sv-main { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .sv-main b { font-size: 14px; }
+  .sv-cat { font-size: 11.5px; color: var(--sub); }
+  .sv-plan { font-size: 11.5px; font-weight: 700; color: var(--teal); }
+  .sv-note { font-size: 11.5px; color: var(--faint); }
+  .sv-act { flex: none; display: flex; flex-direction: column; gap: 4px; align-items: stretch; text-align: center; }
+  .sv-dist { font-size: 11px; font-weight: 800; color: var(--indigo); min-height: 0; }
+  .sv-btn { font-size: 11.5px; font-weight: 700; text-decoration: none; color: var(--teal); border: 1px solid color-mix(in srgb, var(--teal) 38%, transparent); border-radius: 8px; padding: 5px 8px; white-space: nowrap; }
+  .sv-btn.nav { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+
+  @media print {
+    .bbar, .nowcard, .sheet-x, .sv-bar, .sv-act a { display: none !important; }
+    .sheet { position: static !important; box-shadow: none; max-height: none; border: 0; }
+    .sheet#fxbox { display: none !important; }
+    .sv-item[hidden] { display: flex !important; }
   }
 `;
 
@@ -398,6 +521,7 @@ ${daysLit}
 ${foodLit}
 ${buildSvgFn}
   var MAPS = [];
+  var TRIP0 = new Date(2026, 9, 10); // 10/10(토) = day 0
   function ll(p) { return p[0] + "," + p[1]; }
   var DRIVE = { 0: 1, 4: 1, 6: 1, 7: 1, 9: 1, 13: 1 };
   /* --- 실시간 내 위치 --- */
@@ -428,9 +552,11 @@ ${buildSvgFn}
       this.layers.push({ map: map, dot: dot, ring: ring, on: false });
       this.render();
     },
+    cbs: [],
     render: function () {
       var me = this.pos;
       if (!me) return;
+      this.cbs.forEach(function (f) { f(me); });
       this.layers.forEach(function (L2) {
         if (!L2.on) { L2.dot.addTo(L2.map); L2.ring.addTo(L2.map); L2.on = true; }
         L2.dot.setLatLng(me); L2.ring.setLatLng(me).setRadius(Math.max(8, this.acc));
@@ -477,7 +603,7 @@ ${buildSvgFn}
     var geoNote = document.createElement("span"); geoNote.className = "geonote";
     tools.appendChild(link); tools.appendChild(geoBtn); tools.appendChild(geoNote);
     wrap.appendChild(imgEl); wrap.appendChild(mapDiv); wrap.appendChild(svgDiv); wrap.appendChild(listDiv); wrap.appendChild(tools);
-    rows.parentNode.insertBefore(wrap, rows);
+    rows.parentNode.insertBefore(wrap, rows.nextSibling); // 여행 중엔 시간표가 먼저, 지도는 그 아래(넓은 화면은 오른쪽 고정)
     var map = null, markers = [], built = false, latlngs = pts.map(function (p) { return [p[0], p[1]]; });
     svgDiv.style.display = "block";
     function buildLeaflet() {
@@ -560,6 +686,9 @@ ${buildSvgFn}
     var el = pageEls()[curIndex()];
     var go = el && el.id === "pg-prep" ? "prep" : el ? el.id.replace("pg-", "") : null;
     chips.forEach(function (c) { c.classList.toggle("on", c.dataset.go === go); });
+    var cur = document.getElementById("hdr-cur");
+    if (cur) cur.textContent = go === "ov" ? "· 한눈에" : go === "prep" ? "· 준비" : go === "saved" ? "· 저장한 곳" : go === "end" ? "· 10/24" : (go != null ? "· 10/" + (10 + +go) + " " + "토일월화수목금토일월화수목금".charAt(+go) : "");
+    var bs = document.getElementById("bb-saved"); if (bs) bs.classList.toggle("on", go === "saved");
     var on = document.querySelector(".chip.on");
     if (on) on.scrollIntoView({ inline: "center", block: "nearest" });
   }
@@ -572,6 +701,45 @@ ${buildSvgFn}
     if (e.key === "ArrowRight") document.querySelector(".deck-arrow.next").click();
     if (e.key === "ArrowLeft") document.querySelector(".deck-arrow.prev").click();
   });
+
+  /* --- 📌 저장 장소: 도시 탭 · 일정만 · 가까운 순 --- */
+  (function () {
+    var list = document.getElementById("sv-list"); if (!list) return;
+    var items = Array.prototype.slice.call(list.querySelectorAll(".sv-item"));
+    var segs = Array.prototype.slice.call(document.querySelectorAll(".seg-b"));
+    var only = document.getElementById("sv-plan"), note = document.getElementById("sv-note"), gb = document.getElementById("sv-geo");
+    var city = "아테네", sorted = false;
+    function apply() {
+      segs.forEach(function (b) { b.classList.toggle("on", b.dataset.city === city); });
+      items.forEach(function (el) { el.hidden = el.dataset.city !== city || (only.checked && !el.querySelector(".sv-plan")); });
+    }
+    function cityOf(i) { return i == null ? null : i <= 3 ? "아테네" : i <= 8 ? "산토리니" : "로마"; }
+    function near(me) {
+      var best = null;
+      items.forEach(function (el) {
+        var ll = el.dataset.ll.split(",").map(Number), d = distM(me, ll);
+        el._d = d; el.querySelector(".sv-dist").textContent = fmtD(d);
+        if (!best || d < best._d) best = el;
+      });
+      if (sorted) {
+        items.slice().sort(function (a, b) { return a._d - b._d; }).forEach(function (el) { list.appendChild(el); });
+        if (best && best._d < 60000 && best.dataset.city !== city && !list._picked) { city = best.dataset.city; list._picked = 1; apply(); }
+        note.textContent = "가까운 순 정렬 · 가장 가까운 곳: " + best.querySelector("b").textContent + " " + fmtD(best._d);
+      }
+    }
+    GEO.cbs.push(near);
+    segs.forEach(function (b) { b.addEventListener("click", function () { city = b.dataset.city; apply(); }); });
+    only.addEventListener("change", apply);
+    gb.addEventListener("click", function () { sorted = true; gb.classList.add("on"); GEO.start(); if (GEO.pos) near(GEO.pos); else note.textContent = "위치 잡는 중…"; });
+    // 하단 ‘근처 저장’: 지금 보고 있는 날의 도시로 열고, 위치를 켜면 가까운 순
+    document.getElementById("bb-saved").addEventListener("click", function () {
+      var el = pageEls()[curIndex()], d = el && el.dataset.day != null ? +el.dataset.day : todayIdx();
+      if (el && el.id !== "pg-saved") city = cityOf(d) || city;
+      apply(); goto("saved");
+      if (GEO.watch != null || GEO.pos) { sorted = true; gb.classList.add("on"); if (GEO.pos) near(GEO.pos); }
+    });
+    city = cityOf(todayIdx()) || city; apply();
+  })();
 
   /* --- 헤더 높이 → 덱 높이 --- */
   function setH() { document.documentElement.style.setProperty("--hdrH", document.querySelector(".hdr").offsetHeight + "px"); }
@@ -592,7 +760,15 @@ ${buildSvgFn}
 
   /* --- 긴급정보 토글 --- */
   var eb = document.getElementById("emerg-btn"), ebx = document.getElementById("emerg");
-  if (eb) eb.addEventListener("click", function () { ebx.hidden = !ebx.hidden; setH(); });
+  function sheet(el, show) {
+    Array.prototype.forEach.call(document.querySelectorAll(".sheet"), function (x) { if (x !== el) x.hidden = true; });
+    el.hidden = show === undefined ? !el.hidden : !show;
+    document.getElementById("emerg-btn").classList.toggle("on", !document.getElementById("emerg").hidden);
+    document.getElementById("fxbtn").classList.toggle("on", !document.getElementById("fxbox").hidden);
+  }
+  if (eb) eb.addEventListener("click", function () { sheet(ebx); });
+  Array.prototype.forEach.call(document.querySelectorAll(".sheet-x"), function (b) { b.addEventListener("click", function () { sheet(document.getElementById(b.dataset.close), false); }); });
+  deck.addEventListener("click", function () { Array.prototype.forEach.call(document.querySelectorAll(".sheet"), function (x) { if (!x.hidden) sheet(x, false); }); });
 
   /* --- 환율 · 본문의 €금액 옆에 원화 병기 --- */
   var FXKEY = KEY + "_fx", FXDEF = 1591, fx = FXDEF; // 1€=₩1,591 (2026-09-20 시장환율)
@@ -637,7 +813,7 @@ ${buildSvgFn}
     fe.addEventListener("input", function () { conv(true); });
     fk.addEventListener("input", function () { conv(false); });
     var fb2 = document.getElementById("fxbtn"), fbx = document.getElementById("fxbox");
-    fb2.addEventListener("click", function () { fbx.hidden = !fbx.hidden; setH(); });
+    fb2.addEventListener("click", function () { sheet(fbx); if (!fbx.hidden) setTimeout(function () { fe.focus(); }, 50); });
   })();
 
   /* --- 상단 메뉴바(일자 칩) 접기/펴기 --- */
@@ -657,14 +833,16 @@ ${buildSvgFn}
 
   /* --- PDF --- */
   var pb = document.getElementById("pdfbtn");
-  if (pb) pb.addEventListener("click", function () { window.print(); });
+  function openAll() { Array.prototype.forEach.call(document.querySelectorAll("details.more"), function (d) { d.open = true; }); }
+  window.addEventListener("beforeprint", openAll);
+  if (pb) pb.addEventListener("click", function () { openAll(); window.print(); });
+  if (location.search.indexOf("pdf=1") >= 0) openAll();
   if (location.search.indexOf("pdf=1") >= 0) document.documentElement.setAttribute("data-pdf", "1");
 
   /* --- 서비스워커 --- */
   if ("serviceWorker" in navigator) window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
 
   /* --- 오늘 / 지금 할 일 --- */
-  var TRIP0 = new Date(2026, 9, 10); // 10/10(토) = day 0
   function todayIdx() {
     var t = new Date(), d = new Date(t.getFullYear(), t.getMonth(), t.getDate());
     var n = Math.round((d - TRIP0) / 86400000);
@@ -684,16 +862,60 @@ ${buildSvgFn}
       if (+m[1] * 60 + +m[2] <= mins) hit = r;
     });
     if (hit) hit.classList.add("now");
+    nowCard(pg, hit, mins);
     return hit;
   }
+  /* 오늘 페이지 맨 위 ‘지금 / 다음’ 카드 — 시간표를 스크롤하지 않고 바로 다음 행동과 길찾기 */
+  function rowTitle(r) {
+    var a = r.querySelector(".act").cloneNode(true);
+    Array.prototype.forEach.call(a.querySelectorAll(".note,.addr,a,.pill,.krw"), function (x) { x.remove(); });
+    var t = a.textContent.replace(/\\s+/g, " ").trim();
+    return t.length > 70 ? t.slice(0, 68) + "…" : t;
+  }
+  function rowMin(r) {
+    var m = ((r.querySelector(".time") || {}).textContent || "").match(/(\\d{1,2}):(\\d{2})/);
+    return m ? +m[1] * 60 + +m[2] : null;
+  }
+  function nowCard(pg, hit, mins) {
+    Array.prototype.forEach.call(document.querySelectorAll(".nowcard"), function (c) { if (c.parentNode !== pg) c.hidden = true; });
+    var card = pg.querySelector(".nowcard");
+    if (!card) return;
+    var rows = Array.prototype.slice.call(pg.querySelectorAll(".rows .row")), next = null;
+    rows.forEach(function (r) { var m = rowMin(r); if (next === null && m !== null && m > mins) next = r; });
+    var h = "", hh = function (m) { var d = m - mins; return d < 60 ? d + "분 후" : Math.floor(d / 60) + "시간 " + (d % 60 ? (d % 60) + "분 " : "") + "후"; };
+    if (hit) h += '<div class="nc-row"><span class="nc-k">지금</span><span class="nc-a">' + rowTitle(hit) + "</span></div>";
+    if (next) {
+      var nm = rowMin(next);
+      h += '<div class="nc-row"><span class="nc-k n">다음</span><span class="nc-t">' + next.querySelector(".time").textContent.replace(/선택/, "").trim() + '</span><span class="nc-a">' + rowTitle(next) + ' <span class="nc-left">' + hh(nm) + "</span></span></div>";
+      var nav = next.querySelector("a.map.nav") || next.querySelector("a.map");
+      if (nav) h += '<a class="nc-go" href="' + nav.href + '" target="_blank" rel="noopener">🧭 다음 장소 길찾기</a>';
+    } else if (hit) {
+      h += '<div class="nc-row"><span class="nc-k n">끝</span><span class="nc-a">오늘 시간표는 여기까지 — 푹 쉬세요</span></div>';
+    }
+    if (hit) h += '<button type="button" class="nc-jump">시간표에서 보기</button>';
+    card.innerHTML = h;
+    card.hidden = !h;
+    var j = card.querySelector(".nc-jump");
+    if (j) j.addEventListener("click", function () { hit.scrollIntoView({ block: "center", behavior: "smooth" }); });
+  }
+  /* 여행 전: 준비 페이지에 D-day */
+  (function () {
+    var el = document.getElementById("dday"); if (!el) return;
+    var t = new Date(), d0 = new Date(t.getFullYear(), t.getMonth(), t.getDate()), n = Math.round((TRIP0 - d0) / 86400000);
+    if (n > 0) { el.innerHTML = "✈️ 출발까지 <b>D-" + n + "</b> · 10/10(토) 08:30 인천 OZ521 — 05:30 공항 도착. 아래 ⏳ 예약부터 처리하세요"; el.hidden = false; }
+  })();
   function goToday(scrollRow, instant) {
     var i = todayIdx();
     goto(i === null ? "prep" : String(i), instant);
     var hit = markNow();
-    if (hit && scrollRow) setTimeout(function () { hit.scrollIntoView({ block: "center", behavior: instant ? "auto" : "smooth" }); }, instant ? 60 : 420);
+    // 맨 위 ‘지금/다음’ 카드가 보이게 페이지 처음으로. 카드의 ‘시간표에서 보기’로 지금 행까지 이동
+    var pg = document.getElementById(i === null ? "pg-prep" : "pg-" + i);
+    if (pg && (scrollRow || !hit)) pg.scrollTo({ top: 0, behavior: instant ? "auto" : "smooth" });
   }
   /* --- 한눈에 보기: 행을 누르면 그날 상세로 --- */
   Array.prototype.forEach.call(document.querySelectorAll(".ov-row"), function (r) { r.addEventListener("click", function () { goto(r.dataset.go); }); });
+  document.getElementById("bb-prev").addEventListener("click", function () { document.querySelector(".deck-arrow.prev").click(); });
+  document.getElementById("bb-next").addEventListener("click", function () { document.querySelector(".deck-arrow.next").click(); });
   var tb = document.getElementById("todaybtn");
   if (tb) tb.addEventListener("click", function () { goToday(true, false); });
   // 여행 기간이면 오늘 칩을 강조
@@ -723,24 +945,32 @@ const html = `<meta charset="utf-8" />
 
 <header class="hdr">
   <div class="hdr-top">
-    <h1>아테네·산토리니·로마 <span class="k">14일</span></h1>
+    <h1>🇬🇷🇮🇹 신혼여행 <span class="k" id="hdr-cur"></span></h1>
     <div class="hdr-btns">
-      <button class="nowbtn" id="todaybtn" title="오늘 일정으로">오늘</button>
-      <button class="fontbtn" id="fxbtn" title="환율 계산기">💶</button>
-      <button class="fontbtn emerg-btn" id="emerg-btn" title="긴급정보">🚨</button>
-      <button class="fontbtn" id="pdfbtn" title="PDF로 저장/인쇄">⬇︎PDF</button>
-      <button class="fontbtn" id="fontbtn" title="글자 크게">가A</button>
+      <button class="fontbtn" id="fontbtn" title="글자 크게" aria-label="글자 크게">가A</button>
+      <button class="fontbtn" id="pdfbtn" title="PDF로 저장/인쇄" aria-label="PDF 저장">⬇︎</button>
       <button class="fontbtn" id="hdrbtn" title="메뉴 접기">▲</button>
     </div>
   </div>
-  <div class="emerg" id="emerg" hidden>${emergCard}</div>
-  <div class="note-card fxbox" id="fxbox" hidden>
-    💶 <b>환율</b> 1€ = ₩<input id="fx-rate" type="number" inputmode="decimal" min="1" step="any" aria-label="1유로당 원화" /> <button id="fx-reset" type="button">기본값</button><br>
-    <input id="fx-eur" type="number" inputmode="decimal" min="0" step="any" aria-label="유로" /> € = ₩<input id="fx-krw" type="number" inputmode="numeric" min="0" step="any" aria-label="원화" /><br>
-    <span class="en">기본값은 2026-09-20 기준 시장환율. 카드·환전소 환율은 보통 1~3% 다르니 실제 값으로 고쳐 입력하세요. 이 기기에 저장됩니다.</span>
-  </div>
   <div class="navwrap">${navHtml}</div>
 </header>
+
+<div class="sheet" id="emerg" hidden><div class="sheet-h"><b>🚨 긴급 정보</b><button type="button" class="sheet-x" data-close="emerg" aria-label="닫기">✕</button></div>${emergCard}</div>
+<div class="sheet note-card fxbox" id="fxbox" hidden>
+  <div class="sheet-h"><b>💶 환율 계산기</b><button type="button" class="sheet-x" data-close="fxbox" aria-label="닫기">✕</button></div>
+  1€ = ₩<input id="fx-rate" type="number" inputmode="decimal" min="1" step="any" aria-label="1유로당 원화" /> <button id="fx-reset" type="button">기본값</button><br>
+  <input id="fx-eur" type="number" inputmode="decimal" min="0" step="any" aria-label="유로" /> € = ₩<input id="fx-krw" type="number" inputmode="numeric" min="0" step="any" aria-label="원화" /><br>
+  <span class="en">기본값은 2026-09-20 기준 시장환율. 카드·환전소 환율은 보통 1~3% 다르니 실제 값으로 고쳐 입력하세요. 이 기기에 저장됩니다.</span>
+</div>
+
+<nav class="bbar" aria-label="빠른 메뉴">
+  <button type="button" class="bb" id="bb-prev" aria-label="이전 날"><span>‹</span><small>이전</small></button>
+  <button type="button" class="bb today" id="todaybtn" title="오늘 일정으로"><span>📍</span><small>오늘</small></button>
+  <button type="button" class="bb" id="bb-saved"><span>📌</span><small>근처 저장</small></button>
+  <button type="button" class="bb" id="fxbtn" title="환율 계산기"><span>💶</span><small>환율</small></button>
+  <button type="button" class="bb emerg-btn" id="emerg-btn" title="긴급정보"><span>🚨</span><small>긴급</small></button>
+  <button type="button" class="bb" id="bb-next" aria-label="다음 날"><span>›</span><small>다음</small></button>
+</nav>
 
 <button class="deck-arrow prev" aria-label="이전 날">‹</button>
 <button class="deck-arrow next" aria-label="다음 날">›</button>
