@@ -103,7 +103,7 @@ const CHECK = [
   [
     item("p-flight-athjtr", "GQ350 시각·수하물·온라인 체크인 <span class='tag hot'>확인</span>", "티켓상 ATH 14:00 출발. ⚠️ 2026-09-13 재확인해도 공개 시간표는 여전히 17:15 — e-티켓 실제 시각 지금 재확인. SKY Basic·Joy+=15kg / Enjoy=23kg"),
     item("p-santorini-transfers", "아르메나키에 셔틀 선택 회신 <span class='tag hot'>회신 필요</span>", "호텔이 가격 확정: 합승 2인 €45 / 프라이빗 2인 €80(편도, 추가인원 +€10). <b>선택안 + 항공편명(GQ350)을 회신</b>해야 예약 진행"),
-    item("p-dinner-ammoudi", "암무디 저녁 예약 — Sunset Ammoudi(저장)", "온라인 예약, 보증금 1인 €20(계산서서 차감) · 19:30 물가 자리 요청. 대안 Dimitris Ammoudi(이메일)"),
+    item("p-dinner-ammoudi", "암무디 저녁 예약 — Sunset Ammoudi(저장)", "온라인 예약(보증금은 계산서에서 차감 — 금액은 예약 화면에서 확인) · 19:30 물가 자리 요청. 대안 Dimitris Ammoudi(이메일)"),
     item("d14-checkout", "코코맷 10:45 체크아웃 → 택시로 ATH", "메트로는 Syntagma 환승, 짐 있으면 택시 €40"),
   ],
   // 5 · 10/15 와인투어
@@ -117,8 +117,8 @@ const CHECK = [
     item("p-cavo-spa", "Cavo Tagoo 커플 스파 트리트먼트·시간 회신", "호텔이 10/18 스파 가능 여부·가격을 확인해주겠다고 회신 — <b>원하는 트리트먼트·시간대를 답장</b>(대략 2인 €200~350). 얼리 체크인(10/16 13:00~13:30)은 최선을 다하겠다는 답변(확정 아님)"),
     item("p-dinner-ammoudi-metaxi", "Metaxi Mas 예약 <span class='tag hot'>필수</span>", "☎ +30 22860 31323, 며칠 전 (10/16 점심)"),
     item("d16-taxi", "오이아→(아크로티리)→Cavo Tagoo 택시 사전 콜", "직행 €30~35 / 아크로티리 경유 대절 €80~90"),
-    item("d16-tasos", "저녁 Tasos Tavern (도보 10분, 예약 불필요)", "18:00~23:00. 호텔 레스토랑은 시즌 종료라 이용 불가 — 대안 Father and Son(피로스테파니)"),
-    item("d16-cavo", "체크인 시 조식 제공 방식 확인 · 기념 세팅 문의", "컨시어지에. 원하면 꽃(€140)·샴페인(€170~650)·케이크(€70) 등 기념 세팅도 유료로 가능"),
+    item("d16-tasos", "저녁 Memoria (호텔 150m) — 일몰 자리면 예약", "☎ +30 2286 025871 · 매일 12:00~22:30. 대안 Tasos Tavern(도보 10분, 예약 불필요). 호텔 레스토랑은 시즌 종료"),
+    item("d16-cavo", "체크인 시 조식 제공 방식 확인(안 되면 Ilios Bakery Wolt 배달) · 기념 세팅 문의", "컨시어지에. 원하면 꽃(€140)·샴페인(€170~650)·케이크(€70) 등 기념 세팅도 유료로 가능"),
   ],
   // 7 · 10/17 이메로비글리↔피라 · 피르고스
   [
@@ -130,6 +130,7 @@ const CHECK = [
   // 8 · 10/18 리조트 데이
   [
     item("d18-spa", "커플 스파 트리트먼트 시간 확정", "호텔 확인: 10/18까지 스파 정상 운영. 회신한 시간대로 진행되는지 도착 후 재확인"),
+    item("d18-lunch", "점심 Le Moustache / Throubi 영업 확인 (전날)", "시즌 막바지 — 전화로 10/18 점심 영업 여부 확인. 안 되면 Volkan on the Rocks(09~24시)"),
     item("f-jtr-1018-resv", "Mylos 또는 Anogi 저녁 예약", "칼데라뷰. 호텔 레스토랑은 시즌 종료라 저녁은 꼭 밖에서"),
     item("d18-prepack", "내일 오전 출발 대비 짐 정리", "10/19 12:00 체크아웃 → 14:30 공항"),
   ],
@@ -237,7 +238,7 @@ const OV = [
   [1, "제우스 신전·플라카·모나스티라키 + 오후 아크로폴리스 투어", ["14:00~18:00 한국어 아크로폴리스 투어(마이리얼트립)", "아크로폴리스 통합권 구매완료"], [], ""],
   [2, "아크로폴리스 박물관·로만 아고라·Meat the Greek·리카비토스 일몰 · 밤엔 Blame The Sun 탭룸", [], ["Nolan 저녁 예약(선택)"], ""],
   [3, "파나티나이코·국립고고학 박물관", ["19:15 CTC Urban Gastronomy(미슐랭 1스타)"], [], ""],
-  [4, "아테네 → 산토리니(오이아) · 첫 일몰", ["GQ350 ATH 14:00 → JTR"], ["Sunset Ammoudi 저녁 예약(온라인, 보증금 €20/인)", "아르메나키 셔틀 선택 회신(합승 €45/프라이빗 €80)"], "GQ350 실제 출발 시각 재확인"],
+  [4, "아테네 → 산토리니(오이아) · 첫 일몰", ["GQ350 ATH 14:00 → JTR"], ["Sunset Ammoudi 저녁 예약(온라인, 보증금 있음)", "아르메나키 셔틀 선택 회신(합승 €45/프라이빗 €80)"], "GQ350 실제 출발 시각 재확인"],
   [5, "오이아 슬로우 모닝 · 오후 와이너리 투어", ["16:00 와이너리 미식 투어(호텔 픽업·하차, 5코스 정찬 포함)"], [], ""],
   [6, "Cavo Tagoo 입성 · 인피니티풀·선셋", [], ["Metaxi Mas 점심 예약(전화 필수)", "10/18 커플 스파 시간 회신"], ""],
   [7, "이메로비글리→피라 산책(약 4km) · 선사시대 티라 박물관 · 피르고스 일몰", [], ["피르고스 저녁 예약(Selene 등)", "귀가 택시 콜(컨시어지)"], ""],
@@ -286,10 +287,11 @@ const SAVED = JSON.parse(fs.readFileSync(path.join(__dirname, "saved-places.json
 const svRank = (p) => (/숙소/.test(p[4]) ? 0 : (p[5].match(/10\/(\d+)/) || [])[1] ? +p[5].match(/10\/(\d+)/)[1] : 99);
 SAVED.sort((a, b) => CITIES.indexOf(a[0]) - CITIES.indexOf(b[0]) || svRank(a) - svRank(b)); // 도시 내 순서: 숙소 → 일정 날짜 순 → 일정 외(위치 켜면 가까운 순)
 const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
-const svItem = ([city, name, lat, lng, cat, plan, memo, q], n) =>
+const cidUrl = (cid) => "https://maps.google.com/?cid=" + cid; // 구글맵 저장 리스트의 바로 그 장소(이름이 같은 다른 지점으로 새지 않게)
+const svItem = ([city, name, lat, lng, cat, plan, memo, q, cid], n) =>
   `<div class="sv-item" data-city="${city}" data-i="${n}" data-ll="${lat},${lng}"><div class="sv-main"><b>${esc(name)}</b><span class="sv-cat">${esc(cat)}</span>` +
   (plan ? `<span class="sv-plan">📅 ${esc(plan)}</span>` : "") + (memo ? `<span class="sv-note">${esc(memo)}</span>` : "") +
-  `</div><div class="sv-act"><span class="sv-dist"></span><a class="sv-btn nav" href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" rel="noopener">🧭 길찾기</a><a class="sv-btn" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}" target="_blank" rel="noopener">🗺️ 지도</a></div></div>`;
+  `</div><div class="sv-act"><span class="sv-dist"></span><a class="sv-btn nav" href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" rel="noopener">🧭 길찾기</a><a class="sv-btn" href="${cidUrl(cid)}" target="_blank" rel="noopener">🗺️ 지도</a></div></div>`;
 const savedPage = `<section class="daypage" id="pg-saved">
   <div class="day-h"><div class="daytag" style="--c: var(--gold)"><div><span class="dow">저장</span><div class="dt">${SAVED.length}곳</div></div></div><div><div class="title">📌 저장해 둔 곳</div><div class="sub">구글맵 리스트(아테네·산토리니·로마) · 📅 = 일정에 넣은 날 · 내 위치 켜면 가까운 순</div></div></div>
   <div class="sv-bar"><div class="seg" role="tablist">${CITIES.map((c, k) => `<button type="button" class="seg-b${k ? "" : " on"}" data-city="${c}">${c}</button>`).join("")}</div>
@@ -298,7 +300,35 @@ const savedPage = `<section class="daypage" id="pg-saved">
   <div class="sv-list" id="sv-list">${SAVED.map(svItem).join("")}</div>
 </section>`;
 
-const pagesHtml = [ovPage, prepPage, savedPage].concat(dayBlocks.map((_, i) => dayPage(i))).join("\n");
+/* 일정·식당의 🗺️ 지도 링크 중 저장 리스트에 있는 곳은 이름 검색 대신 그 장소(cid)로 고정 + 길찾기는 정확한 좌표로.
+   key = 원본 링크의 query, value = saved-places.json의 이름 */
+const SAVED_LINK = {
+  "Armenaki+Santorini+Oia": "Armenaki (숙소)", "Blame+The+Sun+Athens+Taproom": "Blame The Sun 탭룸", "CTC+Urban+Gastronomy+Athens": "CTC Urban Gastronomy",
+  "CTC+Urban+Gastronomy+Plateon+15+Athens": "CTC Urban Gastronomy", "Casa+Guttmann+Via+dei+Serviti+26+Roma": "Casa Guttmann (숙소)", "Cavo+Tagoo+Santorini": "Cavo Tagoo (숙소)",
+  "Coco-Mat+Athens+BC": "코코맷 BC (숙소)", "Cookaki+Petmeza+5+Athens": "Cookaki", "Family+Tavern+Father+and+Son+Firostefani": "Father and Son", "Fanari+Restaurant+Oia": "Fanari",
+  "Giolitti+Roma": "Giolitti", "Il+Chianti+Via+del+Lavatore+Roma": "Il Chianti", "Il+Vero+Alfredo+Roma": "Il Vero Alfredo", "Kafeneio+Oraia+Ellas+Athens": "Kafeneio Oraia Ellas",
+  "Karamanlidika+Evripidou+52+Athens": "Karamanlidika", "LUKUMADES+Eolou+21+Athens": "LUKUMAΔΕΣ", "La+cantina+di+Cesare+Via+Candia+Roma": "La Cantina di Cesare",
+  "Lolita%27s+Gelato+Oia": "Lolita's Gelato", "Lotza+Oia+Santorini": "Lotza", "Lucky%27s+Souvlakis+Fira": "Lucky's Souvlakis", "Meat+the+Greek+Athens": "Meat the Greek",
+  "Mercato+Centrale+Roma": "Mercato Centrale", "Nolan+restaurant+Voulis+Athens": "Nolan", "O+Lolos+Koukaki+Athens": "O Lolos", "O+Thanasis+Mitropoleos+69+Athens": "O Thanasis 케밥",
+  "Opos+Palia+Veikou+2+Athens": "Opos Palia", "Osteria+Bacco+Via+Santa+Maria+in+Via+Roma": "Osteria Bacco", "Osteria+da+Fortunata+Rinascimento+Roma": "Osteria da Fortunata",
+  "Pizza+in+Trevi+Roma": "Pizza in Trevi", "Rione+XIV+Bistrot+Borgo+Pio+Roma": "Rione XIV Bistrot", "Ristorante+Coreano+Gainn+Roma": "가인 Gainn",
+  "Roscioli+Salumeria+Via+dei+Giubbonari+21+Roma": "Roscioli", "Roscioli+Salumeria+con+Cucina+Roma": "Roscioli", "Santo+Wines+Pyrgos+Santorini": "Santo Wines",
+  "Stani+Marikas+Kotopouli+10+Athens": "Stani", "Sunset+Ammoudi+Taverna+Oia": "Sunset Ammoudi", "Tailor+Made+Coffee+Roasters+Athens": "Tailor Made Coffee",
+  "Tartufi%26Friends+Via+Borgognona+Roma": "Tartufi&Friends", "Tasos+Tavern+Imerovigli": "Tasos Tavern", "Tephra+Rooftop+Oia": "Tephra Rooftop",
+  "The+baker+of+Sardinia+Via+delle+Carrozze+Roma": "The Baker of Sardinia", "Tholoto+Brunch+Restaurant+Fira": "Tholoto", "Thomas+1971+Tavern+Athens": "Thomas 1971 Tavern",
+  "Tonnarello+Roma": "Tonnarello", "Volkan+on+the+Rocks+Firostefani": "Volkan on the Rocks", "Babette+Via+Margutta+Roma": "Babette", "Armando+al+Pantheon+Roma": "Armando al Pantheon",
+  "Memoria+Restaurant+Imerovigli": "Memoria", "Oregano+Restaurant+Imerovigli": "Oregano", "Throubi+Restaurant+Andronis+Imerovigli": "Throubi (Andronis)",
+  "Le+Moustache+Imerovigli": "Le Moustache", "Ilios+Bakery+Imerovigli": "Ilios Bakery",
+};
+const savedBy = (name) => { const p = SAVED.find((x) => x[1] === name); if (!p) throw new Error("저장 리스트에 없는 이름: " + name); return p; };
+Object.values(SAVED_LINK).forEach(savedBy); // 이름 오타·리스트에서 빠진 장소는 빌드에서 바로 실패
+let linked = 0;
+const pinSaved = (h) => h.replace(/<a class="map" href="https:\/\/www\.google\.com\/maps\/search\/\?api=1&query=([^"]+)"/g, (m, q) => {
+  if (!SAVED_LINK[q]) return m;
+  const p = savedBy(SAVED_LINK[q]); linked++;
+  return `<a class="map" data-ll="${p[2]},${p[3]}" href="${cidUrl(p[8])}"`;
+});
+const pagesHtml = pinSaved([ovPage, prepPage, savedPage].concat(dayBlocks.map((_, i) => dayPage(i))).join("\n"));
 
 /* 상단 네비 — 한 줄 가로 스크롤 */
 function chip(target, label, cls) {
@@ -489,7 +519,7 @@ const NEW_CSS = `
 
   /* 저장 장소 */
   .sv-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 4px; }
-  .seg { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 10px; overflow: hidden; }
+  .seg { flex: none; display: inline-flex; border: 1px solid var(--line-strong); border-radius: 10px; overflow: hidden; }
   .seg-b { flex: none; white-space: nowrap; border: 0; background: var(--card); color: var(--sub); font: inherit; font-weight: 700; font-size: 13px; padding: 7px 12px; min-height: 36px; cursor: pointer; }
   .seg-b + .seg-b { border-left: 1px solid var(--line-strong); }
   .seg-b.on { background: var(--indigo); color: #fff; }
@@ -650,8 +680,8 @@ ${buildSvgFn}
   });
 
   /* --- 모든 장소에 구글지도 길찾기 링크 추가 --- */
-  Array.prototype.forEach.call(document.querySelectorAll('a.map[href*="maps/search"]'), function (a) {
-    var q = (a.href.split("query=")[1] || "").split("&")[0];
+  Array.prototype.forEach.call(document.querySelectorAll('a.map[href*="maps/search"], a.map[data-ll]'), function (a) {
+    var q = a.dataset.ll || (a.href.split("query=")[1] || "").split("&")[0];
     if (!q) return;
     var b = document.createElement("a");
     b.className = "map nav"; b.target = "_blank"; b.rel = "noopener";
@@ -997,4 +1027,5 @@ fs.writeFileSync(OUT, html, "utf8");
 console.log("OK ->", OUT, "(" + html.length + " bytes)");
 console.log("pages:", (html.match(/class="daypage"/g) || []).length, " chips:", (html.match(/class="chip"/g) || []).length);
 console.log("food days:", Object.keys(foodByDate).sort().join(","));
+console.log("저장 장소 고정 링크:", linked);
 console.log("checklists:", CHECK.map((c) => c.length).join(","));

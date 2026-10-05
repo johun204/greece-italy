@@ -17,7 +17,7 @@ assert(!/예비일|요트/.test(d18), "10/18에 요트 예비일 표기가 남�
 const DAYS = eval(html.match(/var DAYS = (\[[\s\S]*?\n {4}\]);/)[1]);
 assert.strictEqual(DAYS.length, 14);
 assert(DAYS[7].some((p) => /피르고스/.test(p[2])) && !DAYS[7].some((p) => /요트|화산온천/.test(p[2])), "DAYS[7]이 피라·피르고스 동선이어야 함");
-assert(DAYS[8].every((p) => p[0] === 36.4456 || /Skaros/.test(p[2])), "DAYS[8]은 호텔 주변이어야 함");
+assert(DAYS[8].every((p) => p[0] === 36.4456 || /Skaros|Le Moustache/.test(p[2])), "DAYS[8]은 호텔 주변이어야 함");
 assert(!/36\.4290/.test(html), "Cavo Tagoo 옛 좌표(36.4290)가 남아 있음 — 실제 위치는 36.4456,25.4265");
 const DRIVE = eval("(" + html.match(/var DRIVE = (\{[^}]*\});/)[1] + ")");
 assert(DRIVE[7] && !DRIVE[8], "차량 이동 플래그가 요트 날(7)로 옮겨져야 함");
@@ -147,8 +147,8 @@ assert(/2시간 25분/.test(pg(9)) && !/실비행 약 1h25/.test(html), "FR3021 
 assert(!/식당탭/.test(html), "없어진 ‘식당탭’ 문구가 남아 있음");
 assert(DAYS[10].findIndex((p) => /Rione/.test(p[2])) < DAYS[10].findIndex((p) => /성 베드로/.test(p[2])), "10/20 동선 순서(점심→성 베드로)가 시간표와 다름");
 const SAVED = JSON.parse(fs.readFileSync("saved-places.json", "utf8"));
-assert.strictEqual(SAVED.length, 78, "저장 장소는 78곳(아테네 31·산토리니 19·로마 28)");
-assert.strictEqual((html.match(/class="sv-item"/g) || []).length, 78, "저장 장소 페이지 항목 수");
+assert.strictEqual(SAVED.length, 81, "저장 장소는 81곳(아테네 31·산토리니 22·로마 28, 2026-10-05 리스트 기준)");
+assert.strictEqual((html.match(/class="sv-item"/g) || []).length, 81, "저장 장소 페이지 항목 수");
 SAVED.forEach((p) => assert(p[2] > 36 && p[2] < 42.1 && p[3] > 12 && p[3] < 26, "저장 장소 좌표 이상: " + p[1]));
 
 /* 7b. 2026-10-02 반영: 10/22 보르게세 오픈런 + Roscioli 12:30 예약완료 + 콜로세움 매진(취소표/외관), Cavo Tagoo 레스토랑 시즌 종료 */
@@ -160,6 +160,15 @@ assert(/12:30 Roscioli/.test(ov), "한눈에 보기에 Roscioli 예약완료 누
 assert(!/Roscioli[^<"\n]{0,30}12:00|12:00 Roscioli|11:10/.test(pg(12)), "Roscioli 옛 시각(12:00)·11:10 출발이 남아 있음");
 for (const i of [6, 7, 8, 9]) assert(!/호텔 다이닝|Cavo Tagoo 다이닝|숙소 다이닝|호텔 레스토랑 or|룸서비스로/.test(pg(i)), "Cavo Tagoo 레스토랑(시즌 종료)을 쓰는 일정이 10/" + (10 + i) + "에 남아 있음");
 assert(/레스토랑은 시즌 종료/.test(prepHtml), "준비 페이지 Cavo Tagoo 확인 내용 갱신 누락");
+
+/* 7c. 저장 장소 = 구글맵 리스트의 바로 그 장소(cid 고정) — 이름이 비슷한 다른 지점으로 새지 않게 */
+SAVED.forEach((p) => assert(/^\d{6,20}$/.test(p[8] || ""), "cid 누락: " + p[1]));
+assert.strictEqual(new Set(SAVED.map((p) => p[8])).size, SAVED.length, "cid 중복");
+assert(!SAVED.some((p) => /Sophia Oia View|One Of One/.test(p[1])), "리스트에서 빠진 장소가 남아 있음");
+const svLabels = html.match(/<label class="item">(?:(?!<\/label>)[\s\S])*?⭐저장(?:(?!<\/label>)[\s\S])*?<\/label>/g) || [];
+assert(svLabels.length >= 40, "⭐저장 식당 후보 수가 너무 적음: " + svLabels.length);
+svLabels.forEach((l) => assert(!/maps\/search/.test(l) && /maps\.google\.com\/\?cid=\d+/.test(l), "⭐저장 후보가 이름 검색 링크를 씀: " + l.replace(/<[^>]+>/g, " ").slice(0, 60)));
+assert(/Memoria/.test(pg(6)) && /Le Moustache/.test(pg(8)) && /Ilios Bakery/.test(pg(7)) && /Memoria/.test(pg(9)), "새 저장(이메로비글리) 장소 반영 누락");
 
 /* 8. 여행 중 UI: 한 줄 네비, 하단 바, 지금/다음 카드, 접는 소개문, 지도는 시간표 아래 */
 assert.strictEqual((html.match(/class="navrow"/g) || []).length, 1, "상단 네비는 한 줄이어야 함");
