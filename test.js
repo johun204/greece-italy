@@ -151,12 +151,13 @@ assert.strictEqual(SAVED.length, 78, "저장 장소는 78곳(아테네 31·산�
 assert.strictEqual((html.match(/class="sv-item"/g) || []).length, 78, "저장 장소 페이지 항목 수");
 SAVED.forEach((p) => assert(p[2] > 36 && p[2] < 42.1 && p[3] > 12 && p[3] < 26, "저장 장소 좌표 이상: " + p[1]));
 
-/* 7b. 2026-10-02 반영: 10/22 보르게세 오픈런 + Roscioli 12:00 예약완료 + 콜로세움 매진(취소표/외관), Cavo Tagoo 레스토랑 시즌 종료 */
+/* 7b. 2026-10-02 반영: 10/22 보르게세 오픈런 + Roscioli 12:30 예약완료 + 콜로세움 매진(취소표/외관), Cavo Tagoo 레스토랑 시즌 종료 */
 assert(/보르게세/.test(pg(12)) && /08:20/.test(pg(12)) && /현장 선착순/.test(pg(12)), "10/22 보르게세 오픈런 누락");
-assert(/12:00<\/div><div class="act">점심 · <b>Roscioli/.test(pg(12)) && !/Roscioli[^<"\n]{0,40}14:30|14:30 슬롯/.test(html), "Roscioli는 12:00 예약완료(14:30 흔적 없어야 함)");
+assert(/12:30<\/div><div class="act">점심 · <b>Roscioli/.test(pg(12)) && !/Roscioli[^<"\n]{0,40}14:30|14:30 슬롯/.test(html), "Roscioli는 12:30 예약완료(14:30 흔적 없어야 함)");
 assert(/취소표/.test(pg(12)) && /외관/.test(pg(12)), "콜로세움 취소표/외관 대안 누락");
 assert(/보르게세/.test(DAYS[12][1][2]) && /Roscioli/.test(DAYS[12][2][2]), "DAYS[12] 동선 순서(보르게세→Roscioli)");
-assert(/12:00 Roscioli/.test(ov), "한눈에 보기에 Roscioli 예약완료 누락");
+assert(/12:30 Roscioli/.test(ov), "한눈에 보기에 Roscioli 예약완료 누락");
+assert(!/Roscioli[^<"\n]{0,30}12:00|12:00 Roscioli|11:10/.test(pg(12)), "Roscioli 옛 시각(12:00)·11:10 출발이 남아 있음");
 for (const i of [6, 7, 8, 9]) assert(!/호텔 다이닝|Cavo Tagoo 다이닝|숙소 다이닝|호텔 레스토랑 or|룸서비스로/.test(pg(i)), "Cavo Tagoo 레스토랑(시즌 종료)을 쓰는 일정이 10/" + (10 + i) + "에 남아 있음");
 assert(/레스토랑은 시즌 종료/.test(prepHtml), "준비 페이지 Cavo Tagoo 확인 내용 갱신 누락");
 
