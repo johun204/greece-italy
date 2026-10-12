@@ -170,6 +170,12 @@ assert(svLabels.length >= 40, "⭐저장 식당 후보 수가 너무 적음: " +
 svLabels.forEach((l) => assert(!/maps\/search/.test(l) && /maps\.google\.com\/\?cid=\d+/.test(l), "⭐저장 후보가 이름 검색 링크를 씀: " + l.replace(/<[^>]+>/g, " ").slice(0, 60)));
 assert(/Memoria/.test(pg(6)) && /Le Moustache/.test(pg(8)) && /Ilios Bakery/.test(pg(7)) && /Memoria/.test(pg(9)), "새 저장(이메로비글리) 장소 반영 누락");
 
+/* 7d. 2026-10-12 요청: 10/12 하드리아누스 도서관·리카비토스 빼고 15:00 코코맷 스파, 리카비토스는 10/13, 아테네 매일 09:00 조식 */
+assert(/15:00<\/div><div class="act">🧖 코코맷 호텔 스파/.test(pg(2)) && !/<div class="act">[^<]*(리카비토스|하드리아누스 도서관)/.test(pg(2)) && !/리카비토스에서/.test(pg(2)), "10/12: 스파 추가·리카비토스/도서관 일정 제외");
+assert(/17:10<\/div><div class="act">🚡 리카비토스 케이블카/.test(pg(3)) && /18:30<\/div><div class="act">하행 케이블카/.test(pg(3)), "10/13 리카비토스(18:30 하행 → CTC 19:15)");
+for (const i of [2, 3, 4]) assert(/09:00<\/div><div class="act">☕ 조식 · 코코맷 BC/.test(pg(i)), "10/" + (10 + i) + " 09:00 호텔 조식 누락");
+assert(DAYS[3].some((p) => /리카비토스/.test(p[2])) && !DAYS[2].some((p) => /리카비토스|도서관/.test(p[2])), "DAYS[2]/[3] 리카비토스 이동");
+
 /* 8. 여행 중 UI: 한 줄 네비, 하단 바, 지금/다음 카드, 접는 소개문, 지도는 시간표 아래 */
 assert.strictEqual((html.match(/class="navrow"/g) || []).length, 1, "상단 네비는 한 줄이어야 함");
 assert(/class="bbar"/.test(html) && /id="bb-saved"/.test(html) && /id="todaybtn"/.test(html), "하단 빠른 메뉴 누락");
