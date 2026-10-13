@@ -137,7 +137,7 @@ assert(/APP_CACHE = "gi-app-v\d+"/.test(fs.readFileSync("sw.js", "utf8")), "서�
 const pg = (i) => html.slice(html.indexOf('id="pg-' + i + '"'), html.indexOf('id="pg-' + (i + 1) + '"'));
 assert(/O Thanasis/.test(pg(1)) && /Thomas 1971/.test(pg(1)), "10/11 점심·저녁에 저장 식당(Thanasis·Thomas 1971) 누락");
 assert(/Blame The Sun/.test(pg(2)) && /Nolan/.test(pg(2)), "10/12 탭룸·저녁 저장 식당 누락");
-assert(/Karamanlidika/.test(pg(3)) && /Stani/.test(pg(3)), "10/13 점심·후식 저장 식당 누락");
+assert(/Nolan/.test(pg(3)) && /Hanoi Athens/.test(pg(3)), "10/13 신타그마 점심 저장 식당 누락");
 assert(!(pg(5).match(/<span class="name">[\s\S]*?<\/span><span class="desc">/g) || []).some((x) => /Lucky/.test(x)) && /Lotza/.test(pg(5)), "10/15 오이아 점심 후보에 피라 식당(Lucky's)이 남아 있음");
 assert(/Lucky's Souvlakis/.test(pg(7)) && /Tholoto/.test(pg(7)) && /약 4km/.test(pg(7)), "10/17 피라 점심/산책 거리 보정 누락");
 assert(/Tasos Tavern/.test(pg(6)) && /Tasos Tavern/.test(pg(9)), "10/16 저녁·10/19 점심 Tasos Tavern 누락");
@@ -173,7 +173,8 @@ assert(/Memoria/.test(pg(6)) && /Le Moustache/.test(pg(8)) && /Ilios Bakery/.tes
 /* 7d. 2026-10-12 요청: 10/12 하드리아누스 도서관·리카비토스 빼고 15:00 코코맷 스파, 리카비토스는 10/13, 아테네 매일 09:00 조식 */
 assert(/15:00<\/div><div class="act">🧖 코코맷 호텔 스파/.test(pg(2)) && !/<div class="act">[^<]*(리카비토스|하드리아누스 도서관)/.test(pg(2)) && !/리카비토스에서/.test(pg(2)), "10/12: 스파 추가·리카비토스/도서관 일정 제외");
 /* 7e. 2026-10-13 비 예보: 실내 위주 + 셀프 빨래방, 리카비토스는 대안으로만 */
-assert(/🧺 셀프 빨래방/.test(pg(3)) && /Laundryroom/.test(pg(3)) && /국립고고학 박물관 \(실내\)/.test(pg(3)), "10/13 빨래방·실내 일정 누락");
+assert(/🧺 셀프 빨래방/.test(pg(3)) && /Laundryroom/.test(pg(3)) && /12:30<\/div><div class="act">숙소 출발 → 신타그마/.test(pg(3)) && /Attica 백화점<\/b> \(실내\)/.test(pg(3)), "10/13 빨래방·12:30 출발·Attica 누락");
+assert(!/<div class="act">[^<]*(국립고고학|바르바키오스|Stani)/.test(pg(3)), "10/13 시간표에 박물관/시장이 남아 있음");
 assert(!/<div class="act">[^<]*(🚡 리카비토스|파나티나이코)/.test(pg(3)), "10/13 시간표에 야외(리카비토스·경기장)가 남아 있음");
 assert(/19:15<\/div><div class="act">⭐ 저녁 · <b>CTC/.test(pg(3)), "10/13 CTC 19:15 유지");
 for (const i of [2, 3, 4]) assert(/09:00<\/div><div class="act">☕ 조식 · 코코맷 BC/.test(pg(i)), "10/" + (10 + i) + " 09:00 호텔 조식 누락");

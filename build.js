@@ -97,9 +97,9 @@ const CHECK = [
   [
     item("d13-laundry", "🧺 09:45 셀프 빨래방 (숙소 도보 5분)", "Laundryroom(Veikou 14, 08:00~23:00) 또는 Athens Launderette(Veikou 3A). 세탁 30~35분 + 건조 30~40분. 동전·카드 준비, 빨랫감 비닐봉지에"),
     item("d13-umbrella", "☔ 우산 · 택시 앱(FreeNow/Uber)", "15~18시 비가 가장 셈. 이동은 택시 위주 — 비 오는 날 저녁엔 택시가 잘 안 잡히니 18:30에 미리 호출"),
-    item("d13-nam", "국립고고학 박물관 화요일 13:00 개관", "13:45 입장, 1.5~2시간. 비가 세지는 오후를 실내에서"),
+    item("d13-attica", "🛍️ 12:30 숙소 출발 → 신타그마 점심 → Attica 백화점", "메트로 Acropoli→Syntagma 1정거장. Attica 화 10:00~21:00. <b>여권 지참</b>(택스프리 서류) — 세관 도장은 10/23 로마 FCO, 산 물건은 기내 가방에"),
     item("d13-ctc", "CTC Urban Gastronomy 19:15 예약 확인 <span class='tag hot'>예약완료</span>", "확인 메일 폰 저장 · 알레르기/식이 제한 미리 전달 · 18:45 숙소에서 택시(약 15분, 비 오면 더). 늦으면 ☎ +30 210 722 8812"),
-    item("d13-pack", "16:15 숙소에서 빨래 정리 + 산토리니行 짐 싸기", "CTC는 밤늦게 끝남. 내일 09:00 조식 → 10:45 체크아웃, 아침에도 비·바람 예보라 공항 택시 여유 있게"),
+    item("d13-pack", "11:15·17:45 숙소에서 빨래 정리 + 산토리니行 짐 싸기", "CTC는 밤늦게 끝남. 내일 09:00 조식 → 10:45 체크아웃, 아침에도 비·바람 예보라 공항 택시 여유 있게"),
   ],
   // 4 · 10/14 →산토리니 오이아
   [
@@ -239,7 +239,7 @@ const OV = [
   [0, "인천 → 런던(환승) → 아테네 도착 22:15", ["OZ521 08:30 ICN→LHR", "A3603 16:35 LHR→ATH"], ["심야 공항 픽업 확인"], "런던 환승 95분 — 항공사 문의"],
   [1, "제우스 신전·플라카·모나스티라키 + 오후 아크로폴리스 투어", ["14:00~18:00 한국어 아크로폴리스 투어(마이리얼트립)", "아크로폴리스 통합권 구매완료"], [], ""],
   [2, "아크로폴리스 박물관·로만 아고라·Meat the Greek · 15:00 코코맷 스파 · 밤엔 Blame The Sun 탭룸", [], ["Nolan 저녁 예약(선택)", "코코맷 스파 15:00 시간 확인"], ""],
-  [3, "☔ 비 — 셀프 빨래방 · 중앙시장·Karamanlidika · 국립고고학 박물관 · 숙소 휴식", ["19:15 CTC Urban Gastronomy(미슐랭 1스타)"], [], ""],
+  [3, "☔ 비 — 셀프 빨래방 · 신타그마 점심 · Attica 백화점 · 숙소 짐", ["19:15 CTC Urban Gastronomy(미슐랭 1스타)"], [], ""],
   [4, "아테네 → 산토리니(오이아) · 첫 일몰", ["GQ350 ATH 14:00 → JTR"], ["Sunset Ammoudi 저녁 예약(온라인, 보증금 있음)", "아르메나키 셔틀 선택 회신(합승 €45/프라이빗 €80)"], "GQ350 실제 출발 시각 재확인"],
   [5, "오이아 슬로우 모닝 · 오후 와이너리 투어", ["16:00 와이너리 미식 투어(호텔 픽업·하차, 5코스 정찬 포함)"], [], ""],
   [6, "Cavo Tagoo 입성 · 인피니티풀·선셋", [], ["Metaxi Mas 점심 예약(전화 필수)", "10/18 커플 스파 시간 회신"], ""],
@@ -309,7 +309,7 @@ const SAVED_LINK = {
   "CTC+Urban+Gastronomy+Plateon+15+Athens": "CTC Urban Gastronomy", "Casa+Guttmann+Via+dei+Serviti+26+Roma": "Casa Guttmann (숙소)", "Cavo+Tagoo+Santorini": "Cavo Tagoo (숙소)",
   "Coco-Mat+Athens+BC": "코코맷 BC (숙소)", "Cookaki+Petmeza+5+Athens": "Cookaki", "Family+Tavern+Father+and+Son+Firostefani": "Father and Son", "Fanari+Restaurant+Oia": "Fanari",
   "Giolitti+Roma": "Giolitti", "Il+Chianti+Via+del+Lavatore+Roma": "Il Chianti", "Il+Vero+Alfredo+Roma": "Il Vero Alfredo", "Kafeneio+Oraia+Ellas+Athens": "Kafeneio Oraia Ellas",
-  "Karamanlidika+Evripidou+52+Athens": "Karamanlidika", "LUKUMADES+Eolou+21+Athens": "LUKUMAΔΕΣ", "La+cantina+di+Cesare+Via+Candia+Roma": "La Cantina di Cesare",
+  "Karamanlidika+Evripidou+52+Athens": "Karamanlidika", "Hanoi+Athens+Petraki+12": "Hanoi Athens", "Ariston+Voulis+10+Athens": "Ariston", "LUKUMADES+Eolou+21+Athens": "LUKUMAΔΕΣ", "La+cantina+di+Cesare+Via+Candia+Roma": "La Cantina di Cesare",
   "Lolita%27s+Gelato+Oia": "Lolita's Gelato", "Lotza+Oia+Santorini": "Lotza", "Lucky%27s+Souvlakis+Fira": "Lucky's Souvlakis", "Meat+the+Greek+Athens": "Meat the Greek",
   "Mercato+Centrale+Roma": "Mercato Centrale", "Nolan+restaurant+Voulis+Athens": "Nolan", "O+Lolos+Koukaki+Athens": "O Lolos", "O+Thanasis+Mitropoleos+69+Athens": "O Thanasis 케밥",
   "Opos+Palia+Veikou+2+Athens": "Opos Palia", "Osteria+Bacco+Via+Santa+Maria+in+Via+Roma": "Osteria Bacco", "Osteria+da+Fortunata+Rinascimento+Roma": "Osteria da Fortunata",
