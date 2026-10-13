@@ -172,9 +172,12 @@ assert(/Memoria/.test(pg(6)) && /Le Moustache/.test(pg(8)) && /Ilios Bakery/.tes
 
 /* 7d. 2026-10-12 요청: 10/12 하드리아누스 도서관·리카비토스 빼고 15:00 코코맷 스파, 리카비토스는 10/13, 아테네 매일 09:00 조식 */
 assert(/15:00<\/div><div class="act">🧖 코코맷 호텔 스파/.test(pg(2)) && !/<div class="act">[^<]*(리카비토스|하드리아누스 도서관)/.test(pg(2)) && !/리카비토스에서/.test(pg(2)), "10/12: 스파 추가·리카비토스/도서관 일정 제외");
-assert(/17:10<\/div><div class="act">🚡 리카비토스 케이블카/.test(pg(3)) && /18:30<\/div><div class="act">하행 케이블카/.test(pg(3)), "10/13 리카비토스(18:30 하행 → CTC 19:15)");
+/* 7e. 2026-10-13 비 예보: 실내 위주 + 셀프 빨래방, 리카비토스는 대안으로만 */
+assert(/🧺 셀프 빨래방/.test(pg(3)) && /Laundryroom/.test(pg(3)) && /국립고고학 박물관 \(실내\)/.test(pg(3)), "10/13 빨래방·실내 일정 누락");
+assert(!/<div class="act">[^<]*(🚡 리카비토스|파나티나이코)/.test(pg(3)), "10/13 시간표에 야외(리카비토스·경기장)가 남아 있음");
+assert(/19:15<\/div><div class="act">⭐ 저녁 · <b>CTC/.test(pg(3)), "10/13 CTC 19:15 유지");
 for (const i of [2, 3, 4]) assert(/09:00<\/div><div class="act">☕ 조식 · 코코맷 BC/.test(pg(i)), "10/" + (10 + i) + " 09:00 호텔 조식 누락");
-assert(DAYS[3].some((p) => /리카비토스/.test(p[2])) && !DAYS[2].some((p) => /리카비토스|도서관/.test(p[2])), "DAYS[2]/[3] 리카비토스 이동");
+assert(DAYS[3].some((p) => /빨래방/.test(p[2])) && !DAYS[3].some((p) => /리카비토스|파나티나이코/.test(p[2])) && !DAYS[2].some((p) => /리카비토스|도서관/.test(p[2])), "DAYS[2]/[3] 동선");
 
 /* 8. 여행 중 UI: 한 줄 네비, 하단 바, 지금/다음 카드, 접는 소개문, 지도는 시간표 아래 */
 assert.strictEqual((html.match(/class="navrow"/g) || []).length, 1, "상단 네비는 한 줄이어야 함");
